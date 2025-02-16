@@ -1,0 +1,9 @@
+{
+    "grid_size": [50],
+    "number_of_rooms": [10],
+    "path_width": [3],
+    "tower_box_width": [10],
+    "spawn_box_width": [8],
+    "intermediary_box_width": [5],
+    "generate_spawn_box": [0]
+}
