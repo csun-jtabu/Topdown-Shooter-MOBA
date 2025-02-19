@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class Player : Entity;
+public class Player : Entity
 {
+    [SerializeField]
     private int MaxShield = 10;
+    [SerializeField]
     private int Shield = 10;
     private float Spread = 0f;
+    [SerializeField]
     private float RespawnTimer = 3f;
 
 
