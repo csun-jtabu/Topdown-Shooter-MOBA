@@ -7,7 +7,7 @@ public class Entity : MonoBehaviour
     protected int Hp;
     public float Speed = 0f;
     public int Team = 1;
-    //public int Dmg = 1;
+    public int Dmg = 1;
     protected float AttackSpeed = 1f;
     protected bool CanFire = true;
     public GameObject BulletPrefab;
@@ -35,7 +35,7 @@ public class Entity : MonoBehaviour
         if (CanFire)
         {
             // fires bullet forward in direction parent is facing
-            Instantiate(Bullet, transform.position, transform.rotation);
+            Instantiate(BulletPrefab, transform.position, transform.rotation);
             CanFire = false;
             StartCoroutine(WeaponCooldown());
         }

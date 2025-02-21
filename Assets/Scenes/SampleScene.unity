@@ -155,6 +155,7 @@ MonoBehaviour:
   Speed: 0
   Team: 0
   Dmg: 1
+  BulletPrefab: {fileID: 0}
   MaxShield: 10
   Shield: 10
   RespawnTimer: 3
@@ -171,6 +172,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
+  _walkSpeed: 10
+  _runSpeed: 15
+  sprintBar: 100
   _rotationSpeed: 720
 --- !u!50 &116041482
 Rigidbody2D:
