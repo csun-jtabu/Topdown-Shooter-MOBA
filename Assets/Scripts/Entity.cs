@@ -6,7 +6,7 @@ public class Entity : MonoBehaviour
     public int MaxHp = 10;
     protected int Hp;
     public float Speed = 0f;
-    public int Team = 0;
+    public int Team = 1;
     //public int Dmg = 1;
     protected float AttackSpeed = 1f;
     protected bool CanFire = true;
