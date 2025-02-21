@@ -41,7 +41,12 @@ public class Tower : Entity
             this.Hp -= dmg;
             if (this.Hp <= 0)
             {
-                ParentMainTower.SpawnIncrement();
+                if (!MainTower)
+                    ParentMainTower.SpawnIncrement();
+                else
+                {
+                    //game over, victory for opposing team
+                }
                 Destroy(this);
             }
         }
