@@ -44,6 +44,7 @@ public class Player : Entity
         this.Hp = 10;
         this.MaxHp = 10;
         this.Dmg = 1;
+        this.Shield = MaxShield;
     }
 
     // Update is called once per frame

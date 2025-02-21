@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Entity : MonoBehaviour
 {
@@ -6,8 +7,10 @@ public class Entity : MonoBehaviour
     protected int Hp;
     public float Speed = 0f;
     public int Team = 0;
-    public int Dmg = 1;
+    //public int Dmg = 1;
     protected float AttackSpeed = 1f;
+    protected bool CanFire = true;
+    public GameObject BulletPrefab;
 
 
     public virtual void Damage(int dmg, int team)
@@ -20,9 +23,22 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public void Fire(Vector2 dir)
-    {
 
+    IEnumerator WeaponCooldown()
+    {
+        yield return new WaitForSeconds(AttackSpeed);
+        CanFire = true;
+    }
+
+    public void Fire()
+    {
+        if (CanFire)
+        {
+            // fires bullet forward in direction parent is facing
+            Instantiate(Bullet, transform.position, transform.rotation);
+            CanFire = false;
+            StartCoroutine(WeaponCooldown());
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
