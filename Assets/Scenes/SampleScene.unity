@@ -175,6 +175,12 @@ MonoBehaviour:
   _walkSpeed: 10
   _runSpeed: 15
   sprintBar: 100
+  _dashSpeed: 20
+  _dashTime: 0
+  _dashDuration: 0.2
+  _dashCooldown: 3
+  _isDashing: 0
+  _canDash: 1
   _rotationSpeed: 720
 --- !u!50 &116041482
 Rigidbody2D:

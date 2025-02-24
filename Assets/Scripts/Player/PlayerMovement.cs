@@ -7,21 +7,29 @@ using System;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] // this allows us to edit in inspector/unity gui
-    private float _speed;  // this controls the speed of the player
-    [SerializeField]
-    private float _walkSpeed = 10; // base walk speed
-    [SerializeField]
-    private float _runSpeed = 15; // sprint speed
+    [SerializeField] private float _speed;  // this controls the speed of the player
+    [SerializeField] private float _walkSpeed = 10; // base walk speed
+    [SerializeField] private float _runSpeed = 15; // sprint speed
     private WaitForSeconds sprintRefillTick = new WaitForSeconds(.1f); // .1 second delay for refilling stuff
-
-    [SerializeField]
-    private float sprintBar = 100; // sprint stamina
+    [SerializeField] private float sprintBar = 100; // sprint stamina
     private bool isSprinting = false;
-    private Coroutine refillCoroutine; // coroutine to refill the sprint bar
+    private Coroutine sprintRefillCoroutine; // coroutine to refill the sprint bar
 
-    [SerializeField]
-    private float _rotationSpeed;
+    private float _dashSpeed = 20f;
+    private float _dashTime;
+    private float _dashDuration = .2f;
+    [SerializeField] private bool _isDashing = false;
+    [SerializeField] private bool _canDash = true;
+    private Coroutine dashRefillCoroutine;
+
+    private float _dodgeSpeed = 5f;
+    private float _dodgeTime;
+    private float _dodgeDuration = .5f;
+    [SerializeField] private bool _isDodging = false;
+    [SerializeField] private bool _canDodge = true;
+    private Coroutine dodgeRefillCoroutine;
+
+    [SerializeField] private float _rotationSpeed;
     private Rigidbody2D _rigidBody;  // this 
     private UnityEngine.Vector2 _movementInput; // this is where input is stored
     private UnityEngine.Vector2 _smoothedMovementInput;  // this is used to smooth the movement of the player
@@ -48,12 +56,31 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (sprintBar < 100 && refillCoroutine == null)
+            if (sprintBar < 100 && sprintRefillCoroutine == null)
             {
-                refillCoroutine = StartCoroutine(RechargeSprint());
+                sprintRefillCoroutine = StartCoroutine(RechargeSprint());
             }
         }
     }
+    // This is the method called at fixed time intervals when running
+    private void FixedUpdate()
+    {
+        if (_isDashing)
+        {
+            ApplyDash();
+        }
+        else if (_isDodging)
+        {
+            ApplyDodge();
+        }
+        else
+        {
+            SetPlayerVelocity();
+            RotateInDirectionOfInput();
+        }
+
+    }
+
     // this method is a coroutine that recharges the sprint bar
     private IEnumerator RechargeSprint()
     {
@@ -64,14 +91,56 @@ public class PlayerMovement : MonoBehaviour
             yield return sprintRefillTick;
         }
         sprintBar = 100;
-        refillCoroutine = null;
+        sprintRefillCoroutine = null;
     }
-    // This is the method called at fixed time intervals when running
-    private void FixedUpdate()
+    private IEnumerator RechargeDash()
     {
-        SetPlayerVelocity();
-        RotateInDirectionOfInput();
+        yield return new WaitForSeconds(2);
+        _canDash = true;
+        dashRefillCoroutine = null;
     }
+    private IEnumerator RechargeDodge()
+    {
+        yield return new WaitForSeconds(2);
+        _canDodge = true;
+        dodgeRefillCoroutine = null;
+    }
+
+    private void ApplyDash()
+    {
+        UnityEngine.Vector2 dashDirection = transform.up;
+        Debug.Log(dashDirection);
+        _rigidBody.linearVelocity = dashDirection * _dashSpeed;
+        Debug.Log(_rigidBody.linearVelocity);
+        if (Time.time - _dashTime >= _dashDuration)
+        {
+            //Debug.Log(Time.time);
+            //Debug.Log(_dashTime);
+            //Debug.Log(_dashDuration);
+            _isDashing = false;
+            _canDash = false;
+            if (dashRefillCoroutine == null)
+            {
+                dashRefillCoroutine = StartCoroutine(RechargeDash());
+            }
+        }
+    }
+    private void ApplyDodge() //needs a visual rotation
+    {
+        UnityEngine.Vector2 dodgeDirection = transform.up;
+        _rigidBody.linearVelocity = dodgeDirection * _dodgeSpeed;
+
+        if (Time.time - _dodgeTime >= _dodgeDuration)
+        {
+            _isDodging = false;
+            _canDodge = false;
+            if (dodgeRefillCoroutine == null)
+            {
+                dodgeRefillCoroutine = StartCoroutine(RechargeDodge());
+            }
+        }
+    }
+
 
     private void SetPlayerVelocity()
     {
@@ -121,4 +190,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // This is the method called when the dash button (space) is pressed
+    private void OnDash(InputValue inputValue)
+    {
+        // float dashInput = inputValue.Get<float>();
+        // Debug.Log(dashInput);
+        if (_canDash)
+        {
+            _isDashing = true;
+            _canDash = false;
+            _dashTime = Time.time;
+        }
+    }
+    // This is the method called when the dodge button (c) is pressed
+    private void OnDodge(InputValue inputValue)
+    {
+        //float dodgeInput = inputValue.Get<float>();
+        //Debug.Log(dodgeInput);
+        if (_canDodge)
+        {
+            _isDodging = true;
+            _canDodge = false;
+            _dodgeTime = Time.time;
+        }
+    }
 }
