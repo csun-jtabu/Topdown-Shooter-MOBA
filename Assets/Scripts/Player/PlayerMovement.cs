@@ -7,6 +7,9 @@ using System;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject dashTrailPrefab;
+    private Coroutine dashAnimationCoroutine;
+
     [SerializeField] private float _speed;  // this controls the speed of the player
     [SerializeField] private float _walkSpeed = 10; // base walk speed
     [SerializeField] private float _runSpeed = 15; // sprint speed
@@ -16,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine sprintRefillCoroutine; // coroutine to refill the sprint bar
 
     private float _dashSpeed = 20f;
+    private float _dashDistance = 3f;
     private float _dashTime;
     private float _dashDuration = .2f;
     [SerializeField] private bool _isDashing = false;
@@ -65,19 +69,8 @@ public class PlayerMovement : MonoBehaviour
     // This is the method called at fixed time intervals when running
     private void FixedUpdate()
     {
-        if (_isDashing)
-        {
-            ApplyDash();
-        }
-        else if (_isDodging)
-        {
-            ApplyDodge();
-        }
-        else
-        {
-            SetPlayerVelocity();
-            RotateInDirectionOfInput();
-        }
+        SetPlayerVelocity();
+        RotateInDirectionOfInput();
 
     }
 
@@ -105,24 +98,35 @@ public class PlayerMovement : MonoBehaviour
         _canDodge = true;
         dodgeRefillCoroutine = null;
     }
+    private IEnumerator DestroyDashTrail(GameObject dashTrail)
+    {
+        Animator dashTrailAnimator = dashTrail.GetComponent<Animator>();
+        if (dashTrailAnimator != null)
+        {
+            yield return new WaitForSeconds(dashTrailAnimator.GetCurrentAnimatorStateInfo(0).length);
+        }
+        Destroy(dashTrail);
+    }
 
     private void ApplyDash()
     {
         UnityEngine.Vector2 dashDirection = transform.up;
         Debug.Log(dashDirection);
-        _rigidBody.linearVelocity = dashDirection * _dashSpeed;
-        Debug.Log(_rigidBody.linearVelocity);
-        if (Time.time - _dashTime >= _dashDuration)
+        UnityEngine.Vector2 currentPosition = _rigidBody.position;
+        GameObject dashTrail = Instantiate(dashTrailPrefab, currentPosition, UnityEngine.Quaternion.identity);
+        float playerRotationZ = transform.rotation.eulerAngles.z;
+        Debug.Log(playerRotationZ);
+        dashTrail.transform.rotation = UnityEngine.Quaternion.Euler(0, 0, playerRotationZ - 90);
+        Debug.Log(dashTrail.transform.rotation);
+        if (dashAnimationCoroutine == null)
         {
-            //Debug.Log(Time.time);
-            //Debug.Log(_dashTime);
-            //Debug.Log(_dashDuration);
-            _isDashing = false;
-            _canDash = false;
-            if (dashRefillCoroutine == null)
-            {
-                dashRefillCoroutine = StartCoroutine(RechargeDash());
-            }
+            StartCoroutine(DestroyDashTrail(dashTrail));
+        }
+        _rigidBody.position += dashDirection * _dashDistance;
+        _canDash = false;
+        if (dashRefillCoroutine == null)
+        {
+            dashRefillCoroutine = StartCoroutine(RechargeDash());
         }
     }
     private void ApplyDodge() //needs a visual rotation
@@ -197,9 +201,9 @@ public class PlayerMovement : MonoBehaviour
         // Debug.Log(dashInput);
         if (_canDash)
         {
-            _isDashing = true;
             _canDash = false;
             _dashTime = Time.time;
+            ApplyDash();
         }
     }
     // This is the method called when the dodge button (c) is pressed
@@ -212,6 +216,7 @@ public class PlayerMovement : MonoBehaviour
             _isDodging = true;
             _canDodge = false;
             _dodgeTime = Time.time;
+            ApplyDodge();
         }
     }
 }
