@@ -15,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _runSpeed = 15; // sprint speed
     private WaitForSeconds sprintRefillTick = new WaitForSeconds(.1f); // .1 second delay for refilling stuff
     [SerializeField] private float sprintBar = 100; // sprint stamina
-    private bool isSprinting = false;
+    [SerializeField] private bool isSprinting = false;
+    [SerializeField] private bool _canSprint = true;
     private Coroutine sprintRefillCoroutine; // coroutine to refill the sprint bar
 
     private float _dashSpeed = 20f;
@@ -69,8 +70,19 @@ public class PlayerMovement : MonoBehaviour
     // This is the method called at fixed time intervals when running
     private void FixedUpdate()
     {
-        SetPlayerVelocity();
-        RotateInDirectionOfInput();
+        if (_isDodging)
+        {
+            _canDodge = false;
+            _canDash = false;
+            _canSprint = false;
+            ApplyDodge();
+        }
+        else
+        {
+            SetPlayerVelocity();
+            RotateInDirectionOfInput();
+        }
+        
 
     }
 
@@ -111,13 +123,10 @@ public class PlayerMovement : MonoBehaviour
     private void ApplyDash()
     {
         UnityEngine.Vector2 dashDirection = transform.up;
-        Debug.Log(dashDirection);
         UnityEngine.Vector2 currentPosition = _rigidBody.position;
         GameObject dashTrail = Instantiate(dashTrailPrefab, currentPosition, UnityEngine.Quaternion.identity);
         float playerRotationZ = transform.rotation.eulerAngles.z;
-        Debug.Log(playerRotationZ);
         dashTrail.transform.rotation = UnityEngine.Quaternion.Euler(0, 0, playerRotationZ - 90);
-        Debug.Log(dashTrail.transform.rotation);
         if (dashAnimationCoroutine == null)
         {
             StartCoroutine(DestroyDashTrail(dashTrail));
@@ -138,6 +147,8 @@ public class PlayerMovement : MonoBehaviour
         {
             _isDodging = false;
             _canDodge = false;
+            _canDash = true;
+            _canSprint = true;
             if (dodgeRefillCoroutine == null)
             {
                 dodgeRefillCoroutine = StartCoroutine(RechargeDodge());
@@ -182,7 +193,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float SprintingInput = inputValue.Get<float>();
         Debug.Log(SprintingInput);
-        if (SprintingInput == 1)
+        if (SprintingInput == 1 && _canSprint)
         {
             isSprinting = true;
             _speed = _runSpeed;
@@ -216,7 +227,6 @@ public class PlayerMovement : MonoBehaviour
             _isDodging = true;
             _canDodge = false;
             _dodgeTime = Time.time;
-            ApplyDodge();
         }
     }
 }

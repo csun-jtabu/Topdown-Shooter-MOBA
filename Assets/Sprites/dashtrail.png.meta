@@ -125,10 +125,10 @@ TextureImporter:
       name: dashtrail_0
       rect:
         serializedVersion: 2
-        x: 567
-        y: 866
-        width: 515
-        height: 96
+        x: 0
+        y: 352
+        width: 1139
+        height: 250
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: dashtrail_1
       rect:
         serializedVersion: 2
-        x: 213
-        y: 618
-        width: 809
-        height: 160
+        x: 131
+        y: 604
+        width: 912
+        height: 183
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,42 +169,20 @@ TextureImporter:
       name: dashtrail_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 382
-        width: 1102
-        height: 196
+        x: 540
+        y: 810
+        width: 562
+        height: 185
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 896fe91c563a41e80800000000000000
+      spriteID: b7205f65a42fc554294fed262eecc1fe
       internalID: -8208756563354126696
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dashtrail_3
-      rect:
-        serializedVersion: 2
-        x: 704
-        y: 208
-        width: 534
-        height: 134
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 35f89a17824cb4f80800000000000000
-      internalID: -8121181825047883949
       vertices: []
       indices: 
       edges: []
