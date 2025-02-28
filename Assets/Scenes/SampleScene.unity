@@ -172,10 +172,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashTrailPrefab: {fileID: 7703341619706869496, guid: a2b9b6b9db5862f49b4f0719d87c90b7, type: 3}
+  graphics: {fileID: 1541478854}
   _speed: 10
   _walkSpeed: 10
-  _runSpeed: 15
+  _runSpeed: 20
   sprintBar: 100
+  isSprinting: 0
+  _canSprint: 1
   _isDashing: 0
   _canDash: 1
   _isDodging: 0

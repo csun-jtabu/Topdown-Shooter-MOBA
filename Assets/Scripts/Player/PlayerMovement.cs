@@ -10,9 +10,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject dashTrailPrefab;
     private Coroutine dashAnimationCoroutine;
 
+    public GameObject graphics;
+
     [SerializeField] private float _speed;  // this controls the speed of the player
     [SerializeField] private float _walkSpeed = 10; // base walk speed
-    [SerializeField] private float _runSpeed = 15; // sprint speed
+    [SerializeField] private float _runSpeed = 20; // sprint speed
     private WaitForSeconds sprintRefillTick = new WaitForSeconds(.1f); // .1 second delay for refilling stuff
     [SerializeField] private float sprintBar = 100; // sprint stamina
     [SerializeField] private bool isSprinting = false;
@@ -27,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool _canDash = true;
     private Coroutine dashRefillCoroutine;
 
-    private float _dodgeSpeed = 5f;
+    private float _dodgeSpeed = 10f;
     private float _dodgeTime;
     private float _dodgeDuration = .5f;
     [SerializeField] private bool _isDodging = false;
@@ -142,9 +144,11 @@ public class PlayerMovement : MonoBehaviour
     {
         UnityEngine.Vector2 dodgeDirection = transform.up;
         _rigidBody.linearVelocity = dodgeDirection * _dodgeSpeed;
+        graphics.transform.Rotate(0, 0, 15);
 
         if (Time.time - _dodgeTime >= _dodgeDuration)
         {
+            graphics.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 90);
             _isDodging = false;
             _canDodge = false;
             _canDash = true;
