@@ -7,8 +7,8 @@ public class Tower : Entity
     private float SpawnTimer = 15f;
     private int SpawnCount = 3;
     public GameObject MinionPrefab;
-    public GameObject ParentMainTowerPrefab;
-    public Tower ParentMainTower;
+    public GameObject EnemyMainTowerPrefab;
+    public Tower EnemyMainTower;
 
     public void SpawnIncrement()
     {
@@ -19,7 +19,7 @@ public class Tower : Entity
     {
         yield return new WaitForSeconds(SpawnTimer);
         SpawnMinions();
-        Spawn();
+        StartCoroutine(Spawn());
     }
 
     private void SpawnMinions()
@@ -29,7 +29,9 @@ public class Tower : Entity
             for (int i = 1; i <= this.SpawnCount; i++)
             {
                 //create an enemy
-                Instantiate(MinionPrefab, transform);
+                Vector3 randomPosition = Random.insideUnitCircle * 5;
+                randomPosition += transform.position;
+                Instantiate(MinionPrefab, randomPosition, transform.rotation);
             }
         }
     }
@@ -42,7 +44,7 @@ public class Tower : Entity
             if (this.Hp <= 0)
             {
                 if (!MainTower)
-                    ParentMainTower.SpawnIncrement();
+                    EnemyMainTower.SpawnIncrement();
                 else
                 {
                     //game over, victory for opposing team
@@ -55,10 +57,10 @@ public class Tower : Entity
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (MainTower)
-            Spawn();
+        if (this.MainTower)
+            StartCoroutine(Spawn());
         else
-            ParentMainTower = ParentMainTowerPrefab.GetComponent<Tower>();
+            EnemyMainTower = EnemyMainTowerPrefab.GetComponent<Tower>();
     }
 
     // Update is called once per frame
