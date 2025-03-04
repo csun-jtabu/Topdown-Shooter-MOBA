@@ -35,7 +35,10 @@ public class Entity : MonoBehaviour
         if (CanFire)
         {
             // fires bullet forward in direction parent is facing
-            Instantiate(BulletPrefab, transform.position, transform.rotation);
+            Vector3 firePoint = transform.position;
+            //offset fire position to front of entity
+            firePoint.y += 0.6f;
+            Instantiate(BulletPrefab, firePoint, transform.rotation);
             CanFire = false;
             StartCoroutine(WeaponCooldown());
         }

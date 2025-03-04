@@ -291,6 +291,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4067350703942924427, guid: b9ec7122a816c044f97b628beeeb9154, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
     - target: {fileID: 6124095549036515248, guid: b9ec7122a816c044f97b628beeeb9154, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -385,13 +389,17 @@ PrefabInstance:
       propertyPath: Team
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
     - target: {fileID: 7753485339820231519, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7873807
       objectReference: {fileID: 0}
     - target: {fileID: 7753485339820231519, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.13983607
+      value: 0.1398361
       objectReference: {fileID: 0}
     - target: {fileID: 7753485339820231519, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -464,7 +472,7 @@ MonoBehaviour:
   Speed: 0
   Team: 2
   Dmg: 1
-  BulletPrefab: {fileID: 0}
+  BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
   MainTower: 1
   MinionPrefab: {fileID: 314782344}
   EnemyMainTowerPrefab: {fileID: 0}
