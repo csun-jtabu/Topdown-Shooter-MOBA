@@ -38,7 +38,10 @@ public class Entity : MonoBehaviour
             Vector3 firePoint = transform.position;
             //offset fire position to front of entity
             firePoint.y += 0.6f;
-            Instantiate(BulletPrefab, firePoint, transform.rotation);
+            GameObject bulletObject = Instantiate(BulletPrefab, firePoint, transform.rotation);
+            Bullet bullet = bulletObject.GetComponent<Bullet>();
+            bullet.Team = this.Team;
+            bullet.Dmg = this.Dmg;
             CanFire = false;
             StartCoroutine(WeaponCooldown());
         }
