@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7753485339820231519}
   - component: {fileID: 7489726354449437076}
-  - component: {fileID: 4730050236201962809}
   - component: {fileID: 7156374455677516521}
   - component: {fileID: 6596189097736501892}
   - component: {fileID: 3364745970905337007}
@@ -64,31 +63,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4730050236201962809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444542447527549543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbaa06eb55db3b24b9290b9271be0049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dashTrailPrefab: {fileID: 7703341619706869496, guid: a2b9b6b9db5862f49b4f0719d87c90b7, type: 3}
-  graphics: {fileID: 3082201396299388240}
-  _speed: 10
-  _walkSpeed: 10
-  _runSpeed: 20
-  sprintBar: 100
-  isSprinting: 0
-  _canSprint: 1
-  _isDashing: 0
-  _canDash: 1
-  _isDodging: 0
-  _canDodge: 1
-  _rotationSpeed: 720
 --- !u!114 &7156374455677516521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,7 +70,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444542447527549543}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 716b2d3c0a87ca34093e579729fed115, type: 3}
   m_Name: 
@@ -109,6 +83,19 @@ MonoBehaviour:
   MaxShield: 10
   Shield: 10
   RespawnTimer: 3
+  dashTrailPrefab: {fileID: 0}
+  graphics: {fileID: 0}
+  _speed: 0
+  _walkSpeed: 10
+  _runSpeed: 20
+  sprintBar: 100
+  isSprinting: 0
+  _canSprint: 1
+  _isDashing: 0
+  _canDash: 1
+  _isDodging: 0
+  _canDodge: 1
+  _rotationSpeed: 0
 --- !u!114 &6596189097736501892
 MonoBehaviour:
   m_ObjectHideFlags: 0

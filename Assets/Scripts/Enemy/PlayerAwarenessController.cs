@@ -22,7 +22,7 @@ public class PlayerAwarenessController : MonoBehaviour
     private void Awake()
     {
         // this finds the player's transform/location
-        _player = FindAnyObjectByType<PlayerMovement>().transform;
+        _player = FindAnyObjectByType<Player>().transform;
     }
 
     // Update runs at the speed of the frames
