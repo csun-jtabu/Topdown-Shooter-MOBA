@@ -1,7 +1,12 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class ReadImage : MonoBehaviour
 {
+
+    [SerializeField]
+    private GenerateMap mapGenerator = new GenerateMap();
+
     // this field will store the image we'll be using for the map
     [SerializeField]
     private Texture2D image;
@@ -17,6 +22,9 @@ public class ReadImage : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        mapGenerator.Start();
+        Debug.Log("Here is the coordinates output: " + mapGenerator.generatedOutput);
+
         // this is how we get the pixels from the image
         // the array will hold the color
         // goes from bottom left of image to top right

@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Diagnostics;
+using System.IO;
+using System.Text;
 
-public class GenerateMap : MonoBehaviour
+//public class GenerateMap : MonoBehaviour
+public class GenerateMap
 {
-    
-    void Awake()
+    public string generatedOutput;
+
+    public void Start()
     {
         RunPython(); 
     }
@@ -12,7 +16,7 @@ public class GenerateMap : MonoBehaviour
     void RunPython()
     {
         // Python script path
-        string scriptPath = Application.dataPath + "/Scripts/LevelGen/LevelGeneration.py"; 
+        string scriptPath = Application.dataPath + "/Scripts/LevelGen/LevelPatternGeneration.py"; 
 
         // this will be the command line arguments
         ProcessStartInfo psi = new ProcessStartInfo
@@ -28,15 +32,31 @@ public class GenerateMap : MonoBehaviour
 
         // basically starts a new process using the command line
         using (Process process = new Process { StartInfo = psi })
-        {
-            process.Start(); // starts the command line process
+        {   
+            process.StartInfo.RedirectStandardOutput = true;
+            process.Start();
+            //process.Start(); // starts the command line process
+            //
+            //// starts outputting
+            //process.BeginOutputReadLine();
+            ////process.BeginErrorReadLine();
+            //
+            //// Synchronously read the standard output of the spawned process.
+            //generatedOutput = process.StandardOutput.ReadToEnd();
+            //
+            //// Waits until program finishes before exiting
+            //process.WaitForExit();
+            StreamReader reader = process.StandardOutput;
+            StringBuilder builder = new StringBuilder();
 
-            // starts outputting
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                builder.AppendLine(line);
+            }
 
-            // Waits until program finishes before exiting
-            process.WaitForExit();
+            string allLines = builder.ToString();
+            generatedOutput = allLines;
         }
         
     }
