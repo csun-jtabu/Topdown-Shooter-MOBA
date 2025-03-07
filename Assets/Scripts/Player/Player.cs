@@ -58,23 +58,23 @@ public class Player : Entity
         _rigidBody = GetComponent<Rigidbody2D>(); // we store ridigbody to variable to allow for us to manipulate the component
     }
 
-    public override void Damage(int dmg, int team)
+    public override void Damage(int damage, int team)
     {
         if (team != this.Team)
         {
             if (Shield == 0)
             {
-                this.Hp -= dmg;
+                this.Hp -= damage;
                 if (this.Hp <= 0)
                     Respawn();
             }
-            else if (Shield >= dmg)
-                Shield -= dmg;
+            else if (Shield >= damage)
+                Shield -= damage;
             else
             {
-                dmg -= Shield;
+                damage -= Shield;
                 Shield = 0;
-                this.Damage(dmg, team);
+                this.Damage(damage, team);
             }
         }
     }
@@ -87,10 +87,6 @@ public class Player : Entity
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        this.Speed = 5f;
-        this.Hp = 10;
-        this.MaxHp = 10;
-        this.Dmg = 1;
         this.Shield = MaxShield;
     }
 

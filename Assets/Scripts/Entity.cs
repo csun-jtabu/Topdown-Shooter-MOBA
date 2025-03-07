@@ -13,13 +13,13 @@ public class Entity : MonoBehaviour
     public GameObject BulletPrefab;
 
 
-    public virtual void Damage(int dmg, int team)
+    public virtual void Damage(int damage, int team)
     {
         if (team != this.Team)
         {
-            this.Hp -= dmg;
+            this.Hp -= damage;
             if (this.Hp <= 0)
-                Destroy(this);
+                Destroy(this.gameObject);
         }
     }
 
@@ -35,9 +35,7 @@ public class Entity : MonoBehaviour
         if (CanFire)
         {
             // fires bullet forward in direction parent is facing
-            Vector3 firePoint = transform.position;
-            //offset fire position to front of entity
-            firePoint.y += 0.6f;
+            Vector3 firePoint = transform.position + transform.up * 0.75f;
             GameObject bulletObject = Instantiate(BulletPrefab, firePoint, transform.rotation);
             Bullet bullet = bulletObject.GetComponent<Bullet>();
             bullet.Team = this.Team;
@@ -50,7 +48,7 @@ public class Entity : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Hp = MaxHp;
     }
 
     // Update is called once per frame

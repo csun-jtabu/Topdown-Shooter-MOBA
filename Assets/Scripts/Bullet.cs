@@ -11,14 +11,14 @@ public class Bullet : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * Speed, ForceMode2D.Impulse);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * Speed, ForceMode2D.Impulse);  
         StartCoroutine(ExpireAfterTime());
     }
 
     IEnumerator ExpireAfterTime()
     {
         yield return new WaitForSeconds(ExpireTime);
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     // Update is called once per frame
@@ -27,9 +27,9 @@ public class Bullet : MonoBehaviour
         
     }
 
-    private void OnCollision2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        Entity target = this.GetComponent<Entity>();
+        Entity target = collision.gameObject.GetComponent<Entity>();
         if (target)
         {
             target.Damage(Dmg, Team);
