@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using UnityEditor;
 
 //public class GenerateMap : MonoBehaviour
 public class GenerateMap
@@ -57,6 +58,8 @@ public class GenerateMap
 
             string allLines = builder.ToString();
             generatedOutput = allLines;
+
+            AssetDatabase.Refresh();
         }
         
     }
