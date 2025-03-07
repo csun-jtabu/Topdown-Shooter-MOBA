@@ -1,0 +1,1 @@
+We are working on a topdown shooter with randomly-generated maps where the player defends a home tower (and potentially other structures) while attacking an enemy tower, enemy npcs, and potentially other enemy structures.
