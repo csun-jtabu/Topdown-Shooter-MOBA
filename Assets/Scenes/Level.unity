@@ -394,13 +394,37 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: Speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: _speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: _canDash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: graphics
+      value: 
+      objectReference: {fileID: 958452205}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: _isDodging
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: BulletPrefab
       value: 
       objectReference: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: dashTrailPrefab
+      value: 
+      objectReference: {fileID: 7703341619706869496, guid: a2b9b6b9db5862f49b4f0719d87c90b7, type: 3}
     - target: {fileID: 7753485339820231519, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7873807
@@ -555,6 +579,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &958452205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3082201396299388240, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+  m_PrefabInstance: {fileID: 627899901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &999907906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7753485339820231519, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}

@@ -14,6 +14,7 @@ public class Player : Entity
     private float Spread = 0f;
     [SerializeField]
     private float RespawnTimer = 3f;
+    public bool secondController = false;
 
     public GameObject dashTrailPrefab;
     private Coroutine dashAnimationCoroutine;
@@ -132,6 +133,17 @@ public class Player : Entity
             RotateInDirectionOfInput();
         }
 
+        if (Team == 1 && !secondController)
+        {
+            // convert mouse position into world coordinates
+            UnityEngine.Vector2 mouseScreenPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            // get direction you want to point at
+            UnityEngine.Vector2 direction = (mouseScreenPosition - (UnityEngine.Vector2)transform.position).normalized;
+
+            // set vector of transform directly
+            transform.up = direction;
+        }
 
     }
 
@@ -268,6 +280,12 @@ public class Player : Entity
             ApplyDash();
         }
     }
+
+    private void OnAttack(InputValue inputValue)
+    {
+        Fire();
+    }
+
     // This is the method called when the dodge button (c) is pressed
     private void OnDodge(InputValue inputValue)
     {
