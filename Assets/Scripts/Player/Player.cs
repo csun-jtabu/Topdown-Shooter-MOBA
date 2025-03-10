@@ -7,10 +7,8 @@ using System;
 
 public class Player : Entity
 {
-    [SerializeField]
-    private int MaxShield = 10;
-    [SerializeField]
-    private int Shield = 10;
+    public int MaxShield = 10;
+    public int Shield = 10;
     private float Spread = 0f;
     [SerializeField]
     private float RespawnTimer = 3f;
@@ -25,7 +23,8 @@ public class Player : Entity
     [SerializeField] private float _walkSpeed = 10; // base walk speed
     [SerializeField] private float _runSpeed = 20; // sprint speed
     private WaitForSeconds sprintRefillTick = new WaitForSeconds(.1f); // .1 second delay for refilling stuff
-    [SerializeField] private float sprintBar = 100; // sprint stamina
+    public float sprintBar = 100; // sprint stamina
+    public float MaxSprint = 100;
     [SerializeField] private bool isSprinting = false;
     [SerializeField] private bool _canSprint = true;
     private Coroutine sprintRefillCoroutine; // coroutine to refill the sprint bar
@@ -34,15 +33,15 @@ public class Player : Entity
     private float _dashDistance = 3f;
     private float _dashTime;
     private float _dashDuration = .2f;
-    [SerializeField] private bool _isDashing = false;
-    [SerializeField] private bool _canDash = true;
+    public bool _isDashing = false;
+    public bool _canDash = true;
     private Coroutine dashRefillCoroutine;
 
     private float _dodgeSpeed = 10f;
     private float _dodgeTime;
     private float _dodgeDuration = .5f;
-    [SerializeField] private bool _isDodging = false;
-    [SerializeField] private bool _canDodge = true;
+    public bool _isDodging = false;
+    public bool _canDodge = true;
     private Coroutine dodgeRefillCoroutine;
 
     [SerializeField] private float _rotationSpeed;
@@ -102,7 +101,7 @@ public class Player : Entity
         // checks if the player is sprinting
         if (isSprinting)
         {
-            sprintBar -= 5;
+            sprintBar -= 4;
         }
         else
         {
@@ -147,12 +146,12 @@ public class Player : Entity
     private IEnumerator RechargeSprint()
     {
         yield return new WaitForSeconds(2);
-        while (sprintBar < 100)
+        while (sprintBar < MaxSprint)
         {
             sprintBar += 10;
             yield return sprintRefillTick;
         }
-        sprintBar = 100;
+        sprintBar = MaxSprint;
         sprintRefillCoroutine = null;
     }
     private IEnumerator RechargeDash()
@@ -251,7 +250,7 @@ public class Player : Entity
     private void OnSprint(InputValue inputValue)
     {
         float SprintingInput = inputValue.Get<float>();
-        Debug.Log(SprintingInput);
+        //Debug.Log(SprintingInput);
         if (SprintingInput == 1 && _canSprint)
         {
             isSprinting = true;
