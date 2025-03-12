@@ -12,6 +12,8 @@ public class Player : Entity
     private float Spread = 0f;
     [SerializeField]
     private float RespawnTimer = 3f;
+    public float ShieldRegenDelay = 5f;
+    private bool ShieldDelayed = false;
     public bool secondController = false;
 
     public GameObject dashTrailPrefab;
@@ -75,6 +77,13 @@ public class Player : Entity
                 Shield = 0;
                 this.Damage(damage, team);
             }
+            if (this.Hp <= 0)
+                Destroy(this.gameObject);
+            else
+            {
+                ShieldDelayed = true;
+                StartCoroutine(DelayShieldRegen());
+            }
         }
     }
 
@@ -87,6 +96,20 @@ public class Player : Entity
     void Start()
     {
         this.Shield = MaxShield;
+    }
+
+    IEnumerator ShieldRegen()
+    {
+        yield return new WaitForSeconds(2f);
+        if (Shield < MaxShield && !ShieldDelayed)
+            Shield++;
+        StartCoroutine(ShieldRegen());
+    }
+
+    IEnumerator DelayShieldRegen()
+    {
+        yield return new WaitForSeconds(ShieldRegenDelay);
+        ShieldDelayed = false;
     }
 
     // Update is called once per frame
