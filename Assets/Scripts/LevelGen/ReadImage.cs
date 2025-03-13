@@ -35,14 +35,6 @@ public class ReadImage : MonoBehaviour
     [SerializeField]
     private GameObject groundObject;
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    // this field will store the enemy tower prefab
-    [SerializeField]
-    private GameObject EnemyMainTowerPrefab;
-=======
-=======
->>>>>>> Stashed changes
     [SerializeField]
     private GameObject friendlyTowerObject;
     [SerializeField]
@@ -115,11 +107,6 @@ public class ReadImage : MonoBehaviour
         }
     }
 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -139,7 +126,8 @@ public class ReadImage : MonoBehaviour
         Vector3[] spawnPositions = new Vector3[pix.Length];
         UnityEngine.Debug.Log("This is how many pixels we have: " + spawnPositions.Length);
         // this will reference the center of the world
-        Vector3 startingSpawnPosition = new Vector3(-Mathf.Round(worldX/2), -Mathf.RoundToInt(worldY/2), 0);
+        //Vector3 startingSpawnPosition = new Vector3(-Mathf.Round(worldX/2), -Mathf.RoundToInt(worldY/2), 0);
+        Vector3 startingSpawnPosition = new Vector3(Mathf.Round(0), Mathf.RoundToInt(0), 0);
         //Vector3 startingSpawnPosition = new Vector3(Mathf.RoundToInt(worldX/2), Mathf.RoundToInt(worldY/2), 0);
 
         // we will be iterating the position through the position in the world so we use a new variable
@@ -150,20 +138,26 @@ public class ReadImage : MonoBehaviour
 
         // for loops to traverse the world's span points
         // left to right, bottom to top
-        for(int y = 0; y < worldY; y++)
+        //for(int y = 0; y < worldY; y++)
+        //{
+        //    for(int x = 0; x < worldX; x++)
+        //    {
+        for(int x = 0; x < worldX; x++)
         {
-            for(int x = 0; x < worldX; x++)
+            for(int y = 0; y < worldY; y++)
             {
                 // we're creating a new spawn position in the spawnPositions array
                 spawnPositions[counter] = currentSpawnPos;
                 counter++;
                 // this traverses through the row
-                currentSpawnPos.x++; 
+                currentSpawnPos.y++; 
             }
 
             // once we reach the end of the current row, we want to go back to the beginning of the next row
-            currentSpawnPos.x = startingSpawnPosition.x;
-            currentSpawnPos.y++;
+            //currentSpawnPos.x = startingSpawnPosition.x;
+            //currentSpawnPos.y++;
+            currentSpawnPos.y = startingSpawnPosition.y;
+            currentSpawnPos.x++;
         }
         
         ////////////////// debugging to see pixel color
@@ -201,11 +195,6 @@ public class ReadImage : MonoBehaviour
             {
                 // we spawn the wall tile at the specified position and with no rotation
                 Instantiate(wallObject, position, Quaternion.identity);
-            }
-            else if(c.r.Equals(255) && c.g.Equals(165) && c.b.Equals(0))
-            {
-                // we spawn the enemy tower at the specified position and with no rotation
-                Instantiate(EnemyMainTowerPrefab, position, Quaternion.identity);
             }
             else
             {
