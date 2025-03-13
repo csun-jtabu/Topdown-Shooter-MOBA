@@ -863,7 +863,7 @@ while (rerunEverythingCheck):
             for j in range(len(coordinate_only_array_2d[i])):
                 if (coordinate_only_array_2d[i][j] != 0):
                     # coordinateFile.write(f"({i}, {j}) ")
-                    currentCoordinateLine += f"({i}, {j}) "
+                    currentCoordinateLine += f"({i},{j}) "
 
                 if ((i == towerCenterRow) and (j == towerCenterCol)):
                     currentPositionFoundCheck = True
@@ -874,8 +874,8 @@ while (rerunEverythingCheck):
         print("All Friendly Coordinates: " + currentCoordinateLine)
         
         coordinateFile.write("\nFriendly Tower Coordinates: ")
-        coordinateFile.write(f"({towerCenterRow}, {towerCenterCol})")
-        print("Friendly Tower Coordinates: " + f"({towerCenterRow}, {towerCenterCol})")
+        coordinateFile.write(f"({towerCenterRow},{towerCenterCol})")
+        print("Friendly Tower Coordinates: " + f"({towerCenterRow},{towerCenterCol})")
 
 
         coordinateFile.write("\n\nAll Enemy Coordinates: ")
@@ -888,7 +888,7 @@ while (rerunEverythingCheck):
             for j in range(len(flipped_coordinate_only_array_2d[i])):
                 if (flipped_coordinate_only_array_2d[i][j] != 0):
                     # coordinateFile.write(f"({i}, {j}) ")
-                    currentCoordinateLine += f"({i}, {j}) "
+                    currentCoordinateLine += f"({i},{j}) "
                 
                 currentPositionCountB += 1
                 if (currentPositionCountA == currentPositionCountB):
@@ -899,8 +899,8 @@ while (rerunEverythingCheck):
         print("\nAll Enemy Coordinates: " + currentCoordinateLine)
 
         coordinateFile.write("\nEnemy Tower Coordinates: ")
-        coordinateFile.write(f"({savedI}, {savedJ})")
-        print("Enemy Tower Coordinates: " + f"({savedI}, {savedJ})")
+        coordinateFile.write(f"({savedI},{savedJ})")
+        print("Enemy Tower Coordinates: " + f"({savedI},{savedJ})")
 
         coordinateFile.close()
 

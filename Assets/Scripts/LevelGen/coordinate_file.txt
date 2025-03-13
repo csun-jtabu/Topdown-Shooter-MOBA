@@ -1,5 +1,13 @@
+<<<<<<< Updated upstream
 All Friendly Coordinates: (10, 88) (29, 81) (31, 86) (34, 71) (38, 62) (45, 55) (50, 50) (62, 59) (66, 53) (84, 99) 
 Friendly Tower Coordinates: (84, 99)
 
 All Enemy Coordinates: (10, 12) (29, 19) (31, 14) (34, 29) (38, 38) (45, 45) (50, 50) (62, 41) (66, 47) (84, 1) 
 Enemy Tower Coordinates: (16, 1)
+=======
+All Friendly Coordinates: (11,40) (12,24) (20,34) (23,30) (23,57) (34,79) (44,74) (46,53) (50,50) (75,99) 
+Friendly Tower Coordinates: (75,99)
+
+All Enemy Coordinates: (24,12) (30,23) (34,20) (40,11) (50,50) (53,46) (57,23) (74,44) (79,34) (99,75) 
+Enemy Tower Coordinates: (25,1)
+>>>>>>> Stashed changes
