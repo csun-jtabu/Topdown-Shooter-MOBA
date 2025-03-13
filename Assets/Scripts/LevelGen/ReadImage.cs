@@ -10,6 +10,14 @@ using System.Diagnostics;
 using System.IO;
 using UnityEditor;
 
+using System.Linq;
+using System.Collections;
+using System.Text;
+using System;
+using System.Diagnostics;
+using System.IO;
+using UnityEditor;
+
 public class ReadImage : MonoBehaviour
 {
 
@@ -28,10 +36,13 @@ public class ReadImage : MonoBehaviour
     private GameObject groundObject;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // this field will store the enemy tower prefab
     [SerializeField]
     private GameObject EnemyMainTowerPrefab;
 =======
+=======
+>>>>>>> Stashed changes
     [SerializeField]
     private GameObject friendlyTowerObject;
     [SerializeField]
@@ -104,6 +115,9 @@ public class ReadImage : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
