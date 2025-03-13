@@ -2,6 +2,14 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+using System.Linq;
+using System.Collections;
+using System.Text;
+using System;
+using System.Diagnostics;
+using System.IO;
+using UnityEditor;
+
 public class ReadImage : MonoBehaviour
 {
 
@@ -19,15 +27,90 @@ public class ReadImage : MonoBehaviour
     [SerializeField]
     private GameObject groundObject;
 
+<<<<<<< Updated upstream
     // this field will store the enemy tower prefab
     [SerializeField]
     private GameObject EnemyMainTowerPrefab;
+=======
+    [SerializeField]
+    private GameObject friendlyTowerObject;
+    [SerializeField]
+    private GameObject enemyTowerObject;
+
+
+    private float friendly_xCoordinate;
+    private float friendly_yCoordinate;
+    private float enemy_xCoordinate;
+    private float enemy_yCoordinate;
+
+
+    void ReadFromCoordianteFile()
+    {
+        string line = "";
+        string[] friendlyInformation = new string[3];
+        string[] enemyInformation = new string[3];
+        
+        try
+        {
+            using (StreamReader reader = new StreamReader(new FileStream(Application.dataPath + "/Scripts/LevelGen/coordinate_file.txt", FileMode.Open)))
+            {
+                //UnityEngine.Debug.Log("FilePath: " + Application.dataPath + "/Scripts/LevelGen/coordinate_file.txt");
+                UnityEngine.Debug.Log("FilePath: " + Application.dataPath);
+                while ((line = reader.ReadLine()) != null)
+                {
+                    UnityEngine.Debug.Log("Current Line: " + line);
+                    if (line.Contains("Friendly Tower Coordinates: "))
+                    {
+                        friendlyInformation = line.Split(')');
+                        for (var i = 0; i < friendlyInformation.Count(); i++)
+                        {
+                            UnityEngine.Debug.Log(friendlyInformation[i]);
+                        }
+
+                        string currentElement = friendlyInformation[0];
+                        string coordinates = currentElement.Substring(currentElement.IndexOf('(') + 1);
+                        UnityEngine.Debug.Log("Returned Coordinate: " + coordinates);
+                        var results = coordinates.Split(',');
+                        friendly_xCoordinate = float.Parse(results[0]);
+                        friendly_yCoordinate = float.Parse(results[1]);
+                    }
+                    if (line.Contains("Enemy Tower Coordinates: "))
+                    {
+                        enemyInformation = line.Split(')');
+                        for (var i = 0; i < enemyInformation.Count(); i++)
+                        {
+                            UnityEngine.Debug.Log(enemyInformation[i]);
+                        }
+
+                        string currentElement = enemyInformation[0];
+                        string coordinates = currentElement.Substring(currentElement.IndexOf('(') + 1);
+                        UnityEngine.Debug.Log("Returned Coordinate: " + coordinates);
+                        var results = coordinates.Split(',');
+                        enemy_xCoordinate = float.Parse(results[0]);
+                        enemy_yCoordinate = float.Parse(results[1]);
+                    }
+                    
+                }
+                
+                reader.Close();
+                UnityEngine.Debug.Log("friendly_xCoordinate: " + friendly_xCoordinate);
+                UnityEngine.Debug.Log("enemy_xCoordinate: " + enemy_xCoordinate);
+            }
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.Log("The file could not be read:");
+            UnityEngine.Debug.Log(e.Message);
+        }
+    }
+
+>>>>>>> Stashed changes
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mapGenerator.Start();
-        Debug.Log("Here is the coordinates output: " + mapGenerator.generatedOutput);
+        UnityEngine.Debug.Log("Here is the coordinates output: " + mapGenerator.generatedOutput);
 
         // this is how we get the pixels from the image
         // the array will hold the color
@@ -40,7 +123,7 @@ public class ReadImage : MonoBehaviour
 
         // each pixel position corresponds to a spawn position in world
         Vector3[] spawnPositions = new Vector3[pix.Length];
-        Debug.Log("This is how many pixels we have: " + spawnPositions.Length);
+        UnityEngine.Debug.Log("This is how many pixels we have: " + spawnPositions.Length);
         // this will reference the center of the world
         Vector3 startingSpawnPosition = new Vector3(-Mathf.Round(worldX/2), -Mathf.RoundToInt(worldY/2), 0);
         //Vector3 startingSpawnPosition = new Vector3(Mathf.RoundToInt(worldX/2), Mathf.RoundToInt(worldY/2), 0);
@@ -115,8 +198,15 @@ public class ReadImage : MonoBehaviour
                 // we spawn the wall tile (temporarily) at the specified position and with no rotation
                 //Instantiate(groundObject, position, Quaternion.identity);
             }
+
             counter++;
         }
+
+        AssetDatabase.Refresh();
+        ReadFromCoordianteFile();
+        Instantiate(friendlyTowerObject, new Vector3(friendly_xCoordinate, friendly_yCoordinate, 0), Quaternion.identity);
+        Instantiate(enemyTowerObject, new Vector3(enemy_xCoordinate, enemy_yCoordinate, 0), Quaternion.identity);
+
 
     }
 
