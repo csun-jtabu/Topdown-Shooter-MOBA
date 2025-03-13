@@ -7,7 +7,6 @@ public class Tower : Entity
     private float SpawnTimer = 15f;
     private int SpawnCount = 3;
     public GameObject MinionPrefab;
-    public GameObject EnemyMainTowerPrefab;
     public Tower EnemyMainTower;
 
     public void SpawnIncrement()
@@ -60,7 +59,13 @@ public class Tower : Entity
         if (this.MainTower)
             StartCoroutine(Spawn());
         else
-            EnemyMainTower = EnemyMainTowerPrefab.GetComponent<Tower>();
+        {
+            if (this.Team == 1)
+                EnemyMainTower = GameObject.Find("Main Tower Team 2").GetComponent<Tower>();
+            else
+                EnemyMainTower = GameObject.Find("Main Tower Team 1").GetComponent<Tower>();
+
+        }
     }
 
     // Update is called once per frame
