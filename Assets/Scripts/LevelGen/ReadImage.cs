@@ -127,14 +127,17 @@ public class ReadImage : MonoBehaviour
         UnityEngine.Debug.Log("This is how many pixels we have: " + spawnPositions.Length);
         // this will reference the center of the world
         //Vector3 startingSpawnPosition = new Vector3(-Mathf.Round(worldX/2), -Mathf.RoundToInt(worldY/2), 0);
-        Vector3 startingSpawnPosition = new Vector3(Mathf.Round(0), Mathf.RoundToInt(0), 0);
+        Vector3 startingSpawnPosition = new Vector3(0, 0, 0);
         //Vector3 startingSpawnPosition = new Vector3(Mathf.RoundToInt(worldX/2), Mathf.RoundToInt(worldY/2), 0);
 
         // we will be iterating the position through the position in the world so we use a new variable
         Vector3 currentSpawnPos = startingSpawnPosition;
 
         // this will help us track where we are in the array
-        int counter = 0;
+        int counter = worldY - 1;
+
+        UnityEngine.Debug.Log("spawnPositions.Length: " + spawnPositions.Length);
+        UnityEngine.Debug.Log("worldX: " + worldY);
 
         // for loops to traverse the world's span points
         // left to right, bottom to top
@@ -142,22 +145,22 @@ public class ReadImage : MonoBehaviour
         //{
         //    for(int x = 0; x < worldX; x++)
         //    {
-        for(int x = 0; x < worldX; x++)
+        for(int x = worldX - 1; x >= 0; x--)
         {
-            for(int y = 0; y < worldY; y++)
+            for(int y = worldY - 1; y >= 0; y--)
             {
                 // we're creating a new spawn position in the spawnPositions array
                 spawnPositions[counter] = currentSpawnPos;
-                counter++;
+                counter--;
                 // this traverses through the row
-                currentSpawnPos.y++; 
+                currentSpawnPos.y--; 
             }
 
             // once we reach the end of the current row, we want to go back to the beginning of the next row
             //currentSpawnPos.x = startingSpawnPosition.x;
             //currentSpawnPos.y++;
             currentSpawnPos.y = startingSpawnPosition.y;
-            currentSpawnPos.x++;
+            currentSpawnPos.x--;
         }
         
         ////////////////// debugging to see pixel color
