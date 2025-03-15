@@ -134,35 +134,55 @@ public class ReadImage : MonoBehaviour
         Vector3 currentSpawnPos = startingSpawnPosition;
 
         // this will help us track where we are in the array
-        int counter = worldY - 1;
+        //int counter = 0;
+        int counter = spawnPositions.Length - 1;
 
         UnityEngine.Debug.Log("spawnPositions.Length: " + spawnPositions.Length);
         UnityEngine.Debug.Log("worldX: " + worldY);
 
         // for loops to traverse the world's span points
         // left to right, bottom to top
-        //for(int y = 0; y < worldY; y++)
+        ////for(int y = 0; y < worldY; y++)
+        ////{
+        ////    for(int x = 0; x < worldX; x++)
+        ////    {
+        //for(int x = 0; x < worldX; x++)
         //{
-        //    for(int x = 0; x < worldX; x++)
+        //    for(int y = 0; y < worldY; y++)
         //    {
-        for(int x = worldX - 1; x >= 0; x--)
+        //        // we're creating a new spawn position in the spawnPositions array
+        //        spawnPositions[counter] = currentSpawnPos;
+        //        counter++;
+        //        // this traverses through the row
+        //        currentSpawnPos.y++; 
+        //    }
+        //
+        //    // once we reach the end of the current row, we want to go back to the beginning of the next row
+        //    //currentSpawnPos.x = startingSpawnPosition.x;
+        //    //currentSpawnPos.y++;
+        //    currentSpawnPos.y = startingSpawnPosition.y;
+        //    currentSpawnPos.x++;
+        //}
+        
+        for(int y = worldY - 1; y >= 0; y--)
         {
-            for(int y = worldY - 1; y >= 0; y--)
+            for(int x = worldX - 1; x >= 0; x--)
             {
                 // we're creating a new spawn position in the spawnPositions array
                 spawnPositions[counter] = currentSpawnPos;
                 counter--;
                 // this traverses through the row
-                currentSpawnPos.y--; 
+                currentSpawnPos.x++; 
             }
 
             // once we reach the end of the current row, we want to go back to the beginning of the next row
             //currentSpawnPos.x = startingSpawnPosition.x;
             //currentSpawnPos.y++;
-            currentSpawnPos.y = startingSpawnPosition.y;
-            currentSpawnPos.x--;
+            currentSpawnPos.x = startingSpawnPosition.x;
+            currentSpawnPos.y++;
         }
-        
+
+
         ////////////////// debugging to see pixel color
         // string colorStrings = "";
         // foreach (Color c in pix)
@@ -183,7 +203,8 @@ public class ReadImage : MonoBehaviour
         counter = 0;
 
         // we check all the positions now in the array
-        foreach(Vector3 position in spawnPositions)
+        //foreach(Vector3 position in spawnPositions)
+        foreach(Vector3 position in spawnPositions.Reverse())
         {
             // grab the color from the array that stores the colors
             Color c = pix[counter];
@@ -203,6 +224,27 @@ public class ReadImage : MonoBehaviour
             {
                 // we spawn the wall tile (temporarily) at the specified position and with no rotation
                 //Instantiate(groundObject, position, Quaternion.identity);
+                UnityEngine.Debug.Log("Current Color: " + c.r + " " + c.g + " " + c.b);
+            }
+
+            if(c.Equals(new Color(0.0f, 0.0f, 0.9137256f)))
+            {
+            
+                // we spawn the wall tile at the specified position and with no rotation
+                Instantiate(friendlyTowerObject, position, Quaternion.identity);
+            }
+
+            if(c.Equals(new Color(1.0f, 1.0f, 0.0f)))
+            {
+            
+                // we spawn the friendly intermediary tower at the specified position and with no rotation
+                Instantiate(friendlyTowerObject, position, Quaternion.identity);
+            }
+            if(c.Equals(new Color(0.0f, 0.5019608f, 0.5019608f)))
+            {
+            
+                // we spawn the enemy intermediary tower at the specified position and with no rotation
+                Instantiate(enemyTowerObject, position, Quaternion.identity);
             }
 
             counter++;
@@ -210,8 +252,10 @@ public class ReadImage : MonoBehaviour
 
         AssetDatabase.Refresh();
         ReadFromCoordianteFile();
-        Instantiate(friendlyTowerObject, new Vector3(friendly_xCoordinate, friendly_yCoordinate, 0), Quaternion.identity);
-        Instantiate(enemyTowerObject, new Vector3(enemy_xCoordinate, enemy_yCoordinate, 0), Quaternion.identity);
+        //Instantiate(friendlyTowerObject, new Vector3(friendly_xCoordinate, friendly_yCoordinate, 0), Quaternion.identity);
+        //Instantiate(enemyTowerObject, new Vector3(enemy_xCoordinate, enemy_yCoordinate, 0), Quaternion.identity);
+        //Instantiate(friendlyTowerObject, new Vector3(friendly_yCoordinate, friendly_xCoordinate, 0), Quaternion.identity);
+        //Instantiate(enemyTowerObject, new Vector3(enemy_yCoordinate, enemy_xCoordinate, 0), Quaternion.identity);
 
 
     }
