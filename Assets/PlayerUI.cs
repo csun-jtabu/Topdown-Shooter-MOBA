@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,11 +8,14 @@ public class PlayerUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Player player;
     public Image health;
+    public TextMeshProUGUI healthText;
     public Image shield;
+    public TextMeshProUGUI shieldText;
     private float originalHealthWidth;
     private Vector2 originalHealthPosition;
 
     public Image stamina;
+    public TextMeshProUGUI staminaText;
     private float originalStaminaWidth;
     private Vector2 originalStaminaPosition;
 
@@ -47,6 +51,9 @@ public class PlayerUI : MonoBehaviour
         float currentWidth = healthBarRect.rect.width;
         float widthOffset = originalHealthWidth - currentWidth;
         healthBarRect.anchoredPosition = new Vector2(originalHealthPosition.x - (widthOffset / 2f), originalHealthPosition.y);
+
+        RectTransform healthTextRect = healthText.GetComponent<RectTransform>();
+        healthTextRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalHealthWidth * healthRatio);
     }
 
     void updateShield()
@@ -57,6 +64,10 @@ public class PlayerUI : MonoBehaviour
         float currentWidth = shieldBarRect.rect.width;
         float widthOffset = originalHealthWidth - currentWidth;
         shieldBarRect.anchoredPosition = new Vector2(originalHealthPosition.x - (widthOffset / 2f), originalHealthPosition.y);
+
+        RectTransform shieldTextRect = shieldText.GetComponent<RectTransform>();
+        shieldTextRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalHealthWidth * shieldRatio);
+        //shieldTextRect.anchoredPosition = new Vector2(originalHealthPosition.x - (widthOffset / 2f), originalHealthPosition.y);
     }
 
     void updateStamina()
@@ -67,6 +78,9 @@ public class PlayerUI : MonoBehaviour
         float currentWidth = staminaBarRect.rect.width;
         float widthOffset = originalStaminaWidth - currentWidth;
         staminaBarRect.anchoredPosition = new Vector2(originalStaminaPosition.x - (widthOffset / 2f), originalStaminaPosition.y);
+
+        RectTransform staminaTextRect = staminaText.GetComponent<RectTransform>();
+        staminaTextRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalStaminaWidth * staminaRatio);
     }
 
     void updateDash()
