@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _followSpeed: 2
-  targetPlayer: {fileID: 0}
+  targetPlayer: {fileID: 362292700}
 --- !u!114 &103403312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +332,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f970e7433642e8458a23026561731b7, type: 3}
+--- !u!4 &362292700 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7669386150580059345, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+  m_PrefabInstance: {fileID: 1958645853}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &666920131
 PrefabInstance:
   m_ObjectHideFlags: 0

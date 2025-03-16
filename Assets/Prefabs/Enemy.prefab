@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 8624515822963100446, guid: 6f12426fa3375cf47a667427719737d7, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4067350703942924427}
   - component: {fileID: 8234082148984152232}
   m_Layer: 0
-  m_Name: Minion Team 2
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _rotationSpeed: 100
-  firingPoint: {fileID: 0}
 --- !u!114 &4067350703942924427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,12 +190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6501964a192bf294a89965cfe2746faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHp: 5
-  Hp: 0
-  Speed: 1
-  Team: 2
+  MaxHp: 10
+  Speed: 0
+  Team: 0
   Dmg: 1
-  BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
+  BulletPrefab: {fileID: 0}
 --- !u!58 &8234082148984152232
 CircleCollider2D:
   m_ObjectHideFlags: 0
