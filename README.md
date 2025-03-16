@@ -1,11 +1,12 @@
 We are working on a topdown shooter with randomly-generated maps where the player defends a home tower (and potentially other structures) while attacking an enemy tower, enemy npcs, and potentially other enemy structures.
 
-__Project Title: Top Down Desktop Video Game__
+__Project Title:__
+Top Down Desktop Video Game
 
 __Problem/Need:__
 In this day and age, many forms of media are consumed quickly. From doom scrolling on social media to binge watching shows, people constantly try to keep themselves entertained. While such methods can certainly do this, they are lacking in a key area: interactability. You can reply to social media threads, and streaming services recommend content related to your watch history, but they don't offer an environment that directly interacts with the user in an entertaining way. This interactivity gap has been filled with another form of media: videogames.
 
-****Solution: ****
+__Solution:__
 To gain experience in the field of programming, we plan to develop an interactive top-down desktop videogame.
 
 __Possible Features:__
@@ -16,4 +17,5 @@ __Possible Features:__
 * Multiplayer capability (if time permits).
 * Randomly generated maps/obstacles - Possibly by implementing AI or map generation methods (procedural map generation, noise functions, etc.).
 
-Target Audience: Individuals seeking interactive entertainment through a digital medium.
+__Target Audience:__ 
+Individuals seeking interactive entertainment through a digital medium.
