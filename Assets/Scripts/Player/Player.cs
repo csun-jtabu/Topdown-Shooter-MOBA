@@ -124,7 +124,7 @@ public class Player : Entity
         // checks if the player is sprinting
         if (isSprinting)
         {
-            sprintBar -= 4;
+            sprintBar -= 2;
         }
         else
         {
