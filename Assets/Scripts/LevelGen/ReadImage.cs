@@ -36,9 +36,16 @@ public class ReadImage : MonoBehaviour
     private GameObject groundObject;
 
     [SerializeField]
-    private GameObject friendlyTowerObject;
+    private GameObject friendlyMainTowerObject;
     [SerializeField]
-    private GameObject enemyTowerObject;
+    private GameObject enemyMainTowerObject;
+    [SerializeField]
+    private GameObject friendlyIntermediaryTowerObject;
+    [SerializeField]
+    private GameObject enemyIntermediaryTowerObject;
+
+    [SerializeField]
+    private GameObject centerObject;
 
 
     private float friendly_xCoordinate;
@@ -210,41 +217,47 @@ public class ReadImage : MonoBehaviour
             Color c = pix[counter];
 
             // now spawn the objects at each corresponding spaan position
-            if(c.Equals(Color.white)) 
-            {
-                // we spawn the ground tile at the specified position and with no rotation
+            if(c.Equals(Color.white)) {
+
+                // we spawn a ground tile at the specified position and with no rotation
                 Instantiate(groundObject, position, Quaternion.identity);
+
             }
-            else if(c.Equals(Color.black))
-            {
-                // we spawn the wall tile at the specified position and with no rotation
+            else if(c.Equals(Color.black)) {
+
+                // we spawn a wall tile at the specified position and with no rotation
                 Instantiate(wallObject, position, Quaternion.identity);
-            }
-            else
-            {
-                // we spawn the wall tile (temporarily) at the specified position and with no rotation
-                //Instantiate(groundObject, position, Quaternion.identity);
-                UnityEngine.Debug.Log("Current Color: " + c.r + " " + c.g + " " + c.b);
-            }
 
-            if(c.Equals(new Color(0.0f, 0.0f, 0.9137256f)))
-            {
+            } else if(c.Equals(new Color(1.0f, 1.0f, 0.0f))) {
             
-                // we spawn the wall tile at the specified position and with no rotation
-                Instantiate(friendlyTowerObject, position, Quaternion.identity);
-            }
+                // we spawn a friendly intermediary tower at the specified position and with no rotation
+                Instantiate(friendlyIntermediaryTowerObject, position, Quaternion.identity);
 
-            if(c.Equals(new Color(1.0f, 1.0f, 0.0f)))
-            {
+            } else if(c.Equals(new Color(0.0f, 0.5019608f, 0.5019608f))) {
             
-                // we spawn the friendly intermediary tower at the specified position and with no rotation
-                Instantiate(friendlyTowerObject, position, Quaternion.identity);
+                // we spawn a enemy intermediary tower at the specified position and with no rotation
+                Instantiate(enemyIntermediaryTowerObject, position, Quaternion.identity);
+
+            } else if(c.r.ToString() == "1" && c.g.ToString("0.#######") == "0.6470588" && c.b.ToString() == "0") {
+            
+                // we spawn the friendly main tower at the specified position and with no rotation
+                Instantiate(friendlyMainTowerObject, position, Quaternion.identity);
+
             }
-            if(c.Equals(new Color(0.0f, 0.5019608f, 0.5019608f)))
-            {
+            else if(c.r.ToString("0.#######") == "0.7529413" && c.g.ToString("0.#######") == "0.7529413" && c.b.ToString("0.#######") == "0.7529413") {
+
+                // we spawn a center object at the specified position and with no rotation
+                Instantiate(centerObject, position, Quaternion.identity);
+
+            }
+            else if(c.r.ToString() == "0" && c.g.ToString() == "0" && c.b.ToString("0.#######") == "0.9137256") {
             
-                // we spawn the enemy intermediary tower at the specified position and with no rotation
-                Instantiate(enemyTowerObject, position, Quaternion.identity);
+                // we spawn the enemy main tower at the specified position and with no rotation
+                Instantiate(enemyMainTowerObject, position, Quaternion.identity);
+
+            }
+            else {
+                UnityEngine.Debug.Log("Current Color: " + c.r + " " + c.g + " " + c.b + " " + c.a);
             }
 
             counter++;
@@ -252,10 +265,10 @@ public class ReadImage : MonoBehaviour
 
         AssetDatabase.Refresh();
         ReadFromCoordianteFile();
-        //Instantiate(friendlyTowerObject, new Vector3(friendly_xCoordinate, friendly_yCoordinate, 0), Quaternion.identity);
-        //Instantiate(enemyTowerObject, new Vector3(enemy_xCoordinate, enemy_yCoordinate, 0), Quaternion.identity);
-        //Instantiate(friendlyTowerObject, new Vector3(friendly_yCoordinate, friendly_xCoordinate, 0), Quaternion.identity);
-        //Instantiate(enemyTowerObject, new Vector3(enemy_yCoordinate, enemy_xCoordinate, 0), Quaternion.identity);
+        //Instantiate(friendlyMainTowerObject, new Vector3(friendly_xCoordinate, friendly_yCoordinate, 0), Quaternion.identity);
+        //Instantiate(enemyMainTowerObject, new Vector3(enemy_xCoordinate, enemy_yCoordinate, 0), Quaternion.identity);
+        //Instantiate(friendlyMainTowerObject, new Vector3(friendly_yCoordinate, friendly_xCoordinate, 0), Quaternion.identity);
+        //Instantiate(enemyMainTowerObject, new Vector3(enemy_yCoordinate, enemy_xCoordinate, 0), Quaternion.identity);
 
 
     }

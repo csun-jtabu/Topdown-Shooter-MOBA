@@ -303,8 +303,10 @@ MonoBehaviour:
   image: {fileID: 2800000, guid: cfa11188d64568d4f957b2a933727509, type: 3}
   wallObject: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
   groundObject: {fileID: 510046153008738794, guid: c4e5a1d17de5f794abd70a41b2b6faeb, type: 3}
-  friendlyTowerObject: {fileID: 737897493514442092, guid: 56ad88a0e7363f64b87e80afb341f4b2, type: 3}
-  enemyTowerObject: {fileID: 737897493514442092, guid: 990965d1417d1f04a8566ac15ee511aa, type: 3}
+  friendlyMainTowerObject: {fileID: 737897493514442092, guid: 56ad88a0e7363f64b87e80afb341f4b2, type: 3}
+  enemyMainTowerObject: {fileID: 737897493514442092, guid: 990965d1417d1f04a8566ac15ee511aa, type: 3}
+  friendlyIntermediaryTowerObject: {fileID: 737897493514442092, guid: cc4ba54c60a756a41893d1aa09622d08, type: 3}
+  enemyIntermediaryTowerObject: {fileID: 737897493514442092, guid: 4714708486813bb4b8aa0aa28aa93843, type: 3}
 --- !u!4 &1291435847
 Transform:
   m_ObjectHideFlags: 0
