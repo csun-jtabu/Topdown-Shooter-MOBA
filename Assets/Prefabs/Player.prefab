@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHp: 10
+  Hp: 0
   Speed: 10
   Team: 0
   Dmg: 2
@@ -83,13 +84,16 @@ MonoBehaviour:
   MaxShield: 10
   Shield: 10
   RespawnTimer: 3
+  ShieldRegenDelay: 5
   secondController: 0
+  isPlayer1: 1
   dashTrailPrefab: {fileID: 7703341619706869496, guid: a2b9b6b9db5862f49b4f0719d87c90b7, type: 3}
   graphics: {fileID: 0}
   _speed: 5
   _walkSpeed: 10
   _runSpeed: 20
   sprintBar: 100
+  MaxSprint: 100
   isSprinting: 0
   _canSprint: 1
   _isDashing: 0

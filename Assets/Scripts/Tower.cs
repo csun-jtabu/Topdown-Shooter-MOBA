@@ -12,6 +12,12 @@ public class Tower : Entity
     private float SpawnTimer = 15f;
     private int SpawnCount = 3;
     public GameObject MinionPrefab;
+
+    public GameObject singlePlayer; 
+    public GameObject multiplayerPlayer;
+    [SerializeField] public bool multiplayer = false;
+    private bool alreadySpawnedPlayer = false;
+
     public GameObject EnemyMainTowerPrefab;
     public Tower EnemyMainTower;
 
@@ -24,10 +30,17 @@ public class Tower : Entity
     }
 
     IEnumerator Spawn()
-    {
-        yield return new WaitForSeconds(SpawnTimer);
-        SpawnMinions();
-        StartCoroutine(Spawn());
+    {   
+        if (this.MainTower){
+            if (alreadySpawnedPlayer == false) {
+                SpawnPlayer();
+                alreadySpawnedPlayer = true;
+            }
+            
+            yield return new WaitForSeconds(SpawnTimer);
+            SpawnMinions();
+            StartCoroutine(Spawn());
+        }
     }
 
     private void SpawnMinions()
@@ -41,6 +54,17 @@ public class Tower : Entity
                 randomPosition += transform.position;
                 Instantiate(MinionPrefab, randomPosition, transform.rotation);
             }
+        }
+    }
+
+    private void SpawnPlayer() {
+        Vector3 randomPosition = UnityEngine.Random.insideUnitCircle * 2;
+        randomPosition += transform.position;
+
+        if (multiplayer) {
+            Instantiate(multiplayerPlayer, randomPosition, transform.rotation);
+        } else {
+            Instantiate(singlePlayer, randomPosition, transform.rotation);
         }
     }
 

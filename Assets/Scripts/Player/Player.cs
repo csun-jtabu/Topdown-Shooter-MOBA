@@ -16,6 +16,8 @@ public class Player : Entity
     private bool ShieldDelayed = false;
     public bool secondController = false;
 
+    [SerializeField] public bool isPlayer1;
+
     public GameObject dashTrailPrefab;
     private Coroutine dashAnimationCoroutine;
 
