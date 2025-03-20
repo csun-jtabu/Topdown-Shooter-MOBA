@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -33,25 +36,30 @@ public class EnemyMovement : MonoBehaviour
     
     //////////////////////////////////////////////////////////////////////////
     // Variables For Enemy attacks
-    private float fireRate;
-    private float timeToFire;
-    public Transform firingPoint;
+    // private float fireRate;
+    // private float timeToFire;
+    // public Transform firingPoint;
 
+    /////////////////////////////////////////////////////////////////////////
+    // Variables for Enemy PathFinding
+    public Node currentNode;
+    public List<Node> path = new List<Node>();
+    
 
     // Plays when the scene starts
-    private void Awake()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>(); // reference to enemy rigidbody
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();  // references the PlayerAwareness Script
         _player = FindAnyObjectByType<Player>().transform; // this finds the player's transform/location
-        timeToFire = fireRate;
+        currentNode = findClosestNode();
 
     }
 
-    void Update()
-    {
-        
-    }
+    // private void Update()
+    // {
+    //     CreatePath();   
+    // }
 
     // FixedUpdate is ran constantly
     void FixedUpdate()
@@ -59,26 +67,32 @@ public class EnemyMovement : MonoBehaviour
         UpdateTargetDirection();
         RotateTowardsTarget();
         // if the enemy is far from the player
-        if(Vector2.Distance(_player.position, transform.position) > _distanceToStop + 1f)
+        if(_playerAwarenessController.AwareOfPlayer == false)
         {
-            SetVelocity();
+            CreatePath();
         }
-        // if the enemy is too close to the player
-        else if(Vector2.Distance(_player.position, transform.position) < _distanceToStop - 1f)
+        else
         {
-            BackUp();
-        }
-
-        // // if the enemy is within the range of the player 
-        if(Vector2.Distance(_player.position, transform.position) < _distanceToStop + 4f)
-        {
-            // will randomly strafe left or right
-            if(Random.value > 0.8f)
+            if(Vector2.Distance(_player.position, transform.position) > _distanceToStop + 1f)
             {
-                Strafe();
+                SetVelocity();
+            }
+            // if the enemy is too close to the player
+            else if(Vector2.Distance(_player.position, transform.position) < _distanceToStop - 1f)
+            {
+                BackUp();
+            }
+
+            // // if the enemy is within the range of the player 
+            if(Vector2.Distance(_player.position, transform.position) < _distanceToStop + 2f)
+            {
+                // will randomly strafe left or right
+                if(Random.value > 0.8f)
+                {
+                    Strafe();
+                }
             }
         }
-        
     }
 
     // this will update where the enemy will head towards
@@ -138,7 +152,7 @@ public class EnemyMovement : MonoBehaviour
     private void BackUp()
     {
         // backs up if it gets too close to player
-        _rigidbody.linearVelocity = transform.up * (_speed) * (-0.5f);
+        _rigidbody.linearVelocity = transform.up * (_speed) * (1f);
     }
 
     private void Strafe()
@@ -165,5 +179,55 @@ public class EnemyMovement : MonoBehaviour
         // decreases time left until the enemy picks a new left/right direction
         _currentStrafeTime = _currentStrafeTime - Time.deltaTime;
         
+    }
+
+    public void CreatePath()
+    {
+        // if there is a valid path to the target
+        if(path.Count > 0)
+        {
+            // this will hold the position of the next node being considered
+            int x = 0;
+            // we move the enemy from its current position to the next node being considered
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(path[x].transform.position.x, path[x].transform.position.y), 3*Time.deltaTime);
+
+            // if the node is within 0.1 away from the node, it means that it's at the node
+            // so we remove it from the list of nodes to be traversed 
+            if(Vector2.Distance(transform.position, path[x].transform.position) < 0.1f)
+            {
+                currentNode = path[x];
+                path.RemoveAt(x);
+            }
+        }
+        else 
+        {
+            // this will find all the nodes in the map and store them in nodes
+            Node[] nodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
+
+            // this will create a path if one doesn't already exist
+            while(path == null || path.Count == 0)
+            {
+                // this creates an instance of the AstarManager
+                path = AStarManager.instance.GeneratePath(currentNode, nodes[Random.Range(0, nodes.Length)]);
+            }
+        }
+    }
+
+    public Node findClosestNode()
+    {
+        Node[] nodes = FindObjectsByType<Node>(FindObjectsSortMode.None);
+        Node closestNode = new Node();
+        float currentMin = float.MaxValue;
+        
+        foreach(Node node in nodes)
+        {
+            if(Vector2.Distance(transform.position, node.transform.position) <= currentMin)
+            {
+                currentMin = Vector2.Distance(transform.position, node.transform.position);
+                closestNode = node;
+            }
+        }
+
+        return closestNode;
     }
 }

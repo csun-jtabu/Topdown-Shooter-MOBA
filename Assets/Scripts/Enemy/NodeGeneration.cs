@@ -1,30 +1,23 @@
-using JetBrains.Annotations;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ReadImage : MonoBehaviour
+public class NodeGeneration : MonoBehaviour
 {
-
-    [SerializeField]
-    private GenerateMap mapGenerator = new GenerateMap();
-
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     // this field will store the image we'll be using for the map
     [SerializeField]
     private Texture2D image;
 
-    // this field will store the object prefab for the walls
-    [SerializeField]
-    private GameObject wallObject;
-    // this field will store the tile prefab for the ground/floor
-    [SerializeField]
-    private GameObject groundObject;
+    // this field will store the node prefab
+    public Node nodePrefab;
+    public List<Node> nodeList;
+    
+    public EnemyMovement enemy;
+    public bool canDrawGizmos;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        mapGenerator.Start();
-        Debug.Log("Here is the coordinates output: " + mapGenerator.generatedOutput);
-
         // this is how we get the pixels from the image
         // the array will hold the color
         // goes from bottom left of image to top right
@@ -45,7 +38,7 @@ public class ReadImage : MonoBehaviour
         // this will help us track where we are in the array
         int counter = 0;
 
-        // for loops to traverse the world's span points
+        // for loops to traverse the world's spawn points
         // left to right, bottom to top
         for(int y = 0; y < worldY; y++)
         {
@@ -63,22 +56,6 @@ public class ReadImage : MonoBehaviour
             currentSpawnPos.y++;
         }
         
-        ////////////////// debugging to see pixel color
-        // string colorStrings = "";
-        // foreach (Color c in pix)
-        // {
-        //     colorStrings += $"({c.r}, {c.g}, {c.b}, {c.a}), ";
-        // }
-
-        // // Remove the last comma and space
-        // if (colorStrings.Length > 2)
-        //     colorStrings = colorStrings.Substring(0, colorStrings.Length - 2);
-
-        // Debug.Log("Pixels: " + colorStrings);
-
-        //////////////////
-
-
         // reset counter
         counter = 0;
 
@@ -88,26 +65,64 @@ public class ReadImage : MonoBehaviour
             // grab the color from the array that stores the colors
             Color c = pix[counter];
 
-            // now spawn the objects at each corresponding spaan position
+            // now spawn the nodes at each corresponding spaan position
             if(c.Equals(Color.white)) 
             {
                 // we spawn the ground tile at the specified position and with no rotation
-                Instantiate(groundObject, position, Quaternion.identity);
-            }
-            else if(c.Equals(Color.black))
-            {
-                // we spawn the wall tile at the specified position and with no rotation
-                Instantiate(wallObject, position, Quaternion.identity);
-            }
-            else
-            {
-                // we spawn the wall tile (temporarily) at the specified position and with no rotation
-                Instantiate(groundObject, position, Quaternion.identity);
+                Node node = Instantiate(nodePrefab, position, Quaternion.identity);
+                nodeList.Add(node);
             }
             counter++;
         }
+        CreateConnections();
+    }
+
+    void CreateConnections()
+    {
+        // basically iterate for every node in the nodeList
+        for(int i = 0; i < nodeList.Count; i++)
+        {
+            // compare with every other node in the nodeList
+            for(int j = i + 1; j < nodeList.Count; j++)
+            {
+                // only create a connection if the nodes are close enough (1 unit distance)
+                if(Vector2.Distance(nodeList[i].transform.position, nodeList[j].transform.position) <= 1.0f)
+                {
+                    // basically makes the nodes neighbors
+                    ConnectNodes(nodeList[i], nodeList[j]);
+                    ConnectNodes(nodeList[j], nodeList[i]);
+                }
+            }
+        }
+        canDrawGizmos = true;
 
     }
 
-    
+    void ConnectNodes(Node from, Node to)
+    {
+        // makes sure we don't put a connection between a node to itself
+        if(from == to)
+        {
+            return;
+        }
+        else
+        {
+            from.neighbors.Add(to);
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if(canDrawGizmos == true)
+        {
+            Gizmos.color = Color.blue;
+            for(int i = 0; i < nodeList.Count; i++)
+            {
+                for(int j = 0; j < nodeList[i].neighbors.Count; j++)
+                {
+                    Gizmos.DrawLine(nodeList[i].transform.position, nodeList[i].neighbors[j].transform.position);
+                }
+            }
+        }    
+    }
 }
