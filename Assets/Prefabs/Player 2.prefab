@@ -36,6 +36,14 @@ PrefabInstance:
       propertyPath: Team
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7108447545330142567, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: isPlayer1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108447545330142567, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: secondController
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7669386150580059345, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7873807
