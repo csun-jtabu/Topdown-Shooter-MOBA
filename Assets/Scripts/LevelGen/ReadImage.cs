@@ -47,6 +47,9 @@ public class ReadImage : MonoBehaviour
     [SerializeField]
     private GameObject centerObject;
 
+    [SerializeField]
+    private GameObject outsideColliderObject;
+
 
     private float friendly_xCoordinate;
     private float friendly_yCoordinate;
@@ -128,6 +131,23 @@ public class ReadImage : MonoBehaviour
         // this is the dimensions of the map. basically equal to the image dimensions
         int worldX = image.width;
         int worldY = image.height;
+        
+        //GameObject outsideColliderObject1 = Instantiate(outsideColliderObject, new Vector3(image.width, image.height*2, 0), Quaternion.identity);
+        GameObject outsideColliderObject1 = Instantiate(outsideColliderObject, new Vector3(image.width*1.5f - 0.5f, image.height*0.5f - 0.5f, 0), Quaternion.identity);
+        outsideColliderObject1.transform.localScale = new Vector3(image.width + 0.5f, image.width + 0.5f, 0);
+
+        //GameObject outsideColliderObject2 = Instantiate(outsideColliderObject, new Vector3(image.width*2, image.height, 0), Quaternion.identity);
+        GameObject outsideColliderObject2 = Instantiate(outsideColliderObject, new Vector3(image.width*0.5f - 0.5f, image.height*1.5f - 0.5f, 0), Quaternion.identity);
+        outsideColliderObject2.transform.localScale = new Vector3(image.width + 0.5f, image.width + 0.5f, 0);
+        
+        //GameObject outsideColliderObject3 = Instantiate(outsideColliderObject, new Vector3(-image.width, image.height, 0), Quaternion.identity);
+        GameObject outsideColliderObject3 = Instantiate(outsideColliderObject, new Vector3(-image.width*0.5f - 0.5f, image.height*0.5f - 0.5f, 0), Quaternion.identity);
+        outsideColliderObject3.transform.localScale = new Vector3(image.width + 0.5f, image.width + 0.5f, 0);
+
+        //GameObject outsideColliderObject4 = Instantiate(outsideColliderObject, new Vector3(image.width, -image.height, 0), Quaternion.identity);
+        GameObject outsideColliderObject4 = Instantiate(outsideColliderObject, new Vector3(image.width*0.5f - 0.5f, -image.height*0.5f - 0.5f, 0), Quaternion.identity);
+        outsideColliderObject4.transform.localScale = new Vector3(image.width + 0.5f, image.width + 0.5f, 0);
+        
 
         // each pixel position corresponds to a spawn position in world
         Vector3[] spawnPositions = new Vector3[pix.Length];

@@ -308,6 +308,7 @@ MonoBehaviour:
   friendlyIntermediaryTowerObject: {fileID: 737897493514442092, guid: cc4ba54c60a756a41893d1aa09622d08, type: 3}
   enemyIntermediaryTowerObject: {fileID: 737897493514442092, guid: 4714708486813bb4b8aa0aa28aa93843, type: 3}
   centerObject: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
+  outsideColliderObject: {fileID: 6505595852273412182, guid: b43d04dd2fffa2a479dfc17490cd8b78, type: 3}
 --- !u!4 &1291435847
 Transform:
   m_ObjectHideFlags: 0

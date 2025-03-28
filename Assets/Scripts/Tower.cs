@@ -5,21 +5,25 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 public class Tower : Entity
 {
-    public bool MainTower = false;
+    [SerializeField] public bool mainTower = true;
+
     private float SpawnTimer = 15f;
     private int SpawnCount = 3;
     public GameObject MinionPrefab;
 
     public GameObject singlePlayer; 
     public GameObject multiplayerPlayer;
+
     [SerializeField] public bool multiplayer = false;
+
     private bool alreadySpawnedPlayer = false;
 
     public GameObject EnemyMainTowerPrefab;
-    public Tower EnemyMainTower;
+    private Tower EnemyMainTower;
 
     private float xCoordinate;
     private float yCoordinate;
@@ -31,7 +35,7 @@ public class Tower : Entity
 
     IEnumerator Spawn()
     {   
-        if (this.MainTower){
+        if (mainTower == true){
             if (alreadySpawnedPlayer == false) {
                 SpawnPlayer();
                 alreadySpawnedPlayer = true;
@@ -45,7 +49,7 @@ public class Tower : Entity
 
     private void SpawnMinions()
     {
-        if (this.MainTower)
+        if (mainTower == true)
         {
             for (int i = 1; i <= this.SpawnCount; i++)
             {
@@ -64,7 +68,11 @@ public class Tower : Entity
         if (multiplayer) {
             Instantiate(multiplayerPlayer, randomPosition, transform.rotation);
         } else {
-            Instantiate(singlePlayer, randomPosition, transform.rotation);
+            try {
+                Instantiate(singlePlayer, randomPosition, transform.rotation);
+            } catch (Exception e) {
+                // Single player character wasn't defined here because it is an enemy tower.
+            }
         }
     }
 
@@ -75,12 +83,12 @@ public class Tower : Entity
             this.Hp -= dmg;
             if (this.Hp <= 0)
             {
-                if (!MainTower)
+                if (mainTower == false)
                     EnemyMainTower.SpawnIncrement();
-                else
-                {
-                    //game over, victory for opposing team
-                }
+                //else
+                //{
+                //    //game over, victory for opposing team
+                //}
                 Destroy(this);
             }
         }
@@ -102,7 +110,7 @@ public class Tower : Entity
                 while ((line = reader.ReadLine()) != null)
                 {
                     Console.WriteLine("Current Line: " + line);
-                    if (this.MainTower)
+                    if (mainTower == true)
                         if (line.Contains("Friendly Tower Coordinates: "))
                         {
                             words = line.Split(')');
@@ -146,10 +154,9 @@ public class Tower : Entity
         //Instantiate(new Tower(), point, Quaternion.identity);
         //transform.position = new Vector2(xCoordinate, yCoordinate);
 
-        if (this.MainTower)
+        if (mainTower == true)
             StartCoroutine(Spawn());
-        else
-            EnemyMainTower = EnemyMainTowerPrefab.GetComponent<Tower>();
+            //EnemyMainTower = EnemyMainTowerPrefab.GetComponent<Tower>();
     }
 
     // Update is called once per frame

@@ -106,10 +106,9 @@ MonoBehaviour:
   Team: 2
   Dmg: 3
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
-  MainTower: 1
+  mainTower: 1
   MinionPrefab: {fileID: 8756731987740270505, guid: 3f970e7433642e8458a23026561731b7, type: 3}
   singlePlayer: {fileID: 0}
   multiplayerPlayer: {fileID: 8724290036082028093, guid: 455ba72549934814c8c5f0ade89a20c2, type: 3}
   multiplayer: 0
-  EnemyMainTowerPrefab: {fileID: 0}
-  EnemyMainTower: {fileID: 0}
+  EnemyMainTowerPrefab: {fileID: 737897493514442092, guid: 56ad88a0e7363f64b87e80afb341f4b2, type: 3}
