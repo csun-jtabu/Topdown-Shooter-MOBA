@@ -4,7 +4,9 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 
+
 //public class GenerateMap : MonoBehaviour
+
 public class GenerateMap
 {
     public string generatedOutput;
