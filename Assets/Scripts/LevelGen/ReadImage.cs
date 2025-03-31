@@ -118,7 +118,7 @@ public class ReadImage : MonoBehaviour
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         mapGenerator.Start();
         UnityEngine.Debug.Log("Here is the coordinates output: " + mapGenerator.generatedOutput);
