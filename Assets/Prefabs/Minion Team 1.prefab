@@ -77,6 +77,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAwarenessDistance: 10
+  enemyPlayerOptionA: {fileID: 8724290036082028093, guid: 455ba72549934814c8c5f0ade89a20c2, type: 3}
+  enemyPlayerOptionB: {fileID: 8724290036082028093, guid: 455ba72549934814c8c5f0ade89a20c2, type: 3}
+  multiplayer: 1
+  singleplayerTag: None
+  multiplayerTag: MultiPlayerTwo
 --- !u!114 &2938867543993793558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _rotationSpeed: 100
-  firingPoint: {fileID: 0}
+  currentNode: {fileID: 0}
+  path: []
 --- !u!114 &4654138668973972060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,12 +112,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHp: 5
   Hp: 0
-  Speed: 0
+  Speed: 1
   Team: 1
   Dmg: 1
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
   spawnOnObject1: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
   spawnOnObject2: {fileID: 6505595852273412182, guid: b43d04dd2fffa2a479dfc17490cd8b78, type: 3}
+  multiplayer: 1
+  singleplayerTag: None
+  multiplayerTag: MultiPlayerTwo
 --- !u!58 &2062212149397561487
 CircleCollider2D:
   m_ObjectHideFlags: 0
