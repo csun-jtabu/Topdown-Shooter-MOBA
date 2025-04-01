@@ -101,11 +101,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHp: 100
+  Hp: 0
   Speed: 0
   Team: 1
   Dmg: 3
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
-  MainTower: 1
+  mainTower: 1
   MinionPrefab: {fileID: 6442264210581310859, guid: fe515d04be40d174b818bbeff796efa3, type: 3}
-  EnemyMainTowerPrefab: {fileID: 0}
-  EnemyMainTower: {fileID: 0}
+  singlePlayer: {fileID: 444542447527549543, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+  multiplayerPlayer: {fileID: 566783709240798697, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+  multiplayer: 0
+  EnemyMainTowerPrefab: {fileID: 737897493514442092, guid: 990965d1417d1f04a8566ac15ee511aa, type: 3}

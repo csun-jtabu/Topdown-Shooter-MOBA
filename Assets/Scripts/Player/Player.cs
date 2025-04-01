@@ -16,6 +16,8 @@ public class Player : Entity
     private bool ShieldDelayed = false;
     public bool secondController = false;
 
+    [SerializeField] public bool isPlayer1;
+
     public GameObject dashTrailPrefab;
     private Coroutine dashAnimationCoroutine;
 
@@ -124,7 +126,7 @@ public class Player : Entity
         // checks if the player is sprinting
         if (isSprinting)
         {
-            sprintBar -= 4;
+            sprintBar -= 2;
         }
         else
         {
