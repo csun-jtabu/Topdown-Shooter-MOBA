@@ -11,6 +11,9 @@ public class Tower : Entity
 {
     [SerializeField] public bool mainTower = true;
 
+    [SerializeField] public int numberOfMinions = 15;
+    private int numberLeft = 0;
+
     private float SpawnTimer = 15f;
     private int SpawnCount = 3;
     public GameObject MinionPrefab;
@@ -42,8 +45,11 @@ public class Tower : Entity
             }
             
             yield return new WaitForSeconds(SpawnTimer);
-            SpawnMinions();
-            StartCoroutine(Spawn());
+            
+            if (numberLeft > 0) {
+                SpawnMinions();
+                StartCoroutine(Spawn());
+            }
         }
     }
 
@@ -53,10 +59,15 @@ public class Tower : Entity
         {
             for (int i = 1; i <= this.SpawnCount; i++)
             {
-                //create an enemy
-                Vector3 randomPosition = UnityEngine.Random.insideUnitCircle * 5;
-                randomPosition += transform.position;
-                Instantiate(MinionPrefab, randomPosition, transform.rotation);
+                if (numberLeft > 0) {
+                    numberLeft = numberLeft - 1;
+                    //create an enemy
+                    Vector3 randomPosition = UnityEngine.Random.insideUnitCircle * 5;
+                    randomPosition += transform.position;
+                    Instantiate(MinionPrefab, randomPosition, transform.rotation);
+                    
+                }
+
             }
         }
     }
@@ -153,6 +164,8 @@ public class Tower : Entity
         Vector2 point = new Vector2(0.0f, 0.0f);
         //Instantiate(new Tower(), point, Quaternion.identity);
         //transform.position = new Vector2(xCoordinate, yCoordinate);
+
+        numberLeft = numberOfMinions;
 
         if (mainTower == true)
             StartCoroutine(Spawn());
