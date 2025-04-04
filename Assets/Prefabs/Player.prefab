@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3364745970905337007}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: SinglePlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,9 +76,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHp: 10
-  Hp: 0
+  Hp: 10
   Speed: 10
-  Team: 0
+  Team: 1
   Dmg: 2
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
   MaxShield: 10
@@ -127,7 +127,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

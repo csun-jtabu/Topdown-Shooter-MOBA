@@ -19,12 +19,24 @@ public class Enemy : Entity
     private Collider2D colider2DFloor1;
     private Collider2D colider2DFloor2;
 
+    // this variable stores whether it is multiplayer or singleplayer.
+    [SerializeField] public bool multiplayer = false;
+    [SerializeField] public string singleplayerTag;
+    [SerializeField] public string multiplayerTag;
+
     void Start()
     {
         this.Speed = 5f;
         this.Hp = 10;
         this.Dmg = 1;
-        _player = FindAnyObjectByType<Player>().transform; // this finds the player's transform/location
+
+        // this finds the player's transform/location
+        //_player = FindAnyObjectByType<Player>().transform;
+        if (multiplayer == true) {
+            _player = GameObject.FindGameObjectsWithTag(multiplayerTag)[0].transform;
+        } else {
+            _player = GameObject.FindGameObjectsWithTag(singleplayerTag)[0].transform;
+        }
 
         colider2DEnemy = GetComponent<Collider2D>();
         colider2DFloor1 = spawnOnObject1.GetComponent<Collider2D>();
@@ -39,7 +51,7 @@ public class Enemy : Entity
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         if(Vector2.Distance(_player.position, transform.position) <= _distanceToShoot)
         {
             Fire();

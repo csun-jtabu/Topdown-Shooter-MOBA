@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 444542447527549543, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: m_TagString
+      value: MultiPlayerOne
+      objectReference: {fileID: 0}
     - target: {fileID: 847948791501773075, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -34,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6596189097736501892, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_NeverAutoSwitchControlSchemes
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: Hp
@@ -58,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: _canDash
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: graphics

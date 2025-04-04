@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 2
       objectReference: {fileID: 0}
+    - target: {fileID: 566783709240798697, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: m_TagString
+      value: MultiPlayerTwo
+      objectReference: {fileID: 0}
     - target: {fileID: 734736726938857117, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
       propertyPath: m_Color.b
       value: 0

@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -50,10 +51,28 @@ public class EnemyMovement : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>(); // reference to enemy rigidbody
+        //_playerAwarenessController = GetComponent<PlayerAwarenessController>();  // references the PlayerAwareness Script
+        //_playerAwarenessController = createdPlayerAwarenessController;  // references the PlayerAwareness Script
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();  // references the PlayerAwareness Script
-        _player = FindAnyObjectByType<Player>().transform; // this finds the player's transform/location
-        currentNode = findClosestNode();
+        //_player = FindAnyObjectByType<Player>().transform; // this finds the player's transform/location
+        //_player = createdPlayerAwarenessController.get__player_transform(); // this finds the player's transform/location
 
+        bool multiplayer = _playerAwarenessController.getMultiplayerBoolean();
+        print($"Multiplayer Setting: {multiplayer}");
+
+        if (multiplayer == true) {
+            //_player = enemyPlayerOptionB.transform;
+            //_player = GameObject.Find(enemyPlayerOptionB.name).transform;
+            //_player = GameObject.Find(_playerAwarenessController.getEnemyPlayerOptionB().name).transform;
+            _player = _playerAwarenessController.getEnemyPlayerOptionB().transform;
+            print($"Player Transform: {_player}");
+        } else {
+            //_player = enemyPlayerOptionA.transform;
+            //_player = GameObject.Find(enemyPlayerOptionA.name).transform;
+            //_player = GameObject.Find(_playerAwarenessController.getEnemyPlayerOptionA().name).transform;
+            _player = _playerAwarenessController.getEnemyPlayerOptionA().transform;
+        }
+        currentNode = findClosestNode();
     }
 
     // private void Update()
@@ -69,7 +88,11 @@ public class EnemyMovement : MonoBehaviour
         // if the enemy is far from the player
         if(_playerAwarenessController.AwareOfPlayer == false)
         {
-            CreatePath();
+            try {
+                CreatePath();
+            } catch (Exception e) {
+                //print(e);
+            }
         }
         else
         {
@@ -87,7 +110,7 @@ public class EnemyMovement : MonoBehaviour
             if(Vector2.Distance(_player.position, transform.position) < _distanceToStop + 2f)
             {
                 // will randomly strafe left or right
-                if(Random.value > 0.8f)
+                if(UnityEngine.Random.value > 0.8f)
                 {
                     Strafe();
                 }
@@ -162,7 +185,7 @@ public class EnemyMovement : MonoBehaviour
         {
             _currentStrafeDirection = Vector2.Perpendicular(_targetDirection);
             _currentStrafeTime = _maxStrafeTime;
-            if(Random.value > 0.5f)
+            if(UnityEngine.Random.value > 0.5f)
             {
                 strafeDecider = 1;
             }
@@ -208,7 +231,7 @@ public class EnemyMovement : MonoBehaviour
             while(path == null || path.Count == 0)
             {
                 // this creates an instance of the AstarManager
-                path = AStarManager.instance.GeneratePath(currentNode, nodes[Random.Range(0, nodes.Length)]);
+                path = AStarManager.instance.GeneratePath(currentNode, nodes[UnityEngine.Random.Range(0, nodes.Length)]);
             }
         }
     }
