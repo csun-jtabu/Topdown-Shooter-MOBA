@@ -72,7 +72,7 @@ public class Player : Entity
                 if (this.Hp <= 0)
                 {
                     gameObject.SetActive(false);
-                    Respawn();
+                    StartCoroutine(Respawn());
                 }
             }
             else if (Shield >= damage)
@@ -106,6 +106,7 @@ public class Player : Entity
     void Start()
     {
         this.Shield = MaxShield;
+        StartCoroutine(SetSpawnPoint());
     }
 
     IEnumerator SetSpawnPoint()
