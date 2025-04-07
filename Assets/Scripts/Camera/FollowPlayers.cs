@@ -11,6 +11,8 @@ public class FollowPlayers : MonoBehaviour
     //public Transform targetMultiplayer2; // this is also what we'll be tracking
 
     [SerializeField] public bool multiplayer; // boolean stating whether it is singleplayer or multiplayer.
+    [SerializeField] public int minimumZoom = 20;
+    
 
     public Camera m_OrthographicCamera;
 
@@ -22,7 +24,7 @@ public class FollowPlayers : MonoBehaviour
         float ortographicSizeHeight = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.y - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.y) * 0.5f;
 
         // computing the size
-        m_OrthographicCamera.orthographicSize = Mathf.Max(ortographicSizeHeight, ortographicSizeWidth);
+        m_OrthographicCamera.orthographicSize = Mathf.Max(ortographicSizeHeight, ortographicSizeWidth, minimumZoom);
     }
 
 

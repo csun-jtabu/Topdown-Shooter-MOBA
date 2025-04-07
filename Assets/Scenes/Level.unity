@@ -226,10 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _followSpeed: 2
-  singleTargetPlayer: {fileID: 7753485339820231519, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
-  targetMultiplayer1: {fileID: 7669386150580059345, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
-  targetMultiplayer2: {fileID: 1486288235612045061, guid: 455ba72549934814c8c5f0ade89a20c2, type: 3}
   multiplayer: 1
+  minimumZoom: 5
   m_OrthographicCamera: {fileID: 103403309}
 --- !u!114 &103403312
 MonoBehaviour:
