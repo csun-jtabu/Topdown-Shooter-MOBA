@@ -67,19 +67,21 @@ public class PlayerAwarenessController : MonoBehaviour
     // FixedUpdate runs at a constant rate
     void Update()
     {
-        // this gets the distance between the player and enemy
-        Vector2 enemyToPlayerVector = _player.position - transform.position;
-        // we then normalize the magnitude (turns to 1) to get just the direction.
-        DirectionToPlayer = enemyToPlayerVector.normalized;
+        try {
+            // this gets the distance between the player and enemy
+            Vector2 enemyToPlayerVector = _player.position - transform.position;
+            // we then normalize the magnitude (turns to 1) to get just the direction.
+            DirectionToPlayer = enemyToPlayerVector.normalized;
 
-        // if enemy is close enough it will be aware of the player
-        if (enemyToPlayerVector.magnitude <= _playerAwarenessDistance)
-        {
-           AwareOfPlayer = true;
-        }
-        else
-        {
-           AwareOfPlayer = false;
+            // if enemy is close enough it will be aware of the player
+            if (enemyToPlayerVector.magnitude <= _playerAwarenessDistance) {
+                AwareOfPlayer = true;
+            } else {
+                AwareOfPlayer = false;
+                Awake();
+            }
+        } catch (Exception) {
+            Awake();
         }
 
     }

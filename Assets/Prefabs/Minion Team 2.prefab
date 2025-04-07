@@ -101,9 +101,10 @@ GameObject:
   - component: {fileID: 2029655368348242384}
   - component: {fileID: 4067350703942924427}
   - component: {fileID: 8234082148984152232}
+  - component: {fileID: 172247658375905387}
   m_Layer: 0
   m_Name: Minion Team 2
-  m_TagString: Untagged
+  m_TagString: MinionTeam2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,3 +245,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.3
+--- !u!114 &172247658375905387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756731987740270505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d527f885ab4cfd84d8cd4d368085c933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minionAwarenessDistance: 20
+  enemyMinion: {fileID: 6442264210581310859, guid: fe515d04be40d174b818bbeff796efa3, type: 3}
+  enemyMinionTag: MinionTeam1

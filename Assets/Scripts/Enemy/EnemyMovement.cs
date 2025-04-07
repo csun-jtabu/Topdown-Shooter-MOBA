@@ -16,13 +16,15 @@ public class EnemyMovement : MonoBehaviour
     private float _rotationSpeed; // controls how fast it rotates
     private Rigidbody2D _rigidbody; // this stores the reference to the body of the enemy
     private PlayerAwarenessController _playerAwarenessController; // this controls the behavior/logic of the Enemy
+    private MinionAwarenessController _minionAwarenessController; // this controls the behavior/logic of the Enemy
     private Vector2 _targetDirection; // this is where we want the enemy to go to
     
     //////////////////////////////////////////////////////////////////////////
     // This is to make it so that the enemy will stop advancing at a certain point
     private float _distanceToStop = 2f;
-    // This variable will be used to locate the player
+    // These variables will be used to locate the player and enemy minion.
     private Transform _player;
+    private Transform _objectToFollow;
     //////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////
@@ -51,26 +53,17 @@ public class EnemyMovement : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>(); // reference to enemy rigidbody
-        //_playerAwarenessController = GetComponent<PlayerAwarenessController>();  // references the PlayerAwareness Script
-        //_playerAwarenessController = createdPlayerAwarenessController;  // references the PlayerAwareness Script
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();  // references the PlayerAwareness Script
-        //_player = FindAnyObjectByType<Player>().transform; // this finds the player's transform/location
-        //_player = createdPlayerAwarenessController.get__player_transform(); // this finds the player's transform/location
+        _minionAwarenessController = GetComponent<MinionAwarenessController>();  // references the MinionAwareness Script
 
         bool multiplayer = _playerAwarenessController.getMultiplayerBoolean();
         print($"Multiplayer Setting: {multiplayer}");
 
         if (multiplayer == true) {
-            //_player = enemyPlayerOptionB.transform;
-            //_player = GameObject.Find(enemyPlayerOptionB.name).transform;
-            //_player = GameObject.Find(_playerAwarenessController.getEnemyPlayerOptionB().name).transform;
-            _player = _playerAwarenessController.getEnemyPlayerOptionB().transform;
-            print($"Player Transform: {_player}");
+            _player = _playerAwarenessController.getEnemyPlayerOptionB().transform; // this finds the player's transform/location
+            print($"Player Transform: {_objectToFollow}");
         } else {
-            //_player = enemyPlayerOptionA.transform;
-            //_player = GameObject.Find(enemyPlayerOptionA.name).transform;
-            //_player = GameObject.Find(_playerAwarenessController.getEnemyPlayerOptionA().name).transform;
-            _player = _playerAwarenessController.getEnemyPlayerOptionA().transform;
+            _player = _playerAwarenessController.getEnemyPlayerOptionA().transform; // this finds the player's transform/location
         }
         currentNode = findClosestNode();
     }
@@ -85,29 +78,46 @@ public class EnemyMovement : MonoBehaviour
     {
         UpdateTargetDirection();
         RotateTowardsTarget();
+
+        bool playerAwarenessControllerCheck = _playerAwarenessController.AwareOfPlayer;
+        bool minionAwarenessControllerCheck = _minionAwarenessController.AwareOfEnemyMinion;
+
         // if the enemy is far from the player
-        if(_playerAwarenessController.AwareOfPlayer == false)
+        if(playerAwarenessControllerCheck == false && minionAwarenessControllerCheck == false)
         {
             try {
                 CreatePath();
-            } catch (Exception e) {
+            } catch (Exception) {
                 //print(e);
             }
         }
         else
         {
-            if(Vector2.Distance(_player.position, transform.position) > _distanceToStop + 1f)
+            bool overrideMinionAwarenessController = false;
+
+            if (playerAwarenessControllerCheck == true) {
+                _objectToFollow = _player;
+                overrideMinionAwarenessController = true;
+            } else {
+                overrideMinionAwarenessController = false;
+            }
+
+            if (overrideMinionAwarenessController == false && minionAwarenessControllerCheck == true) {
+                _objectToFollow = _minionAwarenessController.get__enemy_minion_transform();
+            }
+            
+            if(Vector2.Distance(_objectToFollow.position, transform.position) > _distanceToStop + 1f)
             {
                 SetVelocity();
             }
             // if the enemy is too close to the player
-            else if(Vector2.Distance(_player.position, transform.position) < _distanceToStop - 1f)
+            else if(Vector2.Distance(_objectToFollow.position, transform.position) < _distanceToStop - 1f)
             {
                 BackUp();
             }
 
             // // if the enemy is within the range of the player 
-            if(Vector2.Distance(_player.position, transform.position) < _distanceToStop + 2f)
+            if(Vector2.Distance(_objectToFollow.position, transform.position) < _distanceToStop + 2f)
             {
                 // will randomly strafe left or right
                 if(UnityEngine.Random.value > 0.8f)
@@ -121,14 +131,27 @@ public class EnemyMovement : MonoBehaviour
     // this will update where the enemy will head towards
     private void UpdateTargetDirection()
     {
+        bool overrideMinionAwarenessController = false;
+        
         // if the enemy is aware of the player then it will move towards player
-        if(_playerAwarenessController.AwareOfPlayer == true)
-        {
+        if(_playerAwarenessController.AwareOfPlayer == true) {
             _targetDirection = _playerAwarenessController.DirectionToPlayer;
-        }
-        else  // if not, then it will idle
-        {
+            overrideMinionAwarenessController = true;
+
+        } else { // if not, then it will idle
             _targetDirection = Vector2.zero;
+            overrideMinionAwarenessController = false;
+        }
+
+        // override minion awareness controller if the player is close enough.
+        if (overrideMinionAwarenessController == false) {
+            // if the minion is aware of an enemy minion, then it will move towards the enemy minion
+            if (_minionAwarenessController.AwareOfEnemyMinion == true) {
+                _targetDirection = _minionAwarenessController.DirectionToEnemyMinion;
+
+            } else { // if not, then it will idle
+                _targetDirection = Vector2.zero;
+            }
         }
     }
 
