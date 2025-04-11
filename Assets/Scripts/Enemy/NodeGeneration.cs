@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class NodeGeneration : MonoBehaviour
@@ -16,7 +17,7 @@ public class NodeGeneration : MonoBehaviour
     public EnemyMovement enemy;
     public bool canDrawGizmos;
 
-    void Awake()
+    void Start()
     {
         // this is how we get the pixels from the image
         // the array will hold the color
@@ -31,7 +32,8 @@ public class NodeGeneration : MonoBehaviour
         Vector3[] spawnPositions = new Vector3[pix.Length];
         Debug.Log("This is how many pixels we have: " + spawnPositions.Length);
         // this will reference the center of the world
-        Vector3 startingSpawnPosition = new Vector3(-Mathf.Round(worldX/2), -Mathf.RoundToInt(worldY/2), 0);
+        // Vector3 startingSpawnPosition = new Vector3(-Mathf.Round(worldX/2), -Mathf.RoundToInt(worldY/2), 0);
+        Vector3 startingSpawnPosition = new Vector3(0, 0, 0);
         // we will be iterating the position through the position in the world so we use a new variable
         Vector3 currentSpawnPos = startingSpawnPosition;
 

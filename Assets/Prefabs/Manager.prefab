@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8001260832505211978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2592741833197891405}
+  - component: {fileID: 7257591213154344544}
+  - component: {fileID: 8118511664501199431}
+  - component: {fileID: 9137288817139992291}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2592741833197891405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001260832505211978}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44834664, y: 0.7977214, z: 0.018168552}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7257591213154344544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001260832505211978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a006d52cb070aa347b54836dcb1bb7e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8118511664501199431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001260832505211978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f84c2dc183fa1e42a4e61e7b3dd02a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 2800000, guid: cfa11188d64568d4f957b2a933727509, type: 3}
+  wallObject: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
+  groundObject: {fileID: 510046153008738794, guid: c4e5a1d17de5f794abd70a41b2b6faeb, type: 3}
+  friendlyMainTowerObject: {fileID: 737897493514442092, guid: 56ad88a0e7363f64b87e80afb341f4b2, type: 3}
+  enemyMainTowerObject: {fileID: 737897493514442092, guid: 990965d1417d1f04a8566ac15ee511aa, type: 3}
+  friendlyIntermediaryTowerObject: {fileID: 737897493514442092, guid: cc4ba54c60a756a41893d1aa09622d08, type: 3}
+  enemyIntermediaryTowerObject: {fileID: 737897493514442092, guid: 4714708486813bb4b8aa0aa28aa93843, type: 3}
+  centerObject: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
+  outsideColliderObject: {fileID: 6505595852273412182, guid: b43d04dd2fffa2a479dfc17490cd8b78, type: 3}
+--- !u!114 &9137288817139992291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001260832505211978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd737c95fd606f04490d5d175e36581f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 2800000, guid: cfa11188d64568d4f957b2a933727509, type: 3}
+  nodePrefab: {fileID: 6442366783593100890, guid: 8ea785e25670a9946b2e76ba4899dade, type: 3}
+  nodeList: []
+  enemy: {fileID: 0}
+  canDrawGizmos: 1

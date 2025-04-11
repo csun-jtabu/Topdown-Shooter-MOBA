@@ -261,10 +261,10 @@ public class Tower : Entity
             StartCoroutine(Spawn());
         else
         {
-            if (this.Team == 1)
-                EnemyMainTower = GameObject.Find("Main Tower Team 2").GetComponent<Tower>();
-            else
-                EnemyMainTower = GameObject.Find("Main Tower Team 1").GetComponent<Tower>();
+            // if (this.Team == 1)
+            //     EnemyMainTower = GameObject.Find("Main Tower Team 2").GetComponent<Tower>();
+            // else
+            //     EnemyMainTower = GameObject.Find("Main Tower Team 1").GetComponent<Tower>();
 
         }
     }
