@@ -15,6 +15,7 @@ public class Player : Entity
     public float ShieldRegenDelay = 5f;
     private bool ShieldDelayed = false;
     public bool secondController = false;
+    public Transform SpawnPoint;
 
     [SerializeField] public bool isPlayer1;
 
@@ -69,7 +70,10 @@ public class Player : Entity
             {
                 this.Hp -= damage;
                 if (this.Hp <= 0)
-                    Respawn();
+                {
+                    gameObject.SetActive(false);
+                    StartCoroutine(Respawn());
+                }
             }
             else if (Shield >= damage)
                 Shield -= damage;
@@ -89,8 +93,12 @@ public class Player : Entity
         }
     }
 
-    public void Respawn()
+    IEnumerator Respawn()
     {
+        yield return new WaitForSeconds(RespawnTimer);
+        RespawnTimer += 2;
+        gameObject.transform.position = SpawnPoint.position;
+        gameObject.SetActive(true);
 
     }
 
@@ -98,6 +106,13 @@ public class Player : Entity
     void Start()
     {
         this.Shield = MaxShield;
+        StartCoroutine(SetSpawnPoint());
+    }
+
+    IEnumerator SetSpawnPoint()
+    {
+        yield return new WaitForSeconds(2f);
+        SpawnPoint = gameObject.transform;
     }
 
     IEnumerator ShieldRegen()

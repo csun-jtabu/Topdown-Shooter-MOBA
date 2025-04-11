@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 2938867543993793558}
   - component: {fileID: 4654138668973972060}
   - component: {fileID: 2062212149397561487}
+  - component: {fileID: -7353055172628229716}
   m_Layer: 0
   m_Name: Minion Team 1
-  m_TagString: Untagged
+  m_TagString: MinionTeam1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,6 +78,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAwarenessDistance: 10
+  enemyPlayerOptionA: {fileID: 8724290036082028093, guid: 455ba72549934814c8c5f0ade89a20c2, type: 3}
+  enemyPlayerOptionB: {fileID: 8724290036082028093, guid: 455ba72549934814c8c5f0ade89a20c2, type: 3}
+  multiplayer: 1
+  singleplayerTag: None
+  multiplayerTag: MultiPlayerTwo
 --- !u!114 &2938867543993793558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _rotationSpeed: 100
-  firingPoint: {fileID: 0}
+  currentNode: {fileID: 0}
+  path: []
 --- !u!114 &4654138668973972060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,12 +113,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHp: 5
   Hp: 0
-  Speed: 0
+  Speed: 1
   Team: 1
   Dmg: 1
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
   spawnOnObject1: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
   spawnOnObject2: {fileID: 6505595852273412182, guid: b43d04dd2fffa2a479dfc17490cd8b78, type: 3}
+  multiplayer: 1
+  singleplayerTag: None
+  multiplayerTag: MultiPlayerTwo
 --- !u!58 &2062212149397561487
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -148,6 +158,21 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.3
+--- !u!114 &-7353055172628229716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6442264210581310859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d527f885ab4cfd84d8cd4d368085c933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minionAwarenessDistance: 20
+  enemyMinion: {fileID: 8756731987740270505, guid: 3f970e7433642e8458a23026561731b7, type: 3}
+  enemyMinionTag: MinionTeam2
 --- !u!1 &7972880466590872504
 GameObject:
   m_ObjectHideFlags: 0

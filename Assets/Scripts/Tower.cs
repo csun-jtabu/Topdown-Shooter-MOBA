@@ -11,7 +11,11 @@ public class Tower : Entity
 {
     [SerializeField] public bool mainTower = true;
 
-    private float SpawnTimer = 15f;
+    [SerializeField] public int numberOfMinions = 15;
+    private int numberLeft = 0;
+
+    //private float SpawnTimer = 15f;
+    private float SpawnTimer = 5f;
     private int SpawnCount = 3;
     public GameObject MinionPrefab;
 
@@ -26,12 +30,67 @@ public class Tower : Entity
     private Tower EnemyMainTower;
 
     private float xCoordinate;
-    private float yCoordinate;
+    private float yCoordinate;    
 
     public void SpawnIncrement()
     {
         this.SpawnCount++;
+    }    
+
+
+    bool CheckBoxSize(float check_x, float check_y, float center_x, float center_y, float width, float height)
+    {
+        float left_boundary = 0;
+        float right_boundary = 0;
+        float bottom_boundary = 0;
+        float top_boundary = 0;
+        float half_width = 0;
+        float half_height = 0;
+
+        if (width % 2 != 0 && height % 2 != 0) {
+            width = width - 1;
+            height = height - 1;
+
+            // Calculate half-width and half-height
+            half_width = width / 2;
+            half_height = height / 2;
+
+            // Calculate boundaries
+            left_boundary = center_x - half_width;
+            right_boundary = center_x + half_width;
+            bottom_boundary = center_y - half_height;
+            top_boundary = center_y + half_height;
+
+        } else {
+            // Calculate half-width and half-height
+            half_width = width / 2;
+            half_height = height / 2;
+
+            // Calculate boundaries
+            left_boundary = center_x - half_width;
+            right_boundary = center_x + half_width;
+            bottom_boundary = center_y - half_height;
+            top_boundary = center_y + half_height;
+        }
+        
+
+        // Check if the point is outside the cube
+        bool isOutside = check_x < left_boundary || check_x > right_boundary || check_y < bottom_boundary || check_y > top_boundary;
+
+        if (isOutside)
+        {
+            return true;
+        }
+        else
+        {
+            print("Inside box.");
+            return false;
+        }
     }
+
+
+
+
 
     IEnumerator Spawn()
     {   
@@ -42,36 +101,78 @@ public class Tower : Entity
             }
             
             yield return new WaitForSeconds(SpawnTimer);
-            SpawnMinions();
-            StartCoroutine(Spawn());
+            
+            if (numberLeft > 0) {
+                SpawnMinions();
+                StartCoroutine(Spawn());
+            }
         }
     }
 
     private void SpawnMinions()
     {
+        float setSpawnTimer = SpawnTimer;
+        
         if (mainTower == true)
         {
             for (int i = 1; i <= this.SpawnCount; i++)
             {
-                //create an enemy
-                Vector3 randomPosition = UnityEngine.Random.insideUnitCircle * 5;
-                randomPosition += transform.position;
-                Instantiate(MinionPrefab, randomPosition, transform.rotation);
+                if (numberLeft > 0) {
+                    //create an enemy
+                    Vector3 randomPosition = UnityEngine.Random.insideUnitCircle * 5;
+                    randomPosition += transform.position;
+
+                    float width = ReadImage.getBoxSizeX();
+                    float height = ReadImage.getBoxSizeY();
+                    float center_x = width/2;
+                    float center_y = height/2;
+
+                    width = width - 2;
+                    height = height - 2;
+
+                    if (CheckBoxSize(randomPosition.x, randomPosition.y, center_x, center_y, width, height) == false) {
+                        numberLeft = numberLeft - 1;
+                        Instantiate(MinionPrefab, randomPosition, transform.rotation);
+                        SpawnTimer = setSpawnTimer;
+                    } else {
+                        if (i > 1) {
+                            i = i - 1;
+                        }
+                        SpawnTimer = 0f;
+                    }
+                }
+
             }
         }
     }
 
     private void SpawnPlayer() {
-        Vector3 randomPosition = UnityEngine.Random.insideUnitCircle * 2;
-        randomPosition += transform.position;
+        bool spawnedPlayer = false;
 
-        if (multiplayer) {
-            Instantiate(multiplayerPlayer, randomPosition, transform.rotation);
-        } else {
-            try {
-                Instantiate(singlePlayer, randomPosition, transform.rotation);
-            } catch (Exception e) {
-                // Single player character wasn't defined here because it is an enemy tower.
+        while (spawnedPlayer == false) {
+            Vector3 randomPosition = UnityEngine.Random.insideUnitCircle * 2;
+            randomPosition += transform.position;
+
+            float width = ReadImage.getBoxSizeX();
+            float height = ReadImage.getBoxSizeY();
+            float center_x = width/2;
+            float center_y = height/2;
+
+            width = width - 2;
+            height = height - 2;
+
+            if (CheckBoxSize(randomPosition.x, randomPosition.y, center_x, center_y, width, height) == false) {
+                if (multiplayer) {
+                    Instantiate(multiplayerPlayer, randomPosition, transform.rotation);
+                } else {
+                    try {
+                        Instantiate(singlePlayer, randomPosition, transform.rotation);
+                    } catch (Exception) {
+                        // Single player character wasn't defined here because it is an enemy tower.
+                    }
+                }
+
+                spawnedPlayer = true;
             }
         }
     }
@@ -154,9 +255,18 @@ public class Tower : Entity
         //Instantiate(new Tower(), point, Quaternion.identity);
         //transform.position = new Vector2(xCoordinate, yCoordinate);
 
+        numberLeft = numberOfMinions;
+
         if (mainTower == true)
             StartCoroutine(Spawn());
-            //EnemyMainTower = EnemyMainTowerPrefab.GetComponent<Tower>();
+        else
+        {
+            if (this.Team == 1)
+                EnemyMainTower = GameObject.Find("Main Tower Team 2").GetComponent<Tower>();
+            else
+                EnemyMainTower = GameObject.Find("Main Tower Team 1").GetComponent<Tower>();
+
+        }
     }
 
     // Update is called once per frame

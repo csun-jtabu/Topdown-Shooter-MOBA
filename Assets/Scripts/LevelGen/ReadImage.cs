@@ -57,6 +57,22 @@ public class ReadImage : MonoBehaviour
     private float enemy_yCoordinate;
 
 
+    private static int box_size_x;
+    private static int box_size_y;
+    public static int getBoxSizeX() {
+        return box_size_x;
+    }
+    public static int getBoxSizeY() {
+        return box_size_y;
+    }
+    public static void setBoxSizeX(int provided_box_size_x){
+        box_size_x = provided_box_size_x;
+    }
+    public static void setBoxSizeY(int provided_box_size_y){
+        box_size_y = provided_box_size_y;
+    }
+
+
     void ReadFromCoordianteFile()
     {
         string line = "";
@@ -131,6 +147,9 @@ public class ReadImage : MonoBehaviour
         // this is the dimensions of the map. basically equal to the image dimensions
         int worldX = image.width;
         int worldY = image.height;
+
+        setBoxSizeX(worldX);
+        setBoxSizeY(worldY);
         
         //GameObject outsideColliderObject1 = Instantiate(outsideColliderObject, new Vector3(image.width, image.height*2, 0), Quaternion.identity);
         GameObject outsideColliderObject1 = Instantiate(outsideColliderObject, new Vector3(image.width*1.5f - 0.5f, image.height*0.5f - 0.5f, 0), Quaternion.identity);
