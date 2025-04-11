@@ -1,5 +1,5 @@
 {
-    "grid_size": [100],
+    "grid_size": [60],
     "number_of_rooms": [10],
     "path_width": [3],
     "tower_box_width": [10],

@@ -12,7 +12,12 @@ public class Player : Entity
     private float Spread = 0f;
     [SerializeField]
     private float RespawnTimer = 3f;
+    public float ShieldRegenDelay = 5f;
+    private bool ShieldDelayed = false;
     public bool secondController = false;
+    public Transform SpawnPoint;
+
+    [SerializeField] public bool isPlayer1;
 
     public GameObject dashTrailPrefab;
     private Coroutine dashAnimationCoroutine;
@@ -65,7 +70,10 @@ public class Player : Entity
             {
                 this.Hp -= damage;
                 if (this.Hp <= 0)
-                    Respawn();
+                {
+                    gameObject.SetActive(false);
+                    StartCoroutine(Respawn());
+                }
             }
             else if (Shield >= damage)
                 Shield -= damage;
@@ -75,11 +83,22 @@ public class Player : Entity
                 Shield = 0;
                 this.Damage(damage, team);
             }
+            if (this.Hp <= 0)
+                Destroy(this.gameObject);
+            else
+            {
+                ShieldDelayed = true;
+                StartCoroutine(DelayShieldRegen());
+            }
         }
     }
 
-    public void Respawn()
+    IEnumerator Respawn()
     {
+        yield return new WaitForSeconds(RespawnTimer);
+        RespawnTimer += 2;
+        gameObject.transform.position = SpawnPoint.position;
+        gameObject.SetActive(true);
 
     }
 
@@ -87,6 +106,27 @@ public class Player : Entity
     void Start()
     {
         this.Shield = MaxShield;
+        StartCoroutine(SetSpawnPoint());
+    }
+
+    IEnumerator SetSpawnPoint()
+    {
+        yield return new WaitForSeconds(2f);
+        SpawnPoint = gameObject.transform;
+    }
+
+    IEnumerator ShieldRegen()
+    {
+        yield return new WaitForSeconds(2f);
+        if (Shield < MaxShield && !ShieldDelayed)
+            Shield++;
+        StartCoroutine(ShieldRegen());
+    }
+
+    IEnumerator DelayShieldRegen()
+    {
+        yield return new WaitForSeconds(ShieldRegenDelay);
+        ShieldDelayed = false;
     }
 
     // Update is called once per frame
