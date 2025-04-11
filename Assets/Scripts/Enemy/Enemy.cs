@@ -36,6 +36,8 @@ public class Enemy : Entity
         this.Hp = 10;
         this.Dmg = 1;
 
+        multiplayer = MainMenuScript.getIsMultiplayer();
+
         
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();
         _minionAwarenessController = GetComponent<MinionAwarenessController>();

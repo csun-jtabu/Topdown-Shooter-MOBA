@@ -250,6 +250,8 @@ public class Tower : Entity
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        multiplayer = MainMenuScript.getIsMultiplayer();
+        
         ReadFromCoordianteFile();
         Vector2 point = new Vector2(0.0f, 0.0f);
         //Instantiate(new Tower(), point, Quaternion.identity);

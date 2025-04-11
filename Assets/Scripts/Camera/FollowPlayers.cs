@@ -34,6 +34,8 @@ public class FollowPlayers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        multiplayer = MainMenuScript.getIsMultiplayer();
+        
         if (multiplayer) {
             // calculate the midpoint between the two players
             //UnityEngine.Vector3 midPoint = (targetMultiplayer1.transform.position + targetMultiplayer2.transform.position) / 2f;

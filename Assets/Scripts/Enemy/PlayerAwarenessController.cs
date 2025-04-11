@@ -30,6 +30,8 @@ public class PlayerAwarenessController : MonoBehaviour
     // when the scene is first loaded
     private void Awake()
     {
+        multiplayer = MainMenuScript.getIsMultiplayer();
+
         // this finds the player's transform/location
         //_player = FindAnyObjectByType<Player>().transform;
         if (multiplayer == true) {
