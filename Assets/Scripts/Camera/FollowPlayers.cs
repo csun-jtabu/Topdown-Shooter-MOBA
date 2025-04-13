@@ -12,6 +12,8 @@ public class FollowPlayers : MonoBehaviour
 
     [SerializeField] public bool multiplayer; // boolean stating whether it is singleplayer or multiplayer.
     [SerializeField] public int minimumZoom = 20;
+
+    private int extra_zoom_for_view = 1; // extra buffer to show camera view.
     
 
     public Camera m_OrthographicCamera;
@@ -20,8 +22,8 @@ public class FollowPlayers : MonoBehaviour
     // Source: https://discussions.unity.com/t/2d-camera-to-follow-two-players/100593/3
     void SetCameraSize() {
         // multiplying by 0.5, because the ortographicSize is actually half the height
-        float ortographicSizeWidth = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.x - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.x) * 0.5f;
-        float ortographicSizeHeight = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.y - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.y) * 0.5f;
+        float ortographicSizeWidth = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.x - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.x) * 0.5f + extra_zoom_for_view;
+        float ortographicSizeHeight = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.y - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.y) * 0.5f + extra_zoom_for_view;
 
         // computing the size
         m_OrthographicCamera.orthographicSize = Mathf.Max(ortographicSizeHeight, ortographicSizeWidth, minimumZoom);
@@ -32,6 +34,8 @@ public class FollowPlayers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        multiplayer = MainMenuScript.getIsMultiplayer();
+        
         if (multiplayer) {
             // calculate the midpoint between the two players
             //UnityEngine.Vector3 midPoint = (targetMultiplayer1.transform.position + targetMultiplayer2.transform.position) / 2f;

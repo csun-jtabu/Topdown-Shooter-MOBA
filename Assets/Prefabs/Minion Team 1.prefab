@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d527f885ab4cfd84d8cd4d368085c933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minionAwarenessDistance: 20
+  _minionAwarenessDistance: 5
   enemyMinion: {fileID: 8756731987740270505, guid: 3f970e7433642e8458a23026561731b7, type: 3}
   enemyMinionTag: MinionTeam2
 --- !u!1 &7972880466590872504

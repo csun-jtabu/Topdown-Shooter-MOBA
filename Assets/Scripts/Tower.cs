@@ -250,6 +250,8 @@ public class Tower : Entity
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        multiplayer = MainMenuScript.getIsMultiplayer();
+        
         ReadFromCoordianteFile();
         Vector2 point = new Vector2(0.0f, 0.0f);
         //Instantiate(new Tower(), point, Quaternion.identity);
@@ -261,10 +263,10 @@ public class Tower : Entity
             StartCoroutine(Spawn());
         else
         {
-            if (this.Team == 1)
-                EnemyMainTower = GameObject.Find("Main Tower Team 2").GetComponent<Tower>();
-            else
-                EnemyMainTower = GameObject.Find("Main Tower Team 1").GetComponent<Tower>();
+            // if (this.Team == 1)
+            //     EnemyMainTower = GameObject.Find("Main Tower Team 2").GetComponent<Tower>();
+            // else
+            //     EnemyMainTower = GameObject.Find("Main Tower Team 1").GetComponent<Tower>();
 
         }
     }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class Player : Entity
 {
@@ -55,12 +57,49 @@ public class Player : Entity
     private UnityEngine.Vector2 _smoothedMovementInput;  // this is used to smooth the movement of the player
     private UnityEngine.Vector2 _movementInputSmoothVelocity; // this keeps track of the velocity of movement
 
+    private PlayerInput playerInput;
+    private List<InputDevice> assignedDevices = new List<InputDevice>();
+
 
     // This is the method called when the scene first starts
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>(); // we store ridigbody to variable to allow for us to manipulate the component
+
+        playerInput = GetComponent<PlayerInput>();
+        AssignDevices();
     }
+
+
+    void AssignDevices()
+    {
+        var gamepads = Gamepad.all;
+
+        if (this.Team == 1)
+        {
+            // Player 1 always has keyboard
+            assignedDevices.Add(Keyboard.current);
+
+            if (gamepads.Count >= 2)
+            {
+                assignedDevices.Add(gamepads[1]); // Second gamepad also controls Player 1
+            }
+        }
+        else if (this.Team == 2)
+        {
+            if (gamepads.Count >= 1)
+            {
+                assignedDevices.Add(gamepads[0]); // First gamepad controls Player 2
+            }
+        }
+
+        // Pair the devices to the PlayerInput component
+        foreach (var device in assignedDevices)
+        {
+            InputUser.PerformPairingWithDevice(device, playerInput.user);
+        }
+    }
+
 
     public override void Damage(int damage, int team)
     {

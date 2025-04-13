@@ -30,6 +30,8 @@ public class PlayerAwarenessController : MonoBehaviour
     // when the scene is first loaded
     private void Awake()
     {
+        multiplayer = MainMenuScript.getIsMultiplayer();
+
         // this finds the player's transform/location
         //_player = FindAnyObjectByType<Player>().transform;
         if (multiplayer == true) {
@@ -37,9 +39,17 @@ public class PlayerAwarenessController : MonoBehaviour
             //_player = enemyPlayerOptionB.transform;
             //_player = GameObject.Find(enemyPlayerOptionB.name).transform;
         } else {
-            _player = GameObject.FindGameObjectsWithTag(singleplayerTag)[0].transform;
-            //_player = enemyPlayerOptionA.transform;
-            //_player = GameObject.Find(enemyPlayerOptionA.name).transform;
+            try
+            {
+                _player = GameObject.FindGameObjectsWithTag(singleplayerTag)[0].transform;
+                //_player = enemyPlayerOptionA.transform;
+                //_player = GameObject.Find(enemyPlayerOptionA.name).transform;
+            }
+            catch(Exception e)
+            {
+                Debug.Log("SinglePlayer");
+            }
+            
         }
 
     }
