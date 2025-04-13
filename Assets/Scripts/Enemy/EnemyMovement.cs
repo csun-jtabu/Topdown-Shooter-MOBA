@@ -47,6 +47,14 @@ public class EnemyMovement : MonoBehaviour
     // Variables for Enemy PathFinding
     public Node currentNode;
     public List<Node> path = new List<Node>();
+    private bool hasLineOfSight = false;
+    private string[] validTags = {
+    "MinionTeam1",
+    "MinionTeam2",
+    "SinglePlayer",
+    "MultiPlayerOne",
+    "MultiPlayerTwo"
+    };
     
 
     // Plays when the scene starts
@@ -106,25 +114,37 @@ public class EnemyMovement : MonoBehaviour
                 _objectToFollow = _minionAwarenessController.get__enemy_minion_transform();
             }
             
-            if(Vector2.Distance(_objectToFollow.position, transform.position) > _distanceToStop + 1f)
+            try
             {
-                SetVelocity();
-            }
-            // if the enemy is too close to the player
-            else if(Vector2.Distance(_objectToFollow.position, transform.position) < _distanceToStop - 1f)
-            {
-                BackUp();
-            }
-
-            // // if the enemy is within the range of the player 
-            if(Vector2.Distance(_objectToFollow.position, transform.position) < _distanceToStop + 2f)
-            {
-                // will randomly strafe left or right
-                if(UnityEngine.Random.value > 0.8f)
+                RaycastHit2D ray = Physics2D.Raycast(_objectToFollow.position, _objectToFollow.position - transform.position);
+                if(ray.collider != null)
                 {
-                    Strafe();
+                    hasLineOfSight = System.Array.Exists(validTags, tag => ray.collider.CompareTag(tag));
+                    if((Vector2.Distance(_objectToFollow.position, transform.position) > _distanceToStop + 1f) && hasLineOfSight == true)
+                    {
+                        SetVelocity();
+                    }
+                    // if the enemy is too close to the player
+                    else if((Vector2.Distance(_objectToFollow.position, transform.position) < _distanceToStop - 1f) && hasLineOfSight == true)
+                    {
+                        BackUp();
+                    }
+
+                    // // if the enemy is within the range of the player 
+                    if((Vector2.Distance(_objectToFollow.position, transform.position) < _distanceToStop + 2f) && hasLineOfSight == true)
+                    {
+                        // will randomly strafe left or right
+                        if(UnityEngine.Random.value > 0.8f)
+                        {
+                            Strafe();
+                        }
+                    }
                 }
+                
             }
+            catch(Exception e)
+            {}
+            
         }
     }
 

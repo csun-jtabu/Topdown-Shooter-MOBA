@@ -89,7 +89,7 @@ MonoBehaviour:
   SpawnPoint: {fileID: 0}
   isPlayer1: 1
   dashTrailPrefab: {fileID: 7703341619706869496, guid: a2b9b6b9db5862f49b4f0719d87c90b7, type: 3}
-  graphics: {fileID: 0}
+  graphics: {fileID: 3082201396299388240}
   _speed: 5
   _walkSpeed: 10
   _runSpeed: 20

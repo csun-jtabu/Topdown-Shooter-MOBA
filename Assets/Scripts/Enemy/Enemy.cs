@@ -48,8 +48,16 @@ public class Enemy : Entity
             _player = GameObject.FindGameObjectsWithTag(multiplayerTag)[0].transform;
             //_player = _playerAwarenessController.getEnemyPlayerOptionB().transform;
         } else {
-            _player = GameObject.FindGameObjectsWithTag(singleplayerTag)[0].transform;
-            //_player = _playerAwarenessController.getEnemyPlayerOptionA().transform;
+            try
+            {
+                _player = GameObject.FindGameObjectsWithTag(singleplayerTag)[0].transform;
+                //_player = _playerAwarenessController.getEnemyPlayerOptionA().transform;
+            }
+            catch(Exception e)
+            {
+
+            }
+            
         }
 
         colider2DEnemy = GetComponent<Collider2D>();
@@ -85,11 +93,17 @@ public class Enemy : Entity
             }
         }
         
-        
-        if(Vector2.Distance(_objectToFollow.position, transform.position) <= _distanceToShoot)
+        try
         {
-            Fire();
+            if(Vector2.Distance(_objectToFollow.position, transform.position) <= _distanceToShoot)
+            {
+                Fire();
+            }
         }
+        catch(Exception e)
+        {
+            }
+        
         
         
     }

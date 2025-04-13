@@ -36,6 +36,11 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null)
+        {
+        player = FindFirstObjectByType<Player>();
+            if (player == null) return; // Still not spawned
+        }
         updateHealth();
         updateShield();
         updateStamina();
