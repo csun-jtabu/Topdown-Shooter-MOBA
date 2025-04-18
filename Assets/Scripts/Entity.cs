@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour
     protected float AttackSpeed = 1f;
     protected bool CanFire = true;
     public GameObject BulletPrefab;
+    public AudioClip BulletSound;
 
 
     public virtual void Damage(int damage, int team)
@@ -34,6 +35,7 @@ public class Entity : MonoBehaviour
     {
         if (CanFire)
         {
+            AudioSource.PlayClipAtPoint(BulletSound, transform.position, 1f);
             // fires bullet forward in direction parent is facing
             Vector3 firePoint = transform.position + transform.up * 0.75f;
             GameObject bulletObject = Instantiate(BulletPrefab, firePoint, transform.rotation);

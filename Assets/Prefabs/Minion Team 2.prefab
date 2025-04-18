@@ -204,6 +204,7 @@ MonoBehaviour:
   Team: 2
   Dmg: 1
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
+  BulletSound: {fileID: 8300000, guid: 592a1f43b8420d64e8b720e9275dff64, type: 3}
   spawnOnObject1: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
   spawnOnObject2: {fileID: 6505595852273412182, guid: b43d04dd2fffa2a479dfc17490cd8b78, type: 3}
   multiplayer: 1
