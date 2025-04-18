@@ -146,6 +146,7 @@ public class Player : Entity
     {
         this.Shield = MaxShield;
         StartCoroutine(SetSpawnPoint());
+        StartCoroutine(ShieldRegen());
     }
 
     IEnumerator SetSpawnPoint()
