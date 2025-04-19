@@ -17,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D _rigidbody; // this stores the reference to the body of the enemy
     private PlayerAwarenessController _playerAwarenessController; // this controls the behavior/logic of the Enemy
     private MinionAwarenessController _minionAwarenessController; // this controls the behavior/logic of the Enemy
+    private TowerAwarenessController _towerAwarenessController; // this controls the behavior/logic of the Enemy
     private Vector2 _targetDirection; // this is where we want the enemy to go to
     
     //////////////////////////////////////////////////////////////////////////
@@ -63,6 +64,7 @@ public class EnemyMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>(); // reference to enemy rigidbody
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();  // references the PlayerAwareness Script
         _minionAwarenessController = GetComponent<MinionAwarenessController>();  // references the MinionAwareness Script
+        _towerAwarenessController = GetComponent<TowerAwarenessController>();  // references the MinionAwareness Script
 
         bool multiplayer = _playerAwarenessController.getMultiplayerBoolean();
         print($"Multiplayer Setting: {multiplayer}");
@@ -89,9 +91,10 @@ public class EnemyMovement : MonoBehaviour
 
         bool playerAwarenessControllerCheck = _playerAwarenessController.AwareOfPlayer;
         bool minionAwarenessControllerCheck = _minionAwarenessController.AwareOfEnemyMinion;
+        bool towerAwarenessControllerCheck = _towerAwarenessController.AwareOfEnemyTower;
 
         // if the enemy is far from the player
-        if(playerAwarenessControllerCheck == false && minionAwarenessControllerCheck == false)
+        if((playerAwarenessControllerCheck == false) && (minionAwarenessControllerCheck == false) && (towerAwarenessControllerCheck == false))
         {
             try {
                 CreatePath();
@@ -102,16 +105,31 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             bool overrideMinionAwarenessController = false;
+            bool overrideTowerAwarenessController = true;
 
             if (playerAwarenessControllerCheck == true) {
                 _objectToFollow = _player;
                 overrideMinionAwarenessController = true;
             } else {
                 overrideMinionAwarenessController = false;
+
+                if (minionAwarenessControllerCheck == true) {
+                    overrideTowerAwarenessController = true;
+
+                } else {
+                    overrideTowerAwarenessController = false;
+
+                }
             }
 
             if (overrideMinionAwarenessController == false && minionAwarenessControllerCheck == true) {
                 _objectToFollow = _minionAwarenessController.get__enemy_minion_transform();
+            }
+
+            if (overrideTowerAwarenessController == false) {
+                if (towerAwarenessControllerCheck == true) {
+                    _objectToFollow = _towerAwarenessController.get__enemy_tower_transform();
+                }
             }
             
             try
@@ -142,7 +160,7 @@ public class EnemyMovement : MonoBehaviour
                 }
                 
             }
-            catch(Exception e)
+            catch(Exception)
             {}
             
         }
@@ -152,15 +170,18 @@ public class EnemyMovement : MonoBehaviour
     private void UpdateTargetDirection()
     {
         bool overrideMinionAwarenessController = false;
+        bool overrideTowerAwarenessController = false;
         
         // if the enemy is aware of the player then it will move towards player
         if(_playerAwarenessController.AwareOfPlayer == true) {
             _targetDirection = _playerAwarenessController.DirectionToPlayer;
             overrideMinionAwarenessController = true;
+            overrideTowerAwarenessController = true;
 
         } else { // if not, then it will idle
             _targetDirection = Vector2.zero;
             overrideMinionAwarenessController = false;
+            overrideTowerAwarenessController = false;
         }
 
         // override minion awareness controller if the player is close enough.
@@ -170,7 +191,14 @@ public class EnemyMovement : MonoBehaviour
                 _targetDirection = _minionAwarenessController.DirectionToEnemyMinion;
 
             } else { // if not, then it will idle
-                _targetDirection = Vector2.zero;
+                if (overrideTowerAwarenessController == false) {
+                    if (_towerAwarenessController.AwareOfEnemyTower == true) {
+                        _targetDirection = _towerAwarenessController.DirectionToEnemyTower;
+
+                    } else {
+                        _targetDirection = Vector2.zero;
+                    }
+                }
             }
         }
     }

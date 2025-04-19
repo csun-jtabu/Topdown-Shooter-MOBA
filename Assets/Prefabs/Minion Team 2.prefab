@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 4067350703942924427}
   - component: {fileID: 8234082148984152232}
   - component: {fileID: 172247658375905387}
+  - component: {fileID: -7840352877056804016}
   m_Layer: 0
   m_Name: Minion Team 2
   m_TagString: MinionTeam2
@@ -260,3 +261,18 @@ MonoBehaviour:
   _minionAwarenessDistance: 5
   enemyMinion: {fileID: 6442264210581310859, guid: fe515d04be40d174b818bbeff796efa3, type: 3}
   enemyMinionTag: MinionTeam1
+--- !u!114 &-7840352877056804016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756731987740270505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0816ed655c720c248bc9a76c5b7a13de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _towerAwarenessDistance: 4
+  enemyTower: {fileID: 0}
+  enemyTowerTag: TowerTeam1

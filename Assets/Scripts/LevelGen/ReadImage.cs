@@ -269,30 +269,43 @@ public class ReadImage : MonoBehaviour
 
             } else if(c.Equals(new Color(1.0f, 1.0f, 0.0f))) {
             
-                // we spawn a enemy intermediary tower at the specified position and with no rotation
-                Instantiate(enemyIntermediaryTowerObject, position, Quaternion.identity);
+                // we spawn a ground tile and then a enemy intermediary tower on top of it at the specified position and with no rotation
+                Instantiate(groundObject, position, Quaternion.identity);
+                Vector3 position2 = position;
+                position2.z -= 0.1f;
+                Instantiate(enemyIntermediaryTowerObject, position2, Quaternion.identity);
 
             } else if(c.Equals(new Color(0.0f, 0.5019608f, 0.5019608f))) {
             
-                // we spawn a friendly intermediary tower at the specified position and with no rotation
-                Instantiate(friendlyIntermediaryTowerObject, position, Quaternion.identity);
+                // we spawn a ground tile and then a friendly intermediary tower on top of it at the specified position and with no rotation
+                Instantiate(groundObject, position, Quaternion.identity);
+                Vector3 position2 = position;
+                position2.z -= 0.1f;
+                Instantiate(friendlyIntermediaryTowerObject, position2, Quaternion.identity);
 
             } else if(c.r.ToString() == "1" && c.g.ToString("0.#######") == "0.6470588" && c.b.ToString() == "0") {
                 
-                // we spawn the enemy main tower at the specified position and with no rotation
-                Instantiate(enemyMainTowerObject, position, Quaternion.identity);
+                // we spawn a ground tile and then a enemy main tower on top of it at the specified position and with no rotation
+                Instantiate(groundObject, position, Quaternion.identity);
+                Vector3 position2 = position;
+                position2.z -= 0.1f;
+                Instantiate(enemyMainTowerObject, position2, Quaternion.identity);
 
             }
             else if(c.r.ToString("0.#######") == "0.7529413" && c.g.ToString("0.#######") == "0.7529413" && c.b.ToString("0.#######") == "0.7529413") {
 
                 // we spawn a center object at the specified position and with no rotation
+                Instantiate(groundObject, position, Quaternion.identity);
                 Instantiate(centerObject, position, Quaternion.identity);
 
             }
             else if(c.r.ToString() == "0" && c.g.ToString() == "0" && c.b.ToString("0.#######") == "0.9137256") {
             
-                // we spawn the friendly main tower at the specified position and with no rotation
-                Instantiate(friendlyMainTowerObject, position, Quaternion.identity);
+                // we spawn a ground tile and then a friendly main tower on top of it at the specified position and with no rotation
+                Instantiate(groundObject, position, Quaternion.identity);
+                Vector3 position2 = position;
+                position2.z -= 0.1f;
+                Instantiate(friendlyMainTowerObject, position2, Quaternion.identity);
 
             }
             else {

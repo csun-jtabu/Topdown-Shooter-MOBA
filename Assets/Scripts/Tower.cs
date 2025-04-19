@@ -184,13 +184,13 @@ public class Tower : Entity
             this.Hp -= dmg;
             if (this.Hp <= 0)
             {
-                if (mainTower == false)
-                    EnemyMainTower.SpawnIncrement();
-                //else
-                //{
-                //    //game over, victory for opposing team
-                //}
-                Destroy(this);
+                //if (mainTower == false)
+                //    EnemyMainTower.SpawnIncrement();
+                ////else
+                ////{
+                ////    //game over, victory for opposing team
+                ////}
+                Destroy(this.gameObject);
             }
         }
     }
