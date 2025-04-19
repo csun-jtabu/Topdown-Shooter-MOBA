@@ -28,6 +28,7 @@ public class Enemy : Entity
 
     private PlayerAwarenessController _playerAwarenessController;
     private MinionAwarenessController _minionAwarenessController;
+    private TowerAwarenessController _towerAwarenessController;
 
 
     void Start()
@@ -41,6 +42,7 @@ public class Enemy : Entity
         
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();
         _minionAwarenessController = GetComponent<MinionAwarenessController>();
+        _towerAwarenessController = GetComponent<TowerAwarenessController>();
 
         // this finds the player's transform/location
         //_player = FindAnyObjectByType<Player>().transform;
@@ -48,13 +50,10 @@ public class Enemy : Entity
             _player = GameObject.FindGameObjectsWithTag(multiplayerTag)[0].transform;
             //_player = _playerAwarenessController.getEnemyPlayerOptionB().transform;
         } else {
-            try
-            {
+            try {
                 _player = GameObject.FindGameObjectsWithTag(singleplayerTag)[0].transform;
                 //_player = _playerAwarenessController.getEnemyPlayerOptionA().transform;
-            }
-            catch(Exception e)
-            {
+            } catch(Exception) {
 
             }
             
@@ -76,15 +75,27 @@ public class Enemy : Entity
     {        
         bool playerAwarenessControllerCheck = _playerAwarenessController.AwareOfPlayer;
         bool minionAwarenessControllerCheck = _minionAwarenessController.AwareOfEnemyMinion;
+        bool towerAwarenessControllerCheck = _towerAwarenessController.AwareOfEnemyTower;
         _objectToFollow = _player;
 
 
         bool overrideMinionAwarenessController = false;
+        bool overrideTowerAwarenessController = false;
 
         if (playerAwarenessControllerCheck == true) {
             overrideMinionAwarenessController = true;
+            overrideTowerAwarenessController = true;
+
         } else {
             overrideMinionAwarenessController = false;
+
+            if (minionAwarenessControllerCheck == true) {
+                overrideTowerAwarenessController = true;
+
+            } else {
+                overrideTowerAwarenessController = false;
+
+            }
         }
 
         if (overrideMinionAwarenessController == false) {
@@ -92,21 +103,21 @@ public class Enemy : Entity
                 _objectToFollow = _minionAwarenessController.get__enemy_minion_transform();
             }
         }
-        
-        try
-        {
-            if(Vector2.Distance(_objectToFollow.position, transform.position) <= _distanceToShoot)
-            {
-                Fire();
+
+        if (overrideTowerAwarenessController == false) {
+            if (towerAwarenessControllerCheck == true) {
+                _objectToFollow = _towerAwarenessController.get__enemy_tower_transform();
             }
         }
-        catch(Exception e)
-        {
+        
+        try {
+            if(Vector2.Distance(_objectToFollow.position, transform.position) <= _distanceToShoot) {
+                Fire();
             }
-        
-        
+        } catch(Exception) {
+
+        }
         
     }
-
 
 }
