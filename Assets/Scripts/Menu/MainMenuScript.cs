@@ -7,6 +7,8 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] public static bool isMultiplayer = false;
     [SerializeField] public bool inputMultiplayerOption = false;
 
+    [SerializeField] public GameObject eventSystemObject;
+
     public static bool getIsMultiplayer() {
         return isMultiplayer;
     }
@@ -19,6 +21,7 @@ public class MainMenuScript : MonoBehaviour
     public void PlayGame()
     {
         setIsMultiplayer(inputMultiplayerOption);
+        Destroy(eventSystemObject);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
     }

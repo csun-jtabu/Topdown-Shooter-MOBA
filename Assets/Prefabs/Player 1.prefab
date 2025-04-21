@@ -221,6 +221,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: CanFire
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: _canDash
       value: 1
       objectReference: {fileID: 0}
@@ -236,6 +240,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 2613350191825786022, guid: 56ad88a0e7363f64b87e80afb341f4b2, type: 3}
     - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: _isDodging
       value: 0

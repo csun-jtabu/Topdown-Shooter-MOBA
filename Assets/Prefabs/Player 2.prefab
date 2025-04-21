@@ -189,6 +189,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7108447545330142567, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108447545330142567, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: SpawnPoint
+      value: 
+      objectReference: {fileID: 2613350191825786022, guid: 990965d1417d1f04a8566ac15ee511aa, type: 3}
+    - target: {fileID: 7108447545330142567, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
       propertyPath: secondController
       value: 1
       objectReference: {fileID: 0}

@@ -80,6 +80,7 @@ MonoBehaviour:
   Speed: 10
   Team: 1
   Dmg: 2
+  CanFire: 1
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
   BulletSound: {fileID: 8300000, guid: 12e296da973a0f243bba3107836f9599, type: 3}
   MaxShield: 10
@@ -87,7 +88,7 @@ MonoBehaviour:
   RespawnTimer: 3
   ShieldRegenDelay: 5
   secondController: 0
-  SpawnPoint: {fileID: 0}
+  SpawnPoint: {fileID: 2613350191825786022, guid: 56ad88a0e7363f64b87e80afb341f4b2, type: 3}
   isPlayer1: 1
   dashTrailPrefab: {fileID: 7703341619706869496, guid: a2b9b6b9db5862f49b4f0719d87c90b7, type: 3}
   graphics: {fileID: 3082201396299388240}

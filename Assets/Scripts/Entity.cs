@@ -9,7 +9,8 @@ public class Entity : MonoBehaviour
     public int Team = 1;
     public int Dmg = 1;
     protected float AttackSpeed = 1f;
-    protected bool CanFire = true;
+    //protected bool CanFire = true;
+    public bool CanFire = true;
     public GameObject BulletPrefab;
     public AudioClip BulletSound;
 
@@ -25,16 +26,14 @@ public class Entity : MonoBehaviour
     }
 
 
-    IEnumerator WeaponCooldown()
+    protected IEnumerator WeaponCooldown()
     {
         yield return new WaitForSeconds(AttackSpeed);
         CanFire = true;
     }
 
-    public void Fire()
-    {
-        if (CanFire)
-        {
+    public void Fire() {
+        if (CanFire) {
             AudioSource.PlayClipAtPoint(BulletSound, transform.position, 1f);
             // fires bullet forward in direction parent is facing
             Vector3 firePoint = transform.position + transform.up * 0.75f;

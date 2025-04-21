@@ -61,12 +61,19 @@ public class Player : Entity
     private List<InputDevice> assignedDevices = new List<InputDevice>();
 
 
+
     // This is the method called when the scene first starts
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>(); // we store ridigbody to variable to allow for us to manipulate the component
 
         playerInput = GetComponent<PlayerInput>();
+        if (playerInput == null) {
+            Debug.LogError("PlayerInput component not found!");
+        }
+
+        playerInput.ActivateInput();
+
         AssignDevices();
     }
 
@@ -79,6 +86,7 @@ public class Player : Entity
         {
             // Player 1 always has keyboard
             assignedDevices.Add(Keyboard.current);
+            assignedDevices.Add(Mouse.current);
 
             if (gamepads.Count >= 2)
             {
@@ -101,33 +109,33 @@ public class Player : Entity
     }
 
 
-    public override void Damage(int damage, int team)
-    {
-        if (team != this.Team)
-        {
-            if (Shield == 0)
-            {
+    public override void Damage(int damage, int team) {
+        if (team != this.Team) {
+            if (Shield == 0) {
                 this.Hp -= damage;
-                if (this.Hp <= 0)
-                {
+                if (this.Hp <= 0) {
                     gameObject.SetActive(false);
                     StartCoroutine(Respawn());
                 }
-            }
-            else if (Shield >= damage)
+
+            } else if (Shield >= damage) {
                 Shield -= damage;
-            else
-            {
+
+            } else {
                 damage -= Shield;
                 Shield = 0;
                 this.Damage(damage, team);
+
             }
-            if (this.Hp <= 0)
-                Destroy(this.gameObject);
-            else
-            {
+
+            if (this.Hp <= 0) {
+                //Destroy(this.gameObject);
+                gameObject.SetActive(false);
+
+            } else {
                 ShieldDelayed = true;
                 StartCoroutine(DelayShieldRegen());
+
             }
         }
     }
@@ -358,7 +366,9 @@ public class Player : Entity
 
     private void OnAttack(InputValue inputValue)
     {
-        Fire();
+        if (inputValue.isPressed) {
+            Fire();
+        }
     }
 
     // This is the method called when the dodge button (c) is pressed
