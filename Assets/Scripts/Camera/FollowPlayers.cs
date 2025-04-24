@@ -11,24 +11,33 @@ public class FollowPlayers : MonoBehaviour
     //public Transform targetMultiplayer2; // this is also what we'll be tracking
 
     [SerializeField] public bool multiplayer; // boolean stating whether it is singleplayer or multiplayer.
-    [SerializeField] public int minimumZoom = 20;
+    [SerializeField] public int minimumMultiplayerZoom = 20;
+    [SerializeField] public int minimumSingleplayerZoom = 5;
 
     private int extra_zoom_for_view = 1; // extra buffer to show camera view.
+    
+    
+    public GameObject player1;
+    public GameObject player2;
     
 
     public Camera m_OrthographicCamera;
 
 
     // Source: https://discussions.unity.com/t/2d-camera-to-follow-two-players/100593/3
-    void SetCameraSize() {
-        // multiplying by 0.5, because the ortographicSize is actually half the height
-        float ortographicSizeWidth = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.x - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.x) * 0.5f + extra_zoom_for_view;
-        float ortographicSizeHeight = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.y - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.y) * 0.5f + extra_zoom_for_view;
+    void SetCameraSize(bool playingMultiplayer) {
 
-        // computing the size
-        m_OrthographicCamera.orthographicSize = Mathf.Max(ortographicSizeHeight, ortographicSizeWidth, minimumZoom);
+        if (playingMultiplayer) {
+            // multiplying by 0.5, because the ortographicSize is actually half the height
+            float ortographicSizeWidth = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.x - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.x) * 0.5f + extra_zoom_for_view;
+            float ortographicSizeHeight = Mathf.Abs(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.y - GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.y) * 0.5f + extra_zoom_for_view;
+
+            // computing the size
+            m_OrthographicCamera.orthographicSize = Mathf.Max(ortographicSizeHeight, ortographicSizeWidth, minimumMultiplayerZoom);
+        } else {
+            m_OrthographicCamera.orthographicSize = minimumSingleplayerZoom;
+        }
     }
-
 
 
     // Update is called once per frame
@@ -37,20 +46,43 @@ public class FollowPlayers : MonoBehaviour
         multiplayer = MainMenuScript.getIsMultiplayer();
         
         if (multiplayer) {
-            // calculate the midpoint between the two players
-            //UnityEngine.Vector3 midPoint = (targetMultiplayer1.transform.position + targetMultiplayer2.transform.position) / 2f;
-            UnityEngine.Vector3 midPoint = (GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position + GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position) / 2f;
+            bool player1IsDead = GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].GetComponent<Player>().isDead;
+            bool player2IsDead = GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].GetComponent<Player>().isDead;
 
-            // basically gets the player's position
-            UnityEngine.Vector3 newPosition = new UnityEngine.Vector3(midPoint.x, midPoint.y, -10);
-            
-            // basically moves the camera to the player
-            transform.position = newPosition;
+            if (!player1IsDead && player2IsDead) {
+                // basically gets the player's position
+                UnityEngine.Vector3 newPosition = new UnityEngine.Vector3(GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.x, GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position.y, -10);
 
-            SetCameraSize();
+                // basically moves the camera to the player
+                transform.position = newPosition;
+                
+                SetCameraSize(false);
+            }
+
+            if (player1IsDead && !player2IsDead) {
+                // basically gets the player's position
+                UnityEngine.Vector3 newPosition = new UnityEngine.Vector3(GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.x, GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position.y, -10);
+
+                // basically moves the camera to the player
+                transform.position = newPosition;
+                
+                SetCameraSize(false);
+            }
+
+            if (!player1IsDead && !player2IsDead) {
+                // calculate the midpoint between the two players
+                UnityEngine.Vector3 midPoint = (GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].transform.position + GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].transform.position) / 2f;
+
+                // basically gets the player's position
+                UnityEngine.Vector3 newPosition = new UnityEngine.Vector3(midPoint.x, midPoint.y, -10);
+                
+                // basically moves the camera to the player
+                transform.position = newPosition;
+
+                SetCameraSize(true);
+            }
         } else {
             // basically gets the player's position
-            //UnityEngine.Vector3 newPosition = new UnityEngine.Vector3(singleTargetPlayer.position.x, singleTargetPlayer.position.y, -10);
             UnityEngine.Vector3 newPosition = new UnityEngine.Vector3(GameObject.FindGameObjectsWithTag("SinglePlayer")[0].transform.position.x, GameObject.FindGameObjectsWithTag("SinglePlayer")[0].transform.position.y, -10);
 
             // basically moves the camera to the player

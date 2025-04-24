@@ -14,12 +14,21 @@ public class Player : Entity
     private float Spread = 0f;
     [SerializeField]
     private float RespawnTimer = 3f;
+    private bool alreadySetOriginalSpawn = false;
     public float ShieldRegenDelay = 5f;
     private bool ShieldDelayed = false;
     public bool secondController = false;
-    public Transform SpawnPoint;
+
+    public GameObject spawnpointTower;
+    private UnityEngine.Vector3 SpawnPoint;
+    private UnityEngine.Vector3 singleplayerDeathSpawnPoint = new UnityEngine.Vector2(-46.5f, -42.5f);
+    private UnityEngine.Vector3 multiplayerOneDeathSpawnPoint = new UnityEngine.Vector2(-46.5f, -22.5f);
+    private UnityEngine.Vector3 multiplayerTwoDeathSpawnPoint = new UnityEngine.Vector2(-39.5f, -22.5f);
+    private bool alreadyWaitedToSetSpawnPoint = false;
+    public bool isDead = false;
 
     [SerializeField] public bool isPlayer1;
+    private bool multiplayer;
 
     public GameObject dashTrailPrefab;
     private Coroutine dashAnimationCoroutine;
@@ -74,6 +83,8 @@ public class Player : Entity
 
         playerInput.ActivateInput();
 
+        multiplayer = MainMenuScript.getIsMultiplayer();
+
         AssignDevices();
     }
 
@@ -114,7 +125,9 @@ public class Player : Entity
             if (Shield == 0) {
                 this.Hp -= damage;
                 if (this.Hp <= 0) {
-                    gameObject.SetActive(false);
+                    //gameObject.SetActive(false);
+                    //this.gameObject.SetActive(false);
+                    fakeDestroy();
                     StartCoroutine(Respawn());
                 }
 
@@ -130,7 +143,8 @@ public class Player : Entity
 
             if (this.Hp <= 0) {
                 //Destroy(this.gameObject);
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                //this.gameObject.SetActive(false);
 
             } else {
                 ShieldDelayed = true;
@@ -140,13 +154,36 @@ public class Player : Entity
         }
     }
 
+    private void fakeDestroy() {
+        if (this.Team == 1) {
+            if (multiplayer) {
+                this.gameObject.transform.position = multiplayerOneDeathSpawnPoint;
+            } else {
+                this.gameObject.transform.position = singleplayerDeathSpawnPoint;
+            }
+        }
+
+        if (this.Team == 2) {
+            this.gameObject.transform.position = multiplayerTwoDeathSpawnPoint;
+        }
+
+        isDead = true;
+    }
+
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(RespawnTimer);
         RespawnTimer += 2;
-        gameObject.transform.position = SpawnPoint.position;
-        gameObject.SetActive(true);
-
+        //gameObject.transform.position = SpawnPoint.position;
+        if ((Hp != MaxHp) && (Shield != MaxShield)) {
+            Hp = MaxHp;
+            Shield = MaxShield;
+            this.gameObject.transform.position = SpawnPoint;
+            isDead = false;
+            StartCoroutine(SetSpawnPoint());
+        }
+        //gameObject.SetActive(true);
+        //this.gameObject.SetActive(true);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -158,9 +195,38 @@ public class Player : Entity
     }
 
     IEnumerator SetSpawnPoint()
-    {
+    {   
         yield return new WaitForSeconds(2f);
-        SpawnPoint = gameObject.transform;
+
+        alreadySetOriginalSpawn = true;
+        
+        if (this.Team == 1) {
+            try {
+                SpawnPoint = GameObject.Find("Main Tower Team 1(Clone)").transform.position;
+                //SpawnPoint = GameObject.FindGameObjectsWithTag("TowerTeam1")[0].transform.position;
+            } catch (Exception) {
+                if (multiplayer) {
+                    isDead = true;
+                    SpawnPoint = multiplayerOneDeathSpawnPoint;
+                } else {
+                    isDead = true;
+                    SpawnPoint = singleplayerDeathSpawnPoint;
+                }
+            }
+        }
+
+        if (this.Team == 2) {
+            try {
+                SpawnPoint = GameObject.Find("Main Tower Team 2(Clone)").transform.position;
+                //SpawnPoint = GameObject.FindGameObjectsWithTag("TowerTeam2")[0].transform.position;
+            } catch (Exception) {
+                isDead = true;
+                SpawnPoint = multiplayerTwoDeathSpawnPoint;
+            }
+        }
+
+        alreadyWaitedToSetSpawnPoint = true;
+        //StartCoroutine(SetSpawnPoint());
     }
 
     IEnumerator ShieldRegen()
@@ -198,6 +264,8 @@ public class Player : Entity
                 sprintRefillCoroutine = StartCoroutine(RechargeSprint());
             }
         }
+
+        StartCoroutine(SetSpawnPoint());
     }
 
     // This is the method called at fixed time intervals when running

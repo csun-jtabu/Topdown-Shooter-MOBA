@@ -260,6 +260,10 @@ PrefabInstance:
       propertyPath: dashTrailPrefab
       value: 
       objectReference: {fileID: 7703341619706869496, guid: a2b9b6b9db5862f49b4f0719d87c90b7, type: 3}
+    - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: spawnpointTower
+      value: 
+      objectReference: {fileID: 737897493514442092, guid: 56ad88a0e7363f64b87e80afb341f4b2, type: 3}
     - target: {fileID: 7753485339820231519, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7873807

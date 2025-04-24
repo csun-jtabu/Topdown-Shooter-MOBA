@@ -1,5 +1,5 @@
-All Friendly Coordinates: (22,15) (30,30) (34,21) (35,3) (39,22) (42,17) (42,36) (43,1) (51,11) (53,17) 
-Friendly Tower Coordinates: (43,1)
+All Friendly Coordinates: (4,48) (5,5) (5,37) (8,30) (8,43) (16,44) (22,15) (22,35) (28,54) (30,30) 
+Friendly Tower Coordinates: (5,5)
 
-All Enemy Coordinates: (1,43) (3,35) (11,51) (15,22) (17,42) (17,53) (21,34) (22,39) (30,30) (36,42) 
-Enemy Tower Coordinates: (1,43)
+All Enemy Coordinates: (30,30) (32,54) (38,15) (38,35) (44,44) (52,30) (52,43) (55,5) (55,37) (56,48) 
+Enemy Tower Coordinates: (55,5)
