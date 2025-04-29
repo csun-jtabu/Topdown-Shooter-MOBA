@@ -284,7 +284,7 @@ public class Player : Entity
             RotateInDirectionOfInput();
         }
 
-        if (Team == 1 && !secondController)
+        if (Team == 1)
         {
             // convert mouse position into world coordinates
             UnityEngine.Vector2 mouseScreenPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -294,6 +294,18 @@ public class Player : Entity
 
             // set vector of transform directly
             transform.up = direction;
+        }
+        else
+        {
+            Gamepad gamepad = assignedDevices[0] as Gamepad;
+            if (gamepad != null)
+            {
+                UnityEngine.Vector2 joystickDirection = gamepad.rightStick.ReadValue(); // Get joystick input
+                if (joystickDirection != UnityEngine.Vector2.zero)
+                {
+                    transform.up = joystickDirection;  // Rotate the player based on controller input
+                }
+            }
         }
 
     }
