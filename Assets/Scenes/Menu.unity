@@ -467,7 +467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 24979057395649875, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
       propertyPath: inputMultiplayerOption
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1407246736543029261, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
