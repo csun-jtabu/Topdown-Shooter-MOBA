@@ -17,6 +17,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using UnityEditor;
+using UnityEngine.Tilemaps;
 
 public class ReadImage : MonoBehaviour
 {
@@ -34,6 +35,12 @@ public class ReadImage : MonoBehaviour
     // this field will store the tile prefab for the ground/floor
     [SerializeField]
     private GameObject groundObject;
+    [SerializeField]
+    private GameObject groundObject2;
+    [SerializeField]
+    private GameObject groundObject3;
+    [SerializeField]
+    private GameObject groundObject4;
 
     [SerializeField]
     private GameObject friendlyMainTowerObject;
@@ -50,6 +57,8 @@ public class ReadImage : MonoBehaviour
     [SerializeField]
     private GameObject outsideColliderObject;
 
+    public Tilemap wallTilemap;         // Drag the Tilemap object here
+    public RuleTile wallRuleTile;       // Drag your RuleTile asset here
 
     private float friendly_xCoordinate;
     private float friendly_yCoordinate;
@@ -258,14 +267,36 @@ public class ReadImage : MonoBehaviour
             // now spawn the objects at each corresponding spaan position
             if(c.Equals(Color.white)) {
 
-                // we spawn a ground tile at the specified position and with no rotation
-                Instantiate(groundObject, position, Quaternion.identity);
+                int randomNumber = UnityEngine.Random.Range(0, 4);
+                if(randomNumber == 0)
+                {
+                    // we spawn a ground tile at the specified position and with no rotation
+                    Instantiate(groundObject, position, Quaternion.identity);
+                }
+                else if(randomNumber == 1)
+                {
+                    // we spawn a ground tile at the specified position and with no rotation
+                    Instantiate(groundObject2, position, Quaternion.identity);
+                }
+                else if(randomNumber == 2)
+                {
+                    // we spawn a ground tile at the specified position and with no rotation
+                    Instantiate(groundObject3, position, Quaternion.identity);
+                }
+                else
+                {
+                    // we spawn a ground tile at the specified position and with no rotation
+                    Instantiate(groundObject4, position, Quaternion.identity);
+                }
+                
 
             }
             else if(c.Equals(Color.black)) {
 
-                // we spawn a wall tile at the specified position and with no rotation
-                Instantiate(wallObject, position, Quaternion.identity);
+                // // we spawn a wall tile at the specified position and with no rotation
+                // Instantiate(wallObject, position, Quaternion.identity);
+                Vector3Int tilePosition = wallTilemap.WorldToCell(position);
+                wallTilemap.SetTile(tilePosition, wallRuleTile);
 
             } else if(c.Equals(new Color(1.0f, 1.0f, 0.0f))) {
             
