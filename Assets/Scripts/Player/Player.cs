@@ -259,7 +259,6 @@ public class Player : Entity
             {
                 Debug.Log("2nd Controller not Found");
             }
-            
         }
 
     }
