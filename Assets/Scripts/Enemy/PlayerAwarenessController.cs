@@ -45,7 +45,7 @@ public class PlayerAwarenessController : MonoBehaviour
                 //_player = enemyPlayerOptionA.transform;
                 //_player = GameObject.Find(enemyPlayerOptionA.name).transform;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 Debug.Log("SinglePlayer");
             }

@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 using System;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using UnityEditor.PackageManager;
+using UnityEditor.UI;
+using TMPro;
 
 public class Player : Entity
 {
@@ -53,6 +56,7 @@ public class Player : Entity
 
     [SerializeField] private float _rotationSpeed;
     private Rigidbody2D _rigidBody;  // this 
+    private Animator _animator;
     private UnityEngine.Vector2 _movementInput; // this is where input is stored
     private UnityEngine.Vector2 _smoothedMovementInput;  // this is used to smooth the movement of the player
     private UnityEngine.Vector2 _movementInputSmoothVelocity; // this keeps track of the velocity of movement
@@ -60,12 +64,14 @@ public class Player : Entity
     private PlayerInput playerInput;
     private List<InputDevice> assignedDevices = new List<InputDevice>();
 
+    // private bool isWalking = false;
+
 
     // This is the method called when the scene first starts
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>(); // we store ridigbody to variable to allow for us to manipulate the component
-
+        _animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
         AssignDevices();
     }
@@ -191,8 +197,8 @@ public class Player : Entity
         }
     }
 
-    // This is the method called at fixed time intervals when running
-    private void FixedUpdate()
+  // This is the method called at fixed time intervals when running
+  private void FixedUpdate()
     {
         if (_isDodging)
         {
@@ -204,10 +210,21 @@ public class Player : Entity
         else
         {
             SetPlayerVelocity();
+            // Check if the player is moving. if so, it will play the walking animation
+            if (_rigidBody.linearVelocity.sqrMagnitude > 0.01f)
+            {
+                // Trigger walking animation if moving
+                _animator.SetBool("isWalking", true); 
+            }
+            else
+            {
+                // If the player is not moving, set them to idle
+                _animator.SetBool("isWalking", false); 
+            }
             RotateInDirectionOfInput();
         }
 
-        if (Team == 1 && !secondController)
+        if (Team == 1)
         {
             // convert mouse position into world coordinates
             UnityEngine.Vector2 mouseScreenPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -217,6 +234,31 @@ public class Player : Entity
 
             // set vector of transform directly
             transform.up = direction;
+        }
+        else
+        {
+            try
+            {
+                Gamepad gamepad = null;
+            
+                if(assignedDevices.Count > 0)
+                {
+                    gamepad = assignedDevices[0] as Gamepad;
+                }
+        
+                if (gamepad != null)
+                {
+                    UnityEngine.Vector2 joystickDirection = gamepad.rightStick.ReadValue(); // Get joystick input
+                    if (joystickDirection.magnitude > 0.2f)
+                    {
+                        transform.up = joystickDirection.normalized;  // Rotate the player based on controller input
+                    }
+                }
+            }
+            catch
+            {
+                Debug.Log("2nd Controller not Found");
+            }
         }
 
     }
@@ -278,10 +320,12 @@ public class Player : Entity
         UnityEngine.Vector2 dodgeDirection = transform.up;
         _rigidBody.linearVelocity = dodgeDirection * _dodgeSpeed;
         graphics.transform.Rotate(0, 0, 15);
+        
+
 
         if (Time.time - _dodgeTime >= _dodgeDuration)
         {
-            graphics.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 90);
+            graphics.transform.localRotation = UnityEngine.Quaternion.Euler(0, 0, 180);
             _isDodging = false;
             _canDodge = false;
             _canDash = true;
@@ -329,7 +373,7 @@ public class Player : Entity
     private void OnSprint(InputValue inputValue)
     {
         float SprintingInput = inputValue.Get<float>();
-        //Debug.Log(SprintingInput);
+        // Debug.Log(SprintingInput);
         if (SprintingInput == 1 && _canSprint)
         {
             isSprinting = true;

@@ -9,6 +9,9 @@ TagManager:
   - MultiPlayerTwo
   - MinionTeam1
   - MinionTeam2
+  - TowerTeam1
+  - TowerTeam2
+  - Walls
   layers:
   - Default
   - TransparentFX

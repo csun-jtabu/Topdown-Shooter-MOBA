@@ -17,16 +17,32 @@ PrefabInstance:
       value: MultiPlayerTwo
       objectReference: {fileID: 0}
     - target: {fileID: 734736726938857117, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4967099679449820667, guid: c2da3e6749cbe1646b538c0da25d6cd1, type: 3}
+    - target: {fileID: 734736726938857117, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 734736726938857117, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
       propertyPath: m_Color.g
-      value: 0.10711925
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 734736726938857117, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381618038504379445, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381618038504379445, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6381618038504379445, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6520249975900966154, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
       propertyPath: m_Actions
@@ -180,6 +196,10 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[15].m_ActionName
       value: UI/TrackedDeviceOrientation
       objectReference: {fileID: 0}
+    - target: {fileID: 6669715836448264378, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7acd5ad0839b4c245a1035fbd4ba238b, type: 2}
     - target: {fileID: 7108447545330142567, guid: 1455015bc75366e4dbbf417fe2807cd9, type: 3}
       propertyPath: Team
       value: 2

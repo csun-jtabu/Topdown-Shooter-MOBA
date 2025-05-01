@@ -17,6 +17,7 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D _rigidbody; // this stores the reference to the body of the enemy
     private PlayerAwarenessController _playerAwarenessController; // this controls the behavior/logic of the Enemy
     private MinionAwarenessController _minionAwarenessController; // this controls the behavior/logic of the Enemy
+    private TowerAwarenessController _towerAwarenessController; // this controls the behavior/logic of the Enemy
     private Vector2 _targetDirection; // this is where we want the enemy to go to
     
     //////////////////////////////////////////////////////////////////////////
@@ -49,20 +50,27 @@ public class EnemyMovement : MonoBehaviour
     public List<Node> path = new List<Node>();
     private bool hasLineOfSight = false;
     private string[] validTags = {
-    "MinionTeam1",
-    "MinionTeam2",
-    "SinglePlayer",
-    "MultiPlayerOne",
-    "MultiPlayerTwo"
+    "Player", "TowerTeam1", "TowerTeam2", "MinionTeam1", 
+    "MinionTeam2", "SinglePlayer", "MultiPlayerOne", "MultiPlayerTwo"
     };
-    
+    private int mask;
+
+    private Animator _animator;
+    private Vector2 lastPosition;
 
     // Plays when the scene starts
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>(); // reference to enemy rigidbody
+        _animator = GetComponentInChildren<Animator>(); // this is to control the animations of the sprite
+        lastPosition = transform.position; // this is to get the last position of the sprite
         _playerAwarenessController = GetComponent<PlayerAwarenessController>();  // references the PlayerAwareness Script
         _minionAwarenessController = GetComponent<MinionAwarenessController>();  // references the MinionAwareness Script
+        _towerAwarenessController = GetComponent<TowerAwarenessController>();  // references the MinionAwareness Script
+        mask = LayerMask.GetMask("Walls", 
+        "Player", "TowerTeam1", "TowerTeam2", "MinionTeam1", 
+        "MinionTeam2", "SinglePlayer", 
+        "MultiPlayerOne", "MultiPlayerTwo"); // Adjust as needed
 
         bool multiplayer = _playerAwarenessController.getMultiplayerBoolean();
         print($"Multiplayer Setting: {multiplayer}");
@@ -76,11 +84,6 @@ public class EnemyMovement : MonoBehaviour
         currentNode = findClosestNode();
     }
 
-    // private void Update()
-    // {
-    //     CreatePath();   
-    // }
-
     // FixedUpdate is ran constantly
     void FixedUpdate()
     {
@@ -89,9 +92,10 @@ public class EnemyMovement : MonoBehaviour
 
         bool playerAwarenessControllerCheck = _playerAwarenessController.AwareOfPlayer;
         bool minionAwarenessControllerCheck = _minionAwarenessController.AwareOfEnemyMinion;
+        bool towerAwarenessControllerCheck = _towerAwarenessController.AwareOfEnemyTower;
 
         // if the enemy is far from the player
-        if(playerAwarenessControllerCheck == false && minionAwarenessControllerCheck == false)
+        if((playerAwarenessControllerCheck == false) && (minionAwarenessControllerCheck == false) && (towerAwarenessControllerCheck == false) && hasLineOfSight == false)
         {
             try {
                 CreatePath();
@@ -102,24 +106,51 @@ public class EnemyMovement : MonoBehaviour
         else
         {
             bool overrideMinionAwarenessController = false;
+            bool overrideTowerAwarenessController = true;
 
             if (playerAwarenessControllerCheck == true) {
                 _objectToFollow = _player;
                 overrideMinionAwarenessController = true;
             } else {
                 overrideMinionAwarenessController = false;
+
+                if (minionAwarenessControllerCheck == true) {
+                    overrideTowerAwarenessController = true;
+
+                } else {
+                    overrideTowerAwarenessController = false;
+
+                }
             }
 
             if (overrideMinionAwarenessController == false && minionAwarenessControllerCheck == true) {
                 _objectToFollow = _minionAwarenessController.get__enemy_minion_transform();
             }
-            
+
+            if (overrideTowerAwarenessController == false) {
+                if (towerAwarenessControllerCheck == true) {
+                    _objectToFollow = _towerAwarenessController.get__enemy_tower_transform();
+                }
+            } 
             try
             {
-                RaycastHit2D ray = Physics2D.Raycast(_objectToFollow.position, _objectToFollow.position - transform.position);
+                Vector2 direction = (_objectToFollow.position - transform.position).normalized;
+                float maxDistance = Vector2.Distance(_objectToFollow.position, transform.position);
+                RaycastHit2D ray = Physics2D.Raycast(transform.position, direction, maxDistance, mask);
+                Debug.DrawRay(transform.position, direction * maxDistance, Color.red);
+
                 if(ray.collider != null)
                 {
-                    hasLineOfSight = System.Array.Exists(validTags, tag => ray.collider.CompareTag(tag));
+                    
+                    // Check if the ray hits a valid tag, but also ensure it hits a non-wall object
+                    if (!ray.collider.CompareTag("Walls")) //&& System.Array.Exists(validTags, tag => ray.collider.CompareTag(tag))
+                    {
+                        hasLineOfSight = true;
+                    }
+                    else
+                    {
+                        hasLineOfSight = false;
+                    }
                     if((Vector2.Distance(_objectToFollow.position, transform.position) > _distanceToStop + 1f) && hasLineOfSight == true)
                     {
                         SetVelocity();
@@ -142,25 +173,42 @@ public class EnemyMovement : MonoBehaviour
                 }
                 
             }
-            catch(Exception e)
+            catch(Exception)
             {}
             
         }
+        Vector2 currentPosition = transform.position;
+
+        // Check if the enemy is moving. if so, it will play the walking animation
+        if (Vector2.Distance(currentPosition, lastPosition) > 0.01f)
+        {
+            // Trigger walking animation if moving
+            _animator.SetBool("isWalking", true); 
+        }
+        else
+        {
+            // If the player is not moving, set them to idle
+            _animator.SetBool("isWalking", false); 
+        }
+        lastPosition = currentPosition;
     }
 
     // this will update where the enemy will head towards
     private void UpdateTargetDirection()
     {
         bool overrideMinionAwarenessController = false;
+        bool overrideTowerAwarenessController = false;
         
         // if the enemy is aware of the player then it will move towards player
         if(_playerAwarenessController.AwareOfPlayer == true) {
             _targetDirection = _playerAwarenessController.DirectionToPlayer;
             overrideMinionAwarenessController = true;
+            overrideTowerAwarenessController = true;
 
         } else { // if not, then it will idle
             _targetDirection = Vector2.zero;
             overrideMinionAwarenessController = false;
+            overrideTowerAwarenessController = false;
         }
 
         // override minion awareness controller if the player is close enough.
@@ -170,7 +218,14 @@ public class EnemyMovement : MonoBehaviour
                 _targetDirection = _minionAwarenessController.DirectionToEnemyMinion;
 
             } else { // if not, then it will idle
-                _targetDirection = Vector2.zero;
+                if (overrideTowerAwarenessController == false) {
+                    if (_towerAwarenessController.AwareOfEnemyTower == true) {
+                        _targetDirection = _towerAwarenessController.DirectionToEnemyTower;
+
+                    } else {
+                        _targetDirection = Vector2.zero;
+                    }
+                }
             }
         }
     }
@@ -256,7 +311,17 @@ public class EnemyMovement : MonoBehaviour
             int x = 0;
             // we move the enemy from its current position to the next node being considered
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(path[x].transform.position.x, path[x].transform.position.y), 3*Time.deltaTime);
+            
+            // this is for the rotation of the minion in the direction of traversal
+            // Calculate direction to next node
+            Vector2 direction = (path[x].transform.position - transform.position).normalized;
 
+            // Calculate the angle to face that direction
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            // Snap rotation to face the movement direction
+            transform.rotation = Quaternion.Euler(0, 0, angle + 270f);
+            
             // if the node is within 0.1 away from the node, it means that it's at the node
             // so we remove it from the list of nodes to be traversed 
             if(Vector2.Distance(transform.position, path[x].transform.position) < 0.1f)
