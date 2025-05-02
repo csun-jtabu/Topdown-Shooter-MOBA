@@ -322,9 +322,9 @@ public class EnemyMovement : MonoBehaviour
             // Snap rotation to face the movement direction
             transform.rotation = Quaternion.Euler(0, 0, angle + 270f);
             
-            // if the node is within 0.1 away from the node, it means that it's at the node
+            // if the node is within 0.2 away from the node, it means that it's at the node
             // so we remove it from the list of nodes to be traversed 
-            if(Vector2.Distance(transform.position, path[x].transform.position) < 0.1f)
+            if(Vector2.Distance(transform.position, path[x].transform.position) < 0.2f)
             {
                 currentNode = path[x];
                 path.RemoveAt(x);
