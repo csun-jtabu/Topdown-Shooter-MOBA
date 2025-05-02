@@ -133,6 +133,15 @@ public class Player : Entity
                 if (this.Hp <= 0) {
                     //gameObject.SetActive(false);
                     //this.gameObject.SetActive(false);
+                    StatTrackerScript statTracker = GameObject.Find("StatTracker").GetComponent<StatTrackerScript>();
+                    if (this.Team == 1)
+                    {
+                        statTracker.incKills2();
+                    }
+                    else
+                    {
+                        statTracker.incKills1();
+                    }
                     fakeDestroy();
                     StartCoroutine(Respawn());
                 }
