@@ -124,5 +124,26 @@ public class Enemy : Entity
         }
         
     }
+    public override void Damage(int damage, int team)
+    {
+        if (team != this.Team)
+        {
+            this.Hp -= damage;
+            if (this.Hp <= 0)
+            {
+                StatTrackerScript statTracker = GameObject.Find("StatTracker").GetComponent<StatTrackerScript>();
+                if (this.Team == 1)
+                {
+                    statTracker.incMinions2();
+                }
+                else
+                {
+                    statTracker.incMinions1();
+                }
+                parentTower.ReplesnishSpawn();
+                Destroy(this.gameObject);
+            }
+        }
+    }
 
 }

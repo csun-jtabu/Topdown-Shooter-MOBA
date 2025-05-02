@@ -1,16 +1,30 @@
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOverMenuScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject victoryText;
+    public GameObject defeatText;
+
     void Start()
     {
-        
+        setWinText();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void setWinText()
     {
-        
+        StatTrackerScript statTracker = GameObject.Find("StatTracker").GetComponent<StatTrackerScript>();
+
+        victoryText.GetComponent<TextMeshProUGUI>().text = "Player " + statTracker.winner.ToString() + " wins";
+        defeatText.GetComponent<TextMeshProUGUI>().text = "Player " + statTracker.loser.ToString() + " loses";
+    }
+
+    public void Back()
+    {
+        SceneManager.LoadScene(0);
+
     }
 }

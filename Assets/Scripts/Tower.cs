@@ -191,15 +191,36 @@ public class Tower : Entity
             this.Hp -= dmg;
             if (this.Hp <= 0)
             {
+                StatTrackerScript statTracker = GameObject.Find("StatTracker").GetComponent<StatTrackerScript>();
+                if (this.Team == 1)
+                {
+                    statTracker.incTowers2();
+                }
+                else
+                {
+                    statTracker.incTowers1();
+                }
+
                 if (mainTower == false)
                 {
                     EnemyMainTower.SpawnIncrement();
                     CheckSuddenDeath();
                 }
-                ////else
-                ////{
-                ////    //game over, victory for opposing team
-                ////}
+                else
+                {
+                    //game over, victory for opposing team
+                    if (this.Team == 1)
+                    {
+                        statTracker.setWinner(2);
+                        statTracker.setLoser(1);
+                    }
+                    else
+                    {
+                        statTracker.setWinner(1);
+                        statTracker.setLoser(2);
+                    }
+                    statTracker.GameOver();
+                }
                 Destroy(this.gameObject);
             }
         }
