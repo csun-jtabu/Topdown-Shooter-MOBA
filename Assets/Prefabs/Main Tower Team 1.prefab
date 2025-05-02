@@ -107,7 +107,9 @@ MonoBehaviour:
   Speed: 0
   Team: 1
   Dmg: 3
+  CanFire: 0
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
+  BulletSound: {fileID: 8300000, guid: fc7808b477c49a946b42ea1f9362707d, type: 3}
   mainTower: 1
   numberOfMinions: 15
   MinionPrefab: {fileID: 6442264210581310859, guid: fe515d04be40d174b818bbeff796efa3, type: 3}

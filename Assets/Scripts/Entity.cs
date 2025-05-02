@@ -9,8 +9,11 @@ public class Entity : MonoBehaviour
     public int Team = 1;
     public int Dmg = 1;
     protected float AttackSpeed = 1f;
-    protected bool CanFire = true;
+    //protected bool CanFire = true;
+    public bool CanFire = true;
     public GameObject BulletPrefab;
+    public AudioClip BulletSound;
+    protected Tower parentTower;
 
 
     public virtual void Damage(int damage, int team)
@@ -19,21 +22,23 @@ public class Entity : MonoBehaviour
         {
             this.Hp -= damage;
             if (this.Hp <= 0)
+            {
+                parentTower.ReplesnishSpawn();
                 Destroy(this.gameObject);
+            }
         }
     }
 
 
-    IEnumerator WeaponCooldown()
+    protected IEnumerator WeaponCooldown()
     {
         yield return new WaitForSeconds(AttackSpeed);
         CanFire = true;
     }
 
-    public void Fire()
-    {
-        if (CanFire)
-        {
+    public void Fire() {
+        if (CanFire) {
+            AudioSource.PlayClipAtPoint(BulletSound, transform.position, 1f);
             // fires bullet forward in direction parent is facing
             Vector3 firePoint = transform.position + transform.up * 0.75f;
             GameObject bulletObject = Instantiate(BulletPrefab, firePoint, transform.rotation);
@@ -49,6 +54,10 @@ public class Entity : MonoBehaviour
     void Start()
     {
         Hp = MaxHp;
+         if (this.Team == 1)
+             parentTower = GameObject.Find("Main Tower Team 1(Clone)").GetComponent<Tower>();
+         else
+             parentTower = GameObject.Find("Main Tower Team 2(Clone)").GetComponent<Tower>();
     }
 
     // Update is called once per frame

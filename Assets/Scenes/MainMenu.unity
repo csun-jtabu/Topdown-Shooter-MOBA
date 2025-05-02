@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1213228998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +151,12 @@ MonoBehaviour:
   image: {fileID: 2800000, guid: cfa11188d64568d4f957b2a933727509, type: 3}
   wallObject: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
   groundObject: {fileID: 510046153008738794, guid: c4e5a1d17de5f794abd70a41b2b6faeb, type: 3}
-  EnemyMainTowerPrefab: {fileID: 0}
+  friendlyMainTowerObject: {fileID: 0}
+  enemyMainTowerObject: {fileID: 0}
+  friendlyIntermediaryTowerObject: {fileID: 0}
+  enemyIntermediaryTowerObject: {fileID: 0}
+  centerObject: {fileID: 0}
+  outsideColliderObject: {fileID: 0}
 --- !u!4 &1213228999
 Transform:
   m_ObjectHideFlags: 0
@@ -320,7 +325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1826638781
 Transform:
   m_ObjectHideFlags: 0

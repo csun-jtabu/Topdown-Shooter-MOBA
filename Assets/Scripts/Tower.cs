@@ -16,7 +16,7 @@ public class Tower : Entity
 
     //private float SpawnTimer = 15f;
     private float SpawnTimer = 5f;
-    private int SpawnCount = 3;
+    private int SpawnCount = 2;
     public GameObject MinionPrefab;
 
     public GameObject singlePlayer; 
@@ -28,6 +28,8 @@ public class Tower : Entity
 
     public GameObject EnemyMainTowerPrefab;
     private Tower EnemyMainTower;
+
+    public MusicManager musicManager;
 
     private float xCoordinate;
     private float yCoordinate;    
@@ -109,6 +111,11 @@ public class Tower : Entity
         }
     }
 
+    public void ReplesnishSpawn()
+    {
+        numberLeft++;
+    }
+
     private void SpawnMinions()
     {
         float setSpawnTimer = SpawnTimer;
@@ -184,8 +191,11 @@ public class Tower : Entity
             this.Hp -= dmg;
             if (this.Hp <= 0)
             {
-                //if (mainTower == false)
-                //    EnemyMainTower.SpawnIncrement();
+                if (mainTower == false)
+                {
+                    EnemyMainTower.SpawnIncrement();
+                    CheckSuddenDeath();
+                }
                 ////else
                 ////{
                 ////    //game over, victory for opposing team
@@ -193,6 +203,20 @@ public class Tower : Entity
                 Destroy(this.gameObject);
             }
         }
+    }
+
+    private void CheckSuddenDeath()
+    {
+        GameObject[] friendlyTowers;
+        if (Team == 1)
+            friendlyTowers = GameObject.FindGameObjectsWithTag("TowerTeam1");
+        else
+            friendlyTowers = GameObject.FindGameObjectsWithTag("TowerTeam2");
+
+        //main tower plus last minitower
+        if (friendlyTowers.Length == 2)
+            musicManager.ToggleMusic();
+        Debug.Log("fuck");
     }
 
     // References:
@@ -251,7 +275,7 @@ public class Tower : Entity
     void Start()
     {
         multiplayer = MainMenuScript.getIsMultiplayer();
-        
+        musicManager = GameObject.Find("Music").GetComponent<MusicManager>();
         ReadFromCoordianteFile();
         Vector2 point = new Vector2(0.0f, 0.0f);
         //Instantiate(new Tower(), point, Quaternion.identity);
@@ -261,14 +285,12 @@ public class Tower : Entity
 
         if (mainTower == true)
             StartCoroutine(Spawn());
-        else
-        {
-            // if (this.Team == 1)
-            //     EnemyMainTower = GameObject.Find("Main Tower Team 2").GetComponent<Tower>();
-            // else
-            //     EnemyMainTower = GameObject.Find("Main Tower Team 1").GetComponent<Tower>();
 
-        }
+        if (this.Team == 1)
+            EnemyMainTower = GameObject.Find("Main Tower Team 2(Clone)").GetComponent<Tower>();
+        else
+            EnemyMainTower = GameObject.Find("Main Tower Team 1(Clone)").GetComponent<Tower>();
+
     }
 
     // Update is called once per frame

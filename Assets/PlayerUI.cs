@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public Player player;
+    public Player currentPlayer;
+    public bool secondPlayer = false;
+    private bool multiplayer;
     public Image health;
     public TextMeshProUGUI healthText;
     public Image shield;
@@ -36,11 +38,8 @@ public class PlayerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player == null)
-        {
-        player = FindFirstObjectByType<Player>();
-            if (player == null) return; // Still not spawned
-        }
+        findPlayer();        
+
         updateHealth();
         updateShield();
         updateStamina();
@@ -48,9 +47,29 @@ public class PlayerUI : MonoBehaviour
         updateDodge();
     }
 
+    void findPlayer() {
+        multiplayer = MainMenuScript.getIsMultiplayer();
+
+        if (currentPlayer == null) {
+            if (multiplayer) {
+                if (secondPlayer) {
+                    currentPlayer = GameObject.FindGameObjectsWithTag("MultiPlayerTwo")[0].GetComponent<Player>();
+                } else {
+                    currentPlayer = GameObject.FindGameObjectsWithTag("MultiPlayerOne")[0].GetComponent<Player>();
+                }
+            } else {
+                currentPlayer = GameObject.FindGameObjectsWithTag("SinglePlayer")[0].GetComponent<Player>();
+            }
+
+            if (currentPlayer == null) {
+                return; // Still not spawned
+            }
+        }
+    }
+
     void updateHealth()
     {
-        float healthRatio = (float)player.Hp / (float)player.MaxHp;
+        float healthRatio = (float)currentPlayer.Hp / (float)currentPlayer.MaxHp;
         RectTransform healthBarRect = health.GetComponent<RectTransform>();
         healthBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalHealthWidth * healthRatio);
         float currentWidth = healthBarRect.rect.width;
@@ -63,7 +82,7 @@ public class PlayerUI : MonoBehaviour
 
     void updateShield()
     {
-        float shieldRatio = (float)player.Shield / (float)player.MaxShield;
+        float shieldRatio = (float)currentPlayer.Shield / (float)currentPlayer.MaxShield;
         RectTransform shieldBarRect = shield.GetComponent<RectTransform>();
         shieldBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalHealthWidth * shieldRatio);
         float currentWidth = shieldBarRect.rect.width;
@@ -77,7 +96,7 @@ public class PlayerUI : MonoBehaviour
 
     void updateStamina()
     {
-        float staminaRatio = (float)player.sprintBar / (float)player.MaxSprint;
+        float staminaRatio = (float)currentPlayer.sprintBar / (float)currentPlayer.MaxSprint;
         RectTransform staminaBarRect = stamina.GetComponent<RectTransform>();
         staminaBarRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalStaminaWidth * staminaRatio);
         float currentWidth = staminaBarRect.rect.width;
@@ -90,11 +109,11 @@ public class PlayerUI : MonoBehaviour
 
     void updateDash()
     {
-        if (player._canDash)
+        if (currentPlayer._canDash)
         {
             dash.color = new Color(0f, 0.65f, 0.65f);
         }
-        else if (player._isDashing)
+        else if (currentPlayer._isDashing)
         {
             dash.color = Color.red;
         }
@@ -106,11 +125,11 @@ public class PlayerUI : MonoBehaviour
 
     void updateDodge()
     {
-        if (player._canDodge)
+        if (currentPlayer._canDodge)
         {
             dodge.color = new Color(1f, 0.65f, 0.4f);
         }
-        else if (player._isDodging)
+        else if (currentPlayer._isDodging)
         {
             dodge.color = Color.red;
         }

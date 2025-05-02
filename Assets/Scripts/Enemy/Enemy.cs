@@ -66,7 +66,12 @@ public class Enemy : Entity
         if (colider2DEnemy.IsTouching(colider2DFloor1) || colider2DEnemy.IsTouching(colider2DFloor2)) {
             Destroy(this);
         }
-        
+
+        if (this.Team == 1)
+            parentTower = GameObject.Find("Main Tower Team 1(Clone)").GetComponent<Tower>();
+        else
+            parentTower = GameObject.Find("Main Tower Team 2(Clone)").GetComponent<Tower>();
+
         //Physics2D.IgnoreCollision(colider2DEnemy, colider2DFloor);
     }
 
