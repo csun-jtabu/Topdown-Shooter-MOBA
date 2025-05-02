@@ -17,7 +17,7 @@ public class MusicManager : MonoBehaviour
         if (!musicToggled)
         {
             musicToggled = true;
-            musicHigh.volume = 0.1f;
+            musicHigh.volume = 0.15f;
             musicLow.volume = 0f;
         }
     }

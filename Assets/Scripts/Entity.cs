@@ -13,6 +13,7 @@ public class Entity : MonoBehaviour
     public bool CanFire = true;
     public GameObject BulletPrefab;
     public AudioClip BulletSound;
+    protected Tower parentTower;
 
 
     public virtual void Damage(int damage, int team)
@@ -21,7 +22,10 @@ public class Entity : MonoBehaviour
         {
             this.Hp -= damage;
             if (this.Hp <= 0)
+            {
+                parentTower.ReplesnishSpawn();
                 Destroy(this.gameObject);
+            }
         }
     }
 
@@ -50,6 +54,10 @@ public class Entity : MonoBehaviour
     void Start()
     {
         Hp = MaxHp;
+         if (this.Team == 1)
+             parentTower = GameObject.Find("Main Tower Team 1(Clone)").GetComponent<Tower>();
+         else
+             parentTower = GameObject.Find("Main Tower Team 2(Clone)").GetComponent<Tower>();
     }
 
     // Update is called once per frame
