@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f138e51bc812349ae116ea982006f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerAwarenessDistance: 10
+  _playerAwarenessDistance: 5
   enemyPlayerOptionA: {fileID: 8724290036082028093, guid: 455ba72549934814c8c5f0ade89a20c2, type: 3}
   enemyPlayerOptionB: {fileID: 8724290036082028093, guid: 455ba72549934814c8c5f0ade89a20c2, type: 3}
   multiplayer: 1
@@ -117,8 +117,10 @@ MonoBehaviour:
   Speed: 1
   Team: 1
   Dmg: 1
+  CanFire: 1
   BulletPrefab: {fileID: 970458334217226268, guid: 2f7339f043cb534408e666f132d0a7e0, type: 3}
   BulletSound: {fileID: 8300000, guid: 592a1f43b8420d64e8b720e9275dff64, type: 3}
+  _distanceToShoot: 5
   spawnOnObject1: {fileID: 3217117261130298621, guid: dca7d12dc8ff79b4b908af1088d582b2, type: 3}
   spawnOnObject2: {fileID: 6505595852273412182, guid: b43d04dd2fffa2a479dfc17490cd8b78, type: 3}
   multiplayer: 1
@@ -172,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d527f885ab4cfd84d8cd4d368085c933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minionAwarenessDistance: 5
+  _minionAwarenessDistance: 3.5
   enemyMinion: {fileID: 8756731987740270505, guid: 3f970e7433642e8458a23026561731b7, type: 3}
   enemyMinionTag: MinionTeam2
 --- !u!114 &281343623129541705
@@ -187,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0816ed655c720c248bc9a76c5b7a13de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _towerAwarenessDistance: 4
+  _towerAwarenessDistance: 3.5
   enemyTower: {fileID: 0}
   enemyTowerTag: TowerTeam2
 --- !u!1 &7972880466590872504

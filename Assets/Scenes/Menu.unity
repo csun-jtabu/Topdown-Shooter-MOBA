@@ -949,6 +949,26 @@ PrefabInstance:
       propertyPath: inputMultiplayerOption
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1038325344214214660, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038325344214214660, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1955448553306655712, guid: f80aa4e579f09d649851629c52e1ba83, type: 3}
+    - target: {fileID: 1038325344214214660, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038325344214214660, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038325344214214660, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1079421825470242482, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 56

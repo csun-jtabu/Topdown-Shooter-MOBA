@@ -10,7 +10,7 @@ public class Enemy : Entity
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     // This is to make it so that the enemy will only shoot at a certain distance
-    private float _distanceToShoot = 5f;
+    public float _distanceToShoot = 3f;
     private Transform _player;
      private Transform _objectToFollow;
 
