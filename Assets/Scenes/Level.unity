@@ -1143,6 +1143,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501012272}
   m_CullTransparentMesh: 1
+--- !u!1 &555057010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8475554729570116327, guid: 0e1eeb436f44d4c4e812682894c9eb9d, type: 3}
+  m_PrefabInstance: {fileID: 920259813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &572025107
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,7 +2034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8475554729570116327, guid: 0e1eeb436f44d4c4e812682894c9eb9d, type: 3}
       propertyPath: m_Name
-      value: PlayerUI Canvas
+      value: PlayerUICanvas
       objectReference: {fileID: 0}
     - target: {fileID: 8475554729570116327, guid: 0e1eeb436f44d4c4e812682894c9eb9d, type: 3}
       propertyPath: m_IsActive
@@ -2218,7 +2223,7 @@ MonoBehaviour:
   minions2: 0
   kills1: 0
   kills2: 0
-  plaerUICanvas: {fileID: 0}
+  plaerUICanvas: {fileID: 555057010}
   gameOverCanvas: {fileID: 1178070317}
 --- !u!4 &963977922
 Transform:
@@ -2767,6 +2772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710fa97daf45d0e4fb723c79f3fc477d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  victoryText: {fileID: 143987307}
+  defeatText: {fileID: 501012272}
 --- !u!224 &1239989920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3246,11 +3253,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TowersText1: {fileID: 1334614545}
-  MinionText1: {fileID: 0}
-  KillsText1: {fileID: 0}
-  TowersText2: {fileID: 0}
-  MinionText2: {fileID: 0}
-  KillsText2: {fileID: 0}
+  MinionText1: {fileID: 224026255}
+  KillsText1: {fileID: 858647344}
+  TowersText2: {fileID: 922511296}
+  MinionText2: {fileID: 980165213}
+  KillsText2: {fileID: 391836596}
 --- !u!1 &1437483917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,7 +3628,7 @@ GameObject:
   - component: {fileID: 2018108696}
   - component: {fileID: 2018108695}
   m_Layer: 5
-  m_Name: Settings Text
+  m_Name: Stats Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3666,7 +3673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Settings
+  m_text: Stats
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 693f5d7f93d383b4098313186e132b3f, type: 2}
   m_sharedMaterial: {fileID: -4432593089290560485, guid: 693f5d7f93d383b4098313186e132b3f, type: 2}
