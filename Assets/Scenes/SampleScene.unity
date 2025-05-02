@@ -280,6 +280,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2029655368348242384, guid: b9ec7122a816c044f97b628beeeb9154, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067350703942924427, guid: b9ec7122a816c044f97b628beeeb9154, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4067350703942924427, guid: b9ec7122a816c044f97b628beeeb9154, type: 3}
       propertyPath: BulletPrefab
       value: 
@@ -322,6 +330,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6124095549036515248, guid: b9ec7122a816c044f97b628beeeb9154, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8489409615253082837, guid: b9ec7122a816c044f97b628beeeb9154, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8756731987740270505, guid: b9ec7122a816c044f97b628beeeb9154, type: 3}
@@ -665,7 +677,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1918481758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -740,6 +752,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 444542447527549543, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 444542447527549543, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_TagString
       value: SinglePlayer
       objectReference: {fileID: 0}
@@ -758,6 +774,10 @@ PrefabInstance:
     - target: {fileID: 4730050236201962809, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6596189097736501892, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7156374455677516521, guid: e3c73fe0a131aaf45bc3a4a7435355e5, type: 3}
       propertyPath: Hp
@@ -963,6 +983,10 @@ PrefabInstance:
     - target: {fileID: 8475554729570116327, guid: 0e1eeb436f44d4c4e812682894c9eb9d, type: 3}
       propertyPath: m_Name
       value: PlayerUI Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475554729570116327, guid: 0e1eeb436f44d4c4e812682894c9eb9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

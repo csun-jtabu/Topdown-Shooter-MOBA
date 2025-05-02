@@ -164,6 +164,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAwarenessDistance: 10
+  enemyPlayerOptionA: {fileID: 0}
+  enemyPlayerOptionB: {fileID: 0}
+  multiplayer: 0
+  singleplayerTag: 
+  multiplayerTag: 
 --- !u!114 &2029655368348242384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _rotationSpeed: 100
+  currentNode: {fileID: 0}
+  path: []
 --- !u!114 &4067350703942924427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,10 +198,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHp: 10
+  Hp: 0
   Speed: 0
   Team: 0
   Dmg: 1
   BulletPrefab: {fileID: 0}
+  BulletSound: {fileID: 8300000, guid: 592a1f43b8420d64e8b720e9275dff64, type: 3}
+  spawnOnObject1: {fileID: 0}
+  spawnOnObject2: {fileID: 0}
+  multiplayer: 0
+  singleplayerTag: 
+  multiplayerTag: 
 --- !u!58 &8234082148984152232
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -163,7 +163,7 @@ while (rerunEverythingCheck):
     # Convert coordinates to 0 and 1 grid used in A* Algorithm from GeeksForGeeks.
 
     # %%
-    # Create 2D grid of zeros.
+    # Create 2D grid arrays.
     rows, cols = MAX_RANGE + 1, MAX_RANGE + 1
     array_2d = [[1 for _ in range(cols)] for _ in range(rows)]
     coordinate_only_array_2d = [[0 for _ in range(cols)] for _ in range(rows)]
@@ -391,13 +391,13 @@ while (rerunEverythingCheck):
     '''
 
     # %% [markdown]
-    # 1.) Randomly select a coordinate as the start and a coordinate as the end.
+    # 1.) Choose the first pair of coordiantes to be the start and end coordinates, respectively.
     # 
-    # 2.) Randomly select a destination coordinate and run the algorithm on it.
+    # 2.) Attempt to run the A* algorithm, and accept the output if a path is returned.
     # 
-    # 3.) Remove the start coordinate and all coordinates that the path visited.
+    # 3.) Record the start coordinate and all coordinates that the path visited.
     # 
-    # 4.) Randomly select a remaining coordinate and repeat all steps until none are left.
+    # 4.) If the output isn't successful, repeat all steps until no coordinate pairs are left.
 
     # %%
     otherNumberToSet = 0
