@@ -372,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      team1Minion_0: 9201799297801835134
+      team1Minion_1: 7966812579462255052
+      team1Minion_2: 3719322841760987688
+      team1Minion_3: -9070826347437442422
+      team1Minion_4: -8224044782041513464
+      team1Minion_5: 3031187880614045578
+      team1Minion_6: 2817570375049308974
+      team1Minion_7: -5229848271124187998
+      team1Minion_8: -1751015463111470588
+      team1Minion_9: -4143965131055438105
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
