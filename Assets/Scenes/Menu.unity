@@ -169,7 +169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -17.9}
+  m_AnchoredPosition: {x: 0, y: 25}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542109052
@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 68.5, y: -45.8}
+  m_AnchoredPosition: {x: 68.5, y: 0}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &629123133
@@ -1125,9 +1125,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menu Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5688472810951274074, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6952761978020597053, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 34.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372319061756764412, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9005879279749739268, guid: 4f65b45d933ca9544b2fb3455cebf8d7, type: 3}
       propertyPath: m_AnchorMax.y
