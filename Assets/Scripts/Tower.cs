@@ -239,7 +239,7 @@ public class Tower : Entity
         //main tower plus last minitower
         if (friendlyTowers.Length == 2)
             musicManager.ToggleMusic();
-        Debug.Log("fuck");
+        
     }
 
     // References:
