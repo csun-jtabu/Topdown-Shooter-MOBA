@@ -114,6 +114,8 @@ public class Tower : Entity
     public void ReplesnishSpawn()
     {
         numberLeft++;
+        if (mainTower)
+        StartCoroutine(Spawn());
     }
 
     private void SpawnMinions()
