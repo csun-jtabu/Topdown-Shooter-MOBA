@@ -22,16 +22,16 @@ Individuals seeking interactive entertainment through a digital medium.
 
 __Project Images:__
 
-Procedurally Generated Image:
+**Procedurally Generated Image:**  
 ![Procedurally Generated Map](images/Capture2.PNG)
 
-Map Generated from Image:
+**Map Generated from Image:**  
 ![Procedurally Generated Map 2](images/Capture.PNG)
 
-Enemy Pathfinding:
+**Enemy Pathfinding:**  
 ![Enemy Pathfinding](images/EnemyPathfinding.gif)
 
-Final Product/Animation Showcase:
-![Sprites](images/Capture3.PNG)
+**Final Product/Animation Showcase:**  
+![Sprites](images/Capture3.PNG)  
 
 ![Final Product](images/FinalProduct.gif)
